@@ -26,6 +26,10 @@ export class AuthService {
     return this.cookieService.get('token');
   }
 
+  get code(): string {
+    return this.cookieService.get('code');
+  }
+
   get headers() {
     return {
       headers: {
@@ -34,20 +38,19 @@ export class AuthService {
     };
   }
 
-  private saveToken(name: string, value: string) {
+  private saveCookies(name: string, value: string) {
     this.cookieService.set(name, value);
   }
 
   login(data: ILogin): Observable<any> {
     const url = `${base_url}/auth/login`;
     return this.http.post(url, data).pipe(tap((resp: any) => {
-      this.saveToken('token', resp.access_token);
+      this.saveCookies('token', resp.access_token);
     }));
   }
 
   validateToken(): Observable<boolean> {
     const url = `${base_url}/auth/renew`;
-    console.log(this.headers);
     return this.http.get(url, this.headers).pipe(map((resp: any) => {
       const {
         city, country, cp, code, username, updatedAt, street, role, status, id_user,
@@ -58,9 +61,17 @@ export class AuthService {
         phone_number, role, status, street, updatedAt, username, id_user, '', image, code
       );
       console.log(this.userActive);
-      this.saveToken('token', resp.access_token);
+      this.saveCookies('token', resp.access_token);
       return true;
     }), catchError(err => of(false)));
+  }
+
+  validateCode(code: string): Observable<boolean> {
+    const url = `${base_url}/auth/code/${code}`;
+    return this.http.get(url, this.headers).pipe(map((resp: any) => {
+      this.saveCookies('code', code);
+      return resp.valid
+    }));
   }
 
 }
