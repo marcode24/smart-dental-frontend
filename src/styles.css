@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+.redressed {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Redressed', cursive;
+}
+
+.redressed > h2 {
+  font-size: 4rem;
+}
+
+.redressed > h2.primary {
+  color: #5448E2;
+}
+
+.redressed > h2.secondary {
+  color: #30BCF7;
+}

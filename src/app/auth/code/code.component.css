@@ -1,0 +1,43 @@
+.tooltip-container {
+  margin: 0 auto;
+  display: inline-block;
+}
+
+/* EMPIEZA AQUÍ */
+
+.tooltip-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.tooltip-one {
+  padding: 5px;
+  background: #fff;
+  position: absolute;
+  width: auto;
+  border-radius: 5px;
+  text-align: center;
+  filter: drop-shadow(0 3px 5px #ccc);
+  line-height: 1.5;
+  display: none;
+  bottom: -42px;
+  right: 66%;
+  margin-right: -110px;
+  width: 25rem;
+}
+
+.tooltip-one:after {
+  content: "";
+  position: absolute;
+  bottom: 23px;
+  left: 91%;
+  margin-left: -9px;
+  width: 15px;
+  height: 15px;
+  background: white;
+  transform: rotate(45deg);
+}
+
+.tooltip-trigger:hover + .tooltip-one {
+  display: block;
+}

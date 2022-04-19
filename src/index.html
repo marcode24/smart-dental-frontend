@@ -1,13 +1,37 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>FrontEnd</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <base href="/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Redressed&display=swap" rel="stylesheet" />
 </head>
+
 <body>
   <app-root></app-root>
+  <script src="./assets/js/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $("#show_hide_password a").on("click", function (event) {
+        event.preventDefault();
+        if ($("#show_hide_password input").attr("type") == "text") {
+          $("#show_hide_password input").attr("type", "password");
+          $("#show_hide_password i").addClass("bx-hide");
+          $("#show_hide_password i").removeClass("bx-show");
+        } else if (
+          $("#show_hide_password input").attr("type") == "password"
+        ) {
+          $("#show_hide_password input").attr("type", "text");
+          $("#show_hide_password i").removeClass("bx-hide");
+          $("#show_hide_password i").addClass("bx-show");
+        }
+      });
+    });
+  </script>
 </body>
+
 </html>
