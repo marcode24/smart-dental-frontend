@@ -69,7 +69,7 @@ export class AuthService {
   validateCode(code: string): Observable<boolean> {
     const url = `${base_url}/auth/code/${code}`;
     return this.http.get(url, this.headers).pipe(map((resp: any) => {
-      this.saveCookies('code', code);
+      if(resp.valid) this.saveCookies('code', code);
       return resp.valid
     }));
   }

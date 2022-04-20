@@ -9,6 +9,8 @@
       "@guards/*": [ "app/core/guards/*" ],
       "@interfaces/*": [ "app/core/interfaces/*" ],
       "@models/*": [ "app/core/models/*" ],
+      "@utils/*": [ "app/core/utils/*" ],
+      "@enums/*": [ "app/core/enums/*" ]
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
