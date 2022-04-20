@@ -2,13 +2,22 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "src",
+    "paths": {
+      "@services/*": [ "app/core/services/*" ],
+      "@components/*": [ "app/core/components/*" ],
+      "@guards/*": [ "app/core/guards/*" ],
+      "@interfaces/*": [ "app/core/interfaces/*" ],
+      "@models/*": [ "app/core/models/*" ],
+      "@utils/*": [ "app/core/utils/*" ],
+      "@enums/*": [ "app/core/enums/*" ]
+    },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": true,
+    "noImplicitReturns": false,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,
@@ -16,6 +25,7 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
+    "strictPropertyInitialization": false,
     "target": "es2017",
     "module": "es2020",
     "lib": [

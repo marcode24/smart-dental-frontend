@@ -7,6 +7,7 @@ import { FeaturesComponent } from './features.component';
 import { CoreModule } from '../core/core.module';
 import { HomeModule } from './home/home.module';
 
+
 @NgModule({
   declarations: [
     FeaturesComponent
@@ -16,6 +17,8 @@ import { HomeModule } from './home/home.module';
     RouterModule,
     CoreModule,
     HomeModule,
+  ],
+  providers: [
   ]
 })
 export class FeaturesModule { }

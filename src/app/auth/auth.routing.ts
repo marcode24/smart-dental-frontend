@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { LoginComponent } from './login/login.component';
 import { CodeComponent } from './code/code.component';
 import { RegisterComponent } from './register/register.component';
+import { CodeGuard } from '@guards/code.guard';
 
 const routes: Routes = [
   {
@@ -16,6 +17,8 @@ const routes: Routes = [
   },
   {
     path: 'register',
+    canActivate: [CodeGuard],
+    canLoad: [CodeGuard],
     component: RegisterComponent,
   }
 ];

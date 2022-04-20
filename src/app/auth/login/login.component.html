@@ -15,23 +15,23 @@
                   <h2 class="secondary">Sesión</h2>
                 </div>
                 <div class="form-body">
-                  <form class="row g-3 my-1">
+                  <form [formGroup]="loginForm" (submit)="login()" class="row g-3 my-1">
                     <div class="col-12">
                       <label class="form-label">Usuario</label>
-                      <input type="text" class="form-control form-control-lg mb-2" />
+                      <input formControlName="username" type="text" class="form-control form-control-lg mb-2" />
                     </div>
                     <div class="col-12">
                       <label class="form-label">Password</label>
                       <div class="input-group" id="show_hide_password">
-                        <input type="password" class="form-control form-control-lg border-end-0"
-                          id="inputChoosePassword" />
+                        <input formControlName="password" type="password"
+                          class="form-control form-control-lg border-end-0" id="inputChoosePassword" />
                         <a href="javascript:;" class="input-group-text bg-transparent"><i class="bx bx-hide"></i></a>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" />
-                        <label class="form-check-label" for="flexSwitchCheckChecked">Recordarme</label>
+                        <input class="form-check-input" type="checkbox" id="rememberMe" />
+                        <label class="form-check-label" for="rememberMe">Recordarme</label>
                       </div>
                     </div>
                     <div class="col-md-6 text-end">
@@ -39,7 +39,7 @@
                     </div>
                     <div class="col-12">
                       <div class="d-grid">
-                        <button type="submit" class="btn btn-primary radius-30">
+                        <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary radius-30">
                           <i class="bx bx-log-in"></i>Ingresar
                         </button>
                       </div>
@@ -47,7 +47,7 @@
                   </form>
                 </div>
                 <div class="d-flex justify-content-end mt-4">
-                  <a href="" class="">Crear cuenta</a>
+                  <a routerLink="/code">Crear cuenta</a>
                 </div>
               </div>
             </div>
