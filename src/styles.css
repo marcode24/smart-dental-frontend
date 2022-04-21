@@ -26,3 +26,7 @@
 .redressed > h3.secondary {
   color: #30BCF7 !important;
 }
+
+.cursor {
+  cursor: pointer;
+}

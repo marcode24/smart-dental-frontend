@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import Swal from 'sweetalert2';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { Gender } from '@enums/gender.enum';
 import { Roles } from '@enums/role.enum';
@@ -68,6 +68,11 @@ export class UserService {
   getUsers(limit: number, offset: number, fullname?: string) {
     const url = `${base_url}/users?fullname=${fullname || ''}&limit=${limit}&offset=${offset}`;
     return this.http.get<IResponseUser>(url, this.headers);
+  }
+
+  changeStatus(idUser: string | undefined, status: boolean): Observable<number> {
+    const url = `${base_url}/users/${idUser}`;
+    return this.http.patch<number>(url, { status }, this.headers );
   }
 
 }

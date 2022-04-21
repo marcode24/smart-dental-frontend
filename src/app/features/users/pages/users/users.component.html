@@ -57,7 +57,10 @@
                 </td>
                 <td>
                   <div class="d-flex justify-content-end order-actions">
-                    <a *ngIf="user.status" href="javascript:;" class=""><i class="bx bx-block"></i></a>
+                    <a *ngIf="user.status" (click)="changeStatus(user.name+' '+user.last_name, user.id_user)"
+                      class="cursor">
+                      <i class="bx bx-block"></i>
+                    </a>
                     <a href="javascript:;" class="ms-2"><i class="bx bx-id-card"></i></a>
                   </div>
                 </td>
