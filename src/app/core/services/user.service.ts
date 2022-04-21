@@ -1,15 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
 import { CookieService } from 'ngx-cookie-service';
-import { map } from 'rxjs';
+import Swal from 'sweetalert2';
+import { map, Observable } from 'rxjs';
 
 import { Gender } from '@enums/gender.enum';
 import { Roles } from '@enums/role.enum';
 
 import { User } from '@models/user.model';
-import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
+
+import { IResponseUser } from '@interfaces/response.interface';
 
 const base_url = environment.base_url;
 
@@ -61,6 +63,16 @@ export class UserService {
       this.saveCookies('token', resp.access_token);
       this.router.navigate(['/']);
     }))
+  }
+
+  getUsers(limit: number, offset: number, fullname?: string) {
+    const url = `${base_url}/users?fullname=${fullname || ''}&limit=${limit}&offset=${offset}`;
+    return this.http.get<IResponseUser>(url, this.headers);
+  }
+
+  changeStatus(idUser: string | undefined, status: boolean): Observable<number> {
+    const url = `${base_url}/users/${idUser}`;
+    return this.http.patch<number>(url, { status }, this.headers );
   }
 
 }

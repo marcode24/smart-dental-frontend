@@ -6,7 +6,7 @@ import { FeaturesComponent } from './features.component';
 
 import { CoreModule } from '../core/core.module';
 import { HomeModule } from './home/home.module';
-
+import { UsersModule } from './users/users.module';
 
 @NgModule({
   declarations: [
@@ -17,6 +17,7 @@ import { HomeModule } from './home/home.module';
     RouterModule,
     CoreModule,
     HomeModule,
+    UsersModule
   ],
   providers: [
   ]
