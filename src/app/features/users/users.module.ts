@@ -5,13 +5,16 @@ import { UsersComponent } from './pages/users/users.component';
 
 import { CardsModule } from '@components/cards/cards.module';
 
+import { InputsModule } from 'app/shared/components/inputs/inputs.module';
+
 @NgModule({
   declarations: [
     UsersComponent
   ],
   imports: [
     CommonModule,
-    CardsModule
+    CardsModule,
+    InputsModule
   ],
 })
 export class UsersModule { }

@@ -22,7 +22,7 @@ export class UsersComponent implements OnInit {
 
   private limit: number = 5;
   private offset: number = 0;
-  private findUser: string = '';
+  private findUserByName: string = '';
 
   public users: User[];
 
@@ -35,12 +35,17 @@ export class UsersComponent implements OnInit {
   }
 
   getUsers() {
-    this.userService.getUsers(this.limit, this.offset, this.findUser).subscribe(({ users, totalAdmin, totalUser }) => {
+    this.userService.getUsers(this.limit, this.offset, this.findUserByName).subscribe(({ users, totalAdmin, totalUser }) => {
       this.users = users;
       this.cardsIconData[0].quantity = totalAdmin + totalUser;
       this.cardsIconData[1].quantity = totalAdmin;
       this.cardsIconData[2].quantity = totalUser;
     })
+  }
+
+  findByFullname(fullname: string) {
+    this.findUserByName = fullname;
+    this.getUsers();
   }
 
 }

@@ -17,11 +17,7 @@
           </button>
         </div>
         <div class="d-lg-flex align-items-center justify-content-between mb-4">
-          <div class="position-relative" style="width: 32%;">
-            <input type="text" class="form-control ps-5 radius-30" placeholder="Buscar usuario">
-            <span class="position-absolute top-50 product-show translate-middle-y"><i class="bx bx-search"></i>
-            </span>
-          </div>
+          <app-input-search (text)="findByFullname($event)" style="width: 32%;"></app-input-search>
           <div class="d-lg-flex align-items-center justify-content-between gap-1">
             <span> Mostrar por página </span>
             <select id="inputShow" class="form-select" style="width: 34%;">

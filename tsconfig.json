@@ -11,7 +11,8 @@
       "@models/*": [ "app/core/models/*" ],
       "@utils/*": [ "app/core/utils/*" ],
       "@enums/*": [ "app/core/enums/*" ],
-      "@components/cards/*": [ "app/shared/components/cards/*" ]
+      "@components/cards/*": [ "app/shared/components/cards/*" ],
+      "@components/inputs/*": [ "app/shared/components/inputs/*" ]
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
