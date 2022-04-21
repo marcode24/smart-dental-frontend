@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { UsersComponent } from './pages/users/users.component';
 
 import { CardsModule } from '@components/cards/cards.module';
-
-import { InputsModule } from 'app/shared/components/inputs/inputs.module';
+import { InputsModule } from '@components/inputs/inputs.module';
+import { DropdownsModule } from '@components/dropdowns/dropdowns.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +14,8 @@ import { InputsModule } from 'app/shared/components/inputs/inputs.module';
   imports: [
     CommonModule,
     CardsModule,
-    InputsModule
+    InputsModule,
+    DropdownsModule
   ],
 })
 export class UsersModule { }

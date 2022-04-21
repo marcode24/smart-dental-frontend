@@ -48,4 +48,9 @@ export class UsersComponent implements OnInit {
     this.getUsers();
   }
 
+  changeLimit(limit: number) {
+    this.limit = limit;
+    this.getUsers();
+  }
+
 }
