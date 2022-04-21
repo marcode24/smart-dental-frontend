@@ -10,7 +10,10 @@
       "@interfaces/*": [ "app/core/interfaces/*" ],
       "@models/*": [ "app/core/models/*" ],
       "@utils/*": [ "app/core/utils/*" ],
-      "@enums/*": [ "app/core/enums/*" ]
+      "@enums/*": [ "app/core/enums/*" ],
+      "@components/cards/*": [ "app/shared/components/cards/*" ],
+      "@components/inputs/*": [ "app/shared/components/inputs/*" ],
+      "@components/dropdowns/*": [ "app/shared/components/dropdowns/*" ],
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

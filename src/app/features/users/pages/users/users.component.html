@@ -1,0 +1,74 @@
+<div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
+  <div class="col" *ngFor="let cardData of cardsIconData">
+    <app-card-icon-right [data]="cardData"></app-card-icon-right>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-center justify-content-between flex-wrap w-100 mb-3">
+          <h2 class="mb-0">
+            Usuarios
+          </h2>
+          <button type="button" class="btn btn-outline-primary px-3 radius-30">
+            <i class="bx bx-plus mr-1"></i>Nuevo Usuario
+          </button>
+        </div>
+        <div class="d-lg-flex align-items-center justify-content-between mb-4">
+          <app-input-search (text)="findByFullname($event)" style="width: 32%;"></app-input-search>
+          <app-dropdown-page-list (limit)="changeLimit($event)"></app-dropdown-page-list>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-middle table-hover">
+            <thead>
+              <tr>
+                <th class="text-center">Avatar</th>
+                <th>Nombre</th>
+                <th class="text-center">Cargo</th>
+                <th>Usuario</th>
+                <th>Teléfono</th>
+                <th>Email</th>
+                <th class="text-center">Estado</th>
+                <th class="text-end">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users">
+                <td class="text-center">
+                  <img [src]="user.image" class="user-img" alt="user-avatar">
+                </td>
+                <td class="my-auto"> {{ user.name }} {{ user.last_name }} </td>
+                <td class="text-center">
+                  <span *ngIf="user.role === 'DENTIST'"
+                    class="badge rounded-pill text-primary bg-light-primary p-2 text-uppercase px-3">Dentista</span>
+                  <span *ngIf="user.role === 'ADMIN'"
+                    class="badge rounded-pill text-secondary bg-light-warning p-2 text-uppercase px-3">Administrador</span>
+                </td>
+                <td> {{ user.username }} </td>
+                <td> {{ user.phone_number }} </td>
+                <td> {{ user.email }} </td>
+                <td class="text-center">
+                  <span *ngIf="user.status"
+                    class="badge rounded-pill text-success bg-light-success p-2 text-uppercase px-3">Activo</span>
+                  <span *ngIf="!user.status"
+                    class="badge rounded-pill text-danger bg-light-danger p-2 text-uppercase px-3">Suspendido</span>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end order-actions">
+                    <a *ngIf="user.status" (click)="changeStatus(user.name+' '+user.last_name, user.id_user)"
+                      class="cursor">
+                      <i class="bx bx-block"></i>
+                    </a>
+                    <a href="javascript:;" class="ms-2"><i class="bx bx-id-card"></i></a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
