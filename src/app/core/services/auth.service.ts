@@ -42,6 +42,10 @@ export class AuthService {
     this.cookieService.set(name, value);
   }
 
+  private deleteCookies(name: string) {
+    this.cookieService.delete(name);
+  }
+
   login(data: ILogin): Observable<any> {
     const url = `${base_url}/auth/login`;
     return this.http.post(url, data).pipe(tap((resp: any) => {
@@ -60,7 +64,7 @@ export class AuthService {
         city, country, cp, createdAt, date_birth, email, gender, last_name, name,
         phone_number, role, status, street, updatedAt, username, id_user, '', image, code
       );
-      console.log(this.userActive);
+      this.deleteCookies('token');
       this.saveCookies('token', resp.access_token);
       return true;
     }), catchError(err => of(false)));

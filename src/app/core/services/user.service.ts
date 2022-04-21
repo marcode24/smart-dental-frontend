@@ -49,7 +49,7 @@ export class UserService {
     this.cookieService.delete(name);
   }
 
-  createUser(data: User, role: Roles) {
+  createUser(data: User, role: Roles, fromAuth: boolean = false) {
     data.role = role;
     data.image = (data.gender === 'male') ? Gender.MALE : (data.gender === 'female') ? Gender.FEMALE: Gender.OTHER;
     const url = `${base_url}/users`;
@@ -59,9 +59,13 @@ export class UserService {
           return Swal.fire('Nombre de usuario no esta disponible', '', 'error');
         }
       }
-      this.deleteCookies('code');
-      this.saveCookies('token', resp.access_token);
-      this.router.navigate(['/']);
+      if(fromAuth) {
+        this.deleteCookies('code');
+        this.saveCookies('token', resp.access_token);
+        return this.router.navigate(['/']);
+      }
+      Swal.fire('Usuario creado correctamente', '', 'success');
+      return this.router.navigate(['/users']);
     }))
   }
 

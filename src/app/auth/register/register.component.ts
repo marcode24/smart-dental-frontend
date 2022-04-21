@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit {
         cp: Number(this.registerForm.get('cp')?.value),
         phone_number: Number(this.registerForm.get('phone_number')?.value),
       };
-      this.userService.createUser(newUser, Roles.DENTIST).subscribe();
+      this.userService.createUser(newUser, Roles.DENTIST, true).subscribe();
     }
   }
 
