@@ -20,6 +20,13 @@ const routes: Routes = [
     canLoad: [AuthGuard],
     loadChildren: () => import('./users/users.routing').then(m => m.UsersRoutingModule),
   },
+  {
+    path: 'services',
+    component: FeaturesComponent,
+    canActivate: [AuthGuard],
+    canLoad: [AuthGuard],
+    loadChildren: () => import('./services-offer/services-offer.routing').then(m => m.ServicesOfferRoutingModule),
+  }
 ];
 
 @NgModule({

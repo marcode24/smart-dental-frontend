@@ -17,7 +17,8 @@
           </button>
         </div>
         <div class="d-lg-flex align-items-center justify-content-between mb-4">
-          <app-input-search (text)="findByFullname($event)" style="width: 32%;"></app-input-search>
+          <app-input-search [findName]="'usuario'" (text)="findByFullname($event)" style="width: 32%;">
+          </app-input-search>
           <app-dropdown-page-list (limit)="changeLimit($event)"></app-dropdown-page-list>
         </div>
         <div class="table-responsive">

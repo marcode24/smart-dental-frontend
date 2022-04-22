@@ -1,6 +1,6 @@
 <div class="position-relative">
   <input type="text" class="form-control ps-5 radius-30" #txtTitle (keyup)="changeText(txtTitle.value)"
-    placeholder="Buscar usuario">
+    [placeholder]="'Buscar '+findName">
   <span class="position-absolute top-50 product-show translate-middle-y"><i class="bx bx-search"></i>
   </span>
 </div>

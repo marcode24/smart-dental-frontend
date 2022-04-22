@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { debounceTime, Subject } from 'rxjs';
 
 @Component({
@@ -10,6 +10,7 @@ import { debounceTime, Subject } from 'rxjs';
 export class InputSearchComponent implements OnInit {
 
   private textChanged: Subject<string> = new Subject<string>();
+  @Input() findName: string;
   @Output() text: EventEmitter<string> = new EventEmitter<string>();
   constructor() {
     this.textChanged.pipe(debounceTime(300)).subscribe(title => this.emitText(title));
