@@ -1,0 +1,76 @@
+<div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
+  <div class="col" *ngFor="let cardData of cardsIconData">
+    <app-card-icon-right [data]="cardData"></app-card-icon-right>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-center justify-content-between flex-wrap w-100 mb-3">
+          <h2 class="mb-0 ">
+            Pacientes
+          </h2>
+          <div class="d-flex justify-content-end align-items-center gap-2">
+            <select *ngIf="userRole === 'ADMIN'" class="form-select" (change)="changeOptionGet($event)"
+              style="width: 40%;">
+              <option value=false>Mis pacientes</option>
+              <option value=true>Todos</option>
+            </select>
+            <button type="button" class="btn btn-outline-primary px-3 radius-30">
+              <i class="bx bx-plus mr-1"></i>Nuevo Paciente
+            </button>
+          </div>
+        </div>
+        <div class="d-lg-flex align-items-center justify-content-between mb-4">
+          <app-input-search [findName]="'paciente'" (text)="findByFullname($event)" style="width: 32%;">
+          </app-input-search>
+          <app-dropdown-page-list (limit)="changeLimit($event)"></app-dropdown-page-list>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-middle table-hover">
+            <thead>
+              <tr>
+                <th class="text-center">Avatar</th>
+                <th># Paciente</th>
+                <th>Nombre</th>
+                <th class="text-center">Teléfono</th>
+                <th>Persona responsable</th>
+                <th>Teléfono del responsable</th>
+                <th class="text-center">Estado</th>
+                <th class="text-end">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let patient of patients">
+                <td class="text-center">
+                  <img [src]="patient.image" class="user-img" alt="user-avatar">
+                </td>
+                <td> {{ patient.id_patient }} </td>
+                <td class="my-auto"> {{ patient.name }} {{ patient.last_name }} </td>
+                <td> {{ patient.phone_number }} </td>
+                <td> {{ patient.familiar.familiar_name }} </td>
+                <td> {{ patient.familiar.familiar_phone_number }} </td>
+                <td class="text-center">
+                  <span *ngIf="patient.status"
+                    class="badge rounded-pill text-success bg-light-success p-2 text-uppercase px-3">Activo</span>
+                  <span *ngIf="!patient.status"
+                    class="badge rounded-pill text-danger bg-light-danger p-2 text-uppercase px-3">Suspendido</span>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-end order-actions">
+                    <a *ngIf="patient.status" class="cursor">
+                      <i class="bx bx-block"></i>
+                    </a>
+                    <a href="javascript:;" class="ms-2"><i class="bx bx-id-card"></i></a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

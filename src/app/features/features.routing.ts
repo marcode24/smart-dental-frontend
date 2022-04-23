@@ -26,7 +26,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     canLoad: [AuthGuard],
     loadChildren: () => import('./services-offer/services-offer.routing').then(m => m.ServicesOfferRoutingModule),
-  }
+  },
+  {
+    path: 'patients',
+    component: FeaturesComponent,
+    canActivate: [AuthGuard],
+    canLoad: [AuthGuard],
+    loadChildren: () => import('./patients/patients.routing').then(m => m.PatientsRoutingModule),
+  },
 ];
 
 @NgModule({
