@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { IOptionsSearch } from '@interfaces/options-search.interface';
 import { IResponsePatient } from '@interfaces/response.interface';
+import { Patient } from '@models/patient.model';
 
 const base_url = environment.base_url;
 
@@ -44,4 +45,10 @@ export class PatientService {
     console.log('entro a by user');
     return this.http.get<IResponsePatient>(url, this.headers);
   }
+
+  createPatient(patient: Patient) {
+    const url = `${base_url}/patients`;
+    return this.http.post(url, patient, this.headers);
+  }
+
 }
