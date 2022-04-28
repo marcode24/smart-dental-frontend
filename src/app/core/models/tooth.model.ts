@@ -2,15 +2,16 @@ import { Record } from "./record.model";
 
 export class Tooth {
   constructor(
-    public distal: false,
-    public ligual: true,
-    public mesial: false,
-    public oclusal: false,
     public tooth_number: number,
-    public vestibular: true,
+    public distal?:  boolean,
+    public ligual?: boolean,
+    public mesial?:  boolean,
+    public oclusal?:   boolean,
+    public vestibular?: boolean,
     public id_patient?: number,
     public id_record?: number,
     public record?: Record,
+    public color?: string,
     public id_tooth?: number,
   ) {}
 }

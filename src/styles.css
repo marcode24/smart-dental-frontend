@@ -73,7 +73,7 @@
   border-right: 50px solid transparent; /* lateral */
 }
 
-#up {
+#vestibular {
   margin-top: 0;
   -webkit-transform: rotate(180deg);
   -moz-transform: rotate(180deg);
@@ -81,16 +81,16 @@
   transform: rotate(180deg);
 }
 
-#center {
+#oclusal {
   margin-top: -55px;
   margin-left: 15px;
 }
 
-#down {
+#ligual {
   margin-top: 41px;
 }
 
-#left {
+#distal {
   margin-top: -43px;
     margin-left: -29px;
   -webkit-transform: rotate(90deg);
@@ -99,7 +99,7 @@
   transform: rotate(90deg);
 }
 
-#right {
+#mesial {
   margin-top: -15px;
   margin-left: 29px;
   -webkit-transform: rotate(-90deg);
