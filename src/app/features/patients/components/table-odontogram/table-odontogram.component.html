@@ -1,0 +1,39 @@
+<div class="table-responsive m-5">
+  <table class="table align-middle table-hover">
+    <thead>
+      <tr>
+        <th>Fecha de expedición</th>
+        <th>Servicio</th>
+        <th class="text-center"># Pieza</th>
+        <th>Fecha de realización</th>
+        <th>$ Subtotal</th>
+        <th class="text-center">Estado</th>
+        <th class="text-center">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tooth of teeth">
+        <td>{{ tooth.record?.createdAt | date: 'short' }}</td>
+        <td>{{ tooth.record?.service_name }}</td>
+        <td class="text-center">{{ tooth.tooth_number }}</td>
+        <td>{{ tooth.record?.realization_date | date: 'short' }}</td>
+        <td>{{ tooth.record?.price | currency: '$ ' }}</td>
+        <td class="text-center">
+          <span *ngIf="tooth.record?.status === 'PENDING'"
+            class="badge rounded-pill text-primary bg-light-primary p-2 text-uppercase px-3">Pendiente</span>
+        </td>
+        <td>
+          <div class="d-flex justify-content-center order-actions">
+            <a *ngIf="tooth.record?.status === 'PENDING'" (click)="serviceDone(tooth.record?.id_record)"
+              class="cursor ms-2">
+              <i class="bx bx-check"></i>
+            </a>
+            <a *ngIf="tooth.record?.status === 'PENDING'"
+              (click)="serviceCancelled(tooth.record?.id_record, tooth.record?.service_name)" class="cursor ms-2">
+              <i class="bx bx-block"></i>
+            </a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>

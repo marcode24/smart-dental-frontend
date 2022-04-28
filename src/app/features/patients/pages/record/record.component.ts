@@ -9,6 +9,8 @@ import { Record } from '@models/record.model';
 import { PatientService } from '@services/patient.service';
 import { RecordService } from '@services/record.service';
 import { ServiceOfferService } from '@services/service-offer.service';
+import { ToothService } from '@services/tooth.service';
+import { Tooth } from '@models/tooth.model';
 
 @Component({
   selector: 'app-record',
@@ -18,21 +20,23 @@ import { ServiceOfferService } from '@services/service-offer.service';
 })
 export class RecordComponent implements OnInit, OnDestroy {
 
-  public up: Array<number> = [18, 17, 16, 15, 14, 13, 12, 11, 21, 22, 23, 24, 25, 26, 27, 28];
-  public down: Array<number> = [48, 47, 46, 45, 44, 43, 42, 41, 31, 32, 33, 34, 35, 36, 37, 38];
-
   public patientTemp: Patient;
   public patientRecordHome: Record[];
   public patientRecord: Record[];
+  public patientTeeth: Tooth[];
+
   private clickRecord: boolean = false;
+  public clickOdontogram: boolean = false;
 
   private recordsHome: Subscription;
   private records: Subscription;
+  private teeth: Subscription;
 
   constructor(
     private patientService: PatientService,
     private recordService: RecordService,
-    private serviceOfferService: ServiceOfferService
+    private serviceOfferService: ServiceOfferService,
+    private toothService: ToothService,
   ) {
     this.patientTemp = this.patientService.patientTemp;
   }
@@ -44,7 +48,12 @@ export class RecordComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getAllRecords(1);
-    this.recordsHome = this.recordService.changedRecordsHome.subscribe(resp => (resp) ? this.getAllRecords(1): '');
+    this.recordsHome = this.recordService.changedRecordsHome.subscribe(resp => {
+      if(resp) {
+        this.getAllRecords(1);
+        this.getAllTeeth();
+      }
+    });
     this.records = this.recordService.changedRecords.subscribe(resp => (resp) ? this.getAllRecords(2) : '');
   }
 
@@ -55,10 +64,23 @@ export class RecordComponent implements OnInit, OnDestroy {
   // click tab record
   getRecords() {
     if(this.clickRecord === false) {
-      console.log('click en records tab');
       this.getAllRecords(2);
     }
     this.clickRecord = true;
+  }
+
+  // click tab odontogram
+  getTeeth() {
+    if(this.clickOdontogram === false) {
+      this.getAllTeeth();
+    }
+    this.clickOdontogram = true;
+  }
+
+  getAllTeeth() {
+    this.toothService.getTeeth(this.patientTemp.id_patient).subscribe(teeth => {
+      this.patientTeeth = teeth;
+    });
   }
 
   getAllRecords(filter: 1 | 2) {

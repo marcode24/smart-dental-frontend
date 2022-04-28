@@ -30,10 +30,6 @@ export class RecordService {
     return this.cookieService.get('token');
   }
 
-  get code(): string {
-    return this.cookieService.get('code');
-  }
-
   get headers() {
     return {
       headers: {

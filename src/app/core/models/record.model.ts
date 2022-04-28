@@ -1,3 +1,5 @@
+import { Service } from "./service.model";
+
 export class Record {
   constructor(
     public id_record: number,
@@ -6,6 +8,7 @@ export class Record {
     public price: number,
     public status: string,
     public realization_date: Date,
+    public service?: Service,
     public completed_date?: Date,
     public payment_date?: Date,
     public cancel_date?: Date,
