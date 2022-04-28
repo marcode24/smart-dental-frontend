@@ -31,7 +31,8 @@
         </a>
       </li>
       <li class="nav-item" role="presentation">
-        <a class="nav-link" data-bs-toggle="pill" href="#record" role="tab" aria-selected="false">
+        <a class="nav-link" (click)="getRecords()" data-bs-toggle="pill" href="#record" role="tab"
+          aria-selected="false">
           <div class="d-flex align-items-center">
             <div class="tab-icon"><i class="bx bx-time font-18 me-1"></i>
             </div>
@@ -40,8 +41,6 @@
         </a>
       </li>
     </ul>
-
-    <app-modal-service [patientIdTemp]="patientTemp.id_patient"></app-modal-service>
 
     <div class="tab-content py-3">
       <div class="tab-pane fade m-4 active show" id="home" role="tabpanel">
@@ -52,8 +51,8 @@
             <i class="bx bx-plus mr-1"></i>Agregar Servicio
           </button>
         </div>
-        <app-table-record [records]="patientRecords"></app-table-record>
-        <h1 class="d-flex justify-content-end align-items-center" *ngIf="patientRecords"> Total a pagar: {{
+        <app-table-record [records]="patientRecordHome"></app-table-record>
+        <h1 class="d-flex justify-content-end align-items-center" *ngIf="patientRecordHome"> Total a pagar: {{
           getTotalPayment | currency: '$ ' }}
         </h1>
       </div>
@@ -111,8 +110,8 @@
       <div class="tab-pane fade" id="appointments" role="tabpanel">
         <p> appoinments </p>
       </div>
-      <div class="tab-pane fade" id="record" role="tabpanel">
-        <p> record </p>
+      <div class="tab-pane fade m-4" id="record" role="tabpanel">
+        <app-table-record [records]="patientRecord" [isHome]="false"></app-table-record>
       </div>
     </div>
   </div>
@@ -135,3 +134,5 @@
     </div>
   </div>
 </div>
+
+<app-modal-service [patientIdTemp]="patientTemp.id_patient"></app-modal-service>

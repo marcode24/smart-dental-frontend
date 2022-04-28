@@ -22,9 +22,12 @@ export class RecordComponent implements OnInit, OnDestroy {
   public down: Array<number> = [48, 47, 46, 45, 44, 43, 42, 41, 31, 32, 33, 34, 35, 36, 37, 38];
 
   public patientTemp: Patient;
-  public patientRecords: Record[];
+  public patientRecordHome: Record[];
+  public patientRecord: Record[];
+  private clickRecord: boolean = false;
 
-  private newRecord: Subscription;
+  private recordsHome: Subscription;
+  private records: Subscription;
 
   constructor(
     private patientService: PatientService,
@@ -35,27 +38,38 @@ export class RecordComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.newRecord.unsubscribe();
+    this.recordsHome.unsubscribe();
+    this.records.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.getRecords();
-    this.newRecord = this.recordService.newRecord.subscribe(resp => (resp) ? this.getRecords(): '');
-  }
-
-  getRecords() {
-    this.recordService.getRecords(this.patientTemp.id_patient, 1).subscribe(records => {
-      this.patientRecords = records;
-      console.log(this.patientRecords);
-    });
+    this.getAllRecords(1);
+    this.recordsHome = this.recordService.changedRecordsHome.subscribe(resp => (resp) ? this.getAllRecords(1): '');
+    this.records = this.recordService.changedRecords.subscribe(resp => (resp) ? this.getAllRecords(2) : '');
   }
 
   getServicesActive() {
     this.serviceOfferService.getServicesActive(false);
   }
 
+  // click tab record
+  getRecords() {
+    if(this.clickRecord === false) {
+      console.log('click en records tab');
+      this.getAllRecords(2);
+    }
+    this.clickRecord = true;
+  }
+
+  getAllRecords(filter: 1 | 2) {
+    this.recordService.getRecords(this.patientTemp.id_patient, filter).subscribe(records => {
+      (filter === 1 ) ? this.patientRecordHome = records :  this.patientRecord = records;
+      console.log(records, {filter});
+    });
+  }
+
   get getTotalPayment() {
-    const totalPayment = this.patientRecords
+    const totalPayment = this.patientRecordHome
       .filter(r => r.status === StatusRecord.PENDING_PAYMENT)
       .map(r => {
         r.total = r.quantity * r.price

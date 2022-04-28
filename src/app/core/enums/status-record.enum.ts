@@ -4,3 +4,9 @@ export enum StatusRecord {
   COMPLETED = 'COMPLETED',
   CANCELLED = 'CANCELLED',
 }
+
+export enum StatusRecordService {
+  DONE = 'done',
+  PAID = 'paid',
+  CANCEL = 'cancel',
+}
