@@ -1,8 +1,11 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
+import { PatientGuard } from "@guards/patient.guard";
+
 import { NewPatientComponent } from "./pages/new-patient/new-patient.component";
 import { PatientsComponent } from "./pages/patients/patients.component";
+import { RecordComponent } from "./pages/record/record.component";
 
 const routes: Routes = [
   {
@@ -12,6 +15,11 @@ const routes: Routes = [
   {
     path: 'new',
     component: NewPatientComponent
+  },
+  {
+    path: 'patient/:patientID/record',
+    canActivate: [PatientGuard],
+    component: RecordComponent
   }
 ];
 

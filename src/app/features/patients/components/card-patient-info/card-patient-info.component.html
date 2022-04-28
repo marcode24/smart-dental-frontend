@@ -1,0 +1,23 @@
+<div class="card" *ngIf="patient">
+  <div class="card-body p-3">
+    <div class="d-flex align-items-center text-center gap-3 flex-wrap">
+      <img [src]="patient.image" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
+      <div class="flex-grow-1">
+        <div class="card-title d-flex align-items-center gap-2">
+          <div>
+            <i class="bx bx-user me-1 font-30 text-primary"></i>
+          </div>
+          <h2 class="mb-0 text-primary">Información General</h2>
+        </div>
+        <hr class="my-1">
+        <div class="d-flex align-items-center gap-2 flex-wrap mt-3">
+          <h5><i class="bx bx-hash mx-2"></i>Paciente: {{ patient.id_patient }}</h5>
+          <h5><i class="bx bxs-user mx-2"></i>{{ patient.name }} {{ patient.last_name }}</h5>
+          <h5><i class="bx bxs-home mx-2"></i>{{ getAddress }}</h5>
+          <h5><i class="bx bxs-phone mx-2"></i>{{ patient.phone_number }}</h5>
+          <!-- <h5><i class="bx bxs-envelope mx-2"></i>{{ patient.email }}</h5> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

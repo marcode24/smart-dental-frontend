@@ -18,6 +18,7 @@ export class ServiceOfferService {
 
   public changeDataService: EventEmitter<boolean> = new EventEmitter<boolean>();
   public isNewService: EventEmitter<Service> = new EventEmitter<Service>();
+  public servicesActive: EventEmitter<Service[]> = new EventEmitter<Service[]>();
 
   constructor(
     private http: HttpClient,
@@ -39,6 +40,13 @@ export class ServiceOfferService {
   getServices(limit: number, offset: number, name?: string): Observable<IResponseService> {
     const url = `${base_url}/services?name=${name || ''}&limit=${limit}&offset=${offset}`;
     return this.http.get<IResponseService>(url, this.headers);
+  }
+
+  getServicesActive(odontogram: boolean = false): void {
+    const url = `${base_url}/services/all?odontogram=${odontogram}`;
+    this.http.get<IResponseService>(url, this.headers).subscribe(({ services }) => {
+      this.servicesActive.emit(services);
+    });
   }
 
   changeStatus(idService: string | undefined, status: boolean): Observable<Service> {

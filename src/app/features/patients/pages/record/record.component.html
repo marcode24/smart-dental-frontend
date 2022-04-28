@@ -1,0 +1,137 @@
+<app-card-patient-info [patient]="patientTemp"></app-card-patient-info>
+
+<div class="card">
+  <div class="card-body">
+    <ul class="nav nav-tabs nav-primary" role="tablist">
+      <li class="nav-item " role="presentation">
+        <a class="nav-link active" data-bs-toggle="pill" href="#home" role="tab" aria-selected="true">
+          <div class="d-flex align-items-center">
+            <div class="tab-icon"><i class="bx bx-home font-18 me-1"></i>
+            </div>
+            <div class="tab-title">Inicio</div>
+          </div>
+        </a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" data-bs-toggle="pill" href="#odontogram" role="tab" aria-selected="false">
+          <div class="d-flex align-items-center">
+            <div class="tab-icon"><i class="bx bx-detail font-18 me-1"></i>
+            </div>
+            <div class="tab-title">Odontograma</div>
+          </div>
+        </a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" data-bs-toggle="pill" href="#appointments" role="tab" aria-selected="false">
+          <div class="d-flex align-items-center">
+            <div class="tab-icon"><i class="bx bx-id-card font-18 me-1"></i>
+            </div>
+            <div class="tab-title">Citas</div>
+          </div>
+        </a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" data-bs-toggle="pill" href="#record" role="tab" aria-selected="false">
+          <div class="d-flex align-items-center">
+            <div class="tab-icon"><i class="bx bx-time font-18 me-1"></i>
+            </div>
+            <div class="tab-title">Historial</div>
+          </div>
+        </a>
+      </li>
+    </ul>
+
+    <app-modal-service [patientIdTemp]="patientTemp.id_patient"></app-modal-service>
+
+    <div class="tab-content py-3">
+      <div class="tab-pane fade m-4 active show" id="home" role="tabpanel">
+        <div class="d-flex align-items-center justify-content-between flex-wrap w-100 mb-3">
+          <h2 class="mb-0 "> Servicios por realizar </h2>
+          <button (click)="getServicesActive()" type="button" data-bs-toggle="modal" data-bs-target="#modalAddService"
+            data-backdrop="static" data-keyboard="false" class="btn btn-outline-primary px-3 radius-30">
+            <i class="bx bx-plus mr-1"></i>Agregar Servicio
+          </button>
+        </div>
+        <app-table-record [records]="patientRecords"></app-table-record>
+        <h1 class="d-flex justify-content-end align-items-center" *ngIf="patientRecords"> Total a pagar: {{
+          getTotalPayment | currency: '$ ' }}
+        </h1>
+      </div>
+      <div class="tab-pane fade " id="odontogram" role="tabpanel">
+        <div class="d-flex justify-content-center flex-wrap">
+          <div *ngFor="let tooth of up" class="tooth" data-bs-target="#exampleVerticallycenteredModal"
+            data-bs-toggle="modal">
+            <span class="piece" id="">{{tooth}}</span>
+            <section class="buttons" id="18">
+              <div class="button-outside" id="up"></div>
+              <div class="button-outside" id="down"></div>
+              <div class="button-inside" id="center"></div>
+              <div class="button-outside" id="left"></div>
+              <div class="button-outside" id="right"></div>
+            </section>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center flex-wrap">
+          <div *ngFor="let tooth of down" class="tooth">
+            <section class="buttons" id="18">
+              <div class="button-outside" id="up"></div>
+              <div class="button-outside" id="down"></div>
+              <div class="button-inside" id="center"></div>
+              <div class="button-outside" id="left"></div>
+              <div class="button-outside" id="right"></div>
+            </section>
+            <span class="piece" id="">{{tooth}}</span>
+          </div>
+        </div>
+        <div class="table-responsive m-5">
+          <table class="table align-middle table-hover">
+            <thead>
+              <tr>
+                <th>Servicio</th>
+                <th># Pieza</th>
+                <th>Fecha de realización</th>
+                <th>$ Subtotal</th>
+                <th class="text-center">Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>fads</td>
+                <td>fads</td>
+                <td>fads</td>
+                <td>fads</td>
+                <td>fads</td>
+                <td>fads</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="appointments" role="tabpanel">
+        <p> appoinments </p>
+      </div>
+      <div class="tab-pane fade" id="record" role="tabpanel">
+        <p> record </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleVerticallycenteredModal" tabindex="-1" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece
+        of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor
+        at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur.</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

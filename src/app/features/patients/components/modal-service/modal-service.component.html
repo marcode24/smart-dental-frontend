@@ -1,0 +1,41 @@
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="modalAddService" tabindex="-1"
+  style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title d-flex text-primary">
+          <i class="bx bx-briefcase me-1 font-30"></i>
+          Agregar Servicio
+        </h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-9">
+            <label for="selectService" class="form-label">Servicios disponibles</label>
+            <select class="form-select" id="selectService" (change)="changeService($event)">
+              <option [value]="service.id_service" *ngFor="let service of services">{{ service.name }}</option>
+            </select>
+          </div>
+          <div class="col-3">
+            <label for="inputQuantity" class="form-label">Cantidad</label>
+            <input type="number" #txtQuantity (keyup)="changeQuantity(txtQuantity.value)" class="form-control"
+              id="inputQuantity" [value]="quantity" min="1" max="10">
+          </div>
+        </div>
+        <div class="d-flex justify-content-end align-items-end flex-column mt-4">
+          <h5> Precio: {{ price | currency: '$ ' }} </h5>
+          <h2> Subtotal: {{ subtotal | currency: '$ ' }} </h2>
+        </div>
+      </div>
+      <div class=" modal-footer">
+        <button type="button" class="btn btn-danger radius-30" data-bs-dismiss="modal">
+          <i class="bx bx-x"></i> Cerrar
+        </button>
+        <button type="button" (click)="createService()" class="btn btn-primary radius-30" data-bs-dismiss="modal">
+          <i class="bx bx-check"></i> Agregar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -30,3 +30,93 @@
 .cursor {
   cursor: pointer;
 }
+
+/***************  Odontogram styles  *******************/
+
+.buttons {
+  width: 3.5rem;
+  height: 6rem;
+}
+
+.buttons:hover {
+  cursor: pointer;
+}
+
+.button-outside {
+  width: 70px;
+  height: 0px;
+  border-right: 15px solid transparent;
+  border-left: 15px solid transparent;
+  border-bottom: 15px solid #d1d1d1;
+}
+
+.button-outside:hover {
+  border-bottom: 15px solid #aaaaaa;
+}
+
+.button-inside:hover {
+  background: #aaaaaa;
+}
+
+.button-inside {
+  width: 40px;
+  height: 39px;
+  background: #d1d1d1;
+  position: absolute;
+}
+
+#trapezoid {
+  width: 50px; /* base menor - ajusta a mayor auto */
+  height: 0;
+  border-bottom: 80px solid #d1d1d1; /* altura */
+  border-left: 50px solid transparent; /* laterales */
+  border-right: 50px solid transparent; /* lateral */
+}
+
+#up {
+  margin-top: 0;
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+#center {
+  margin-top: -55px;
+  margin-left: 15px;
+}
+
+#down {
+  margin-top: 41px;
+}
+
+#left {
+  margin-top: -43px;
+    margin-left: -29px;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+#right {
+  margin-top: -15px;
+  margin-left: 29px;
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+.piece {
+  display: flex;
+  justify-content: center;
+  width: 125%;
+  margin-bottom: 1rem;
+}
+.bottom > .piece {
+  top: 140px !important;
+}
+
+.tooth {
+  margin: 0.8rem;
+}

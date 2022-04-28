@@ -11,12 +11,14 @@ import { InputsModule } from '@components/inputs/inputs.module';
 import { DropdownsModule } from '@components/dropdowns/dropdowns.module';
 
 import { ComponentsModule } from './components/components.module';
+import { RecordComponent } from './pages/record/record.component';
 
 
 @NgModule({
   declarations: [
     PatientsComponent,
-    NewPatientComponent
+    NewPatientComponent,
+    RecordComponent
   ],
   imports: [
     CommonModule,

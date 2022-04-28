@@ -12,7 +12,6 @@ export class Patient {
     public cp: number,
     public city: string,
     public country: string,
-    public number_home: string,
     public status: boolean,
     public familiar: Familiar,
     public image?: string,
