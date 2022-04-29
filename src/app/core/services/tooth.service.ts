@@ -4,7 +4,10 @@ import { environment } from 'environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 
+import { RecordService } from './record.service';
+
 import { Tooth } from '@models/tooth.model';
+import Swal from 'sweetalert2';
 
 const base_url = environment.base_url;
 
@@ -16,6 +19,7 @@ export class ToothService {
   constructor(
     private cookieService: CookieService,
     private http: HttpClient,
+    private readonly recordService: RecordService
   ) { }
 
   get token(): string {
@@ -33,6 +37,19 @@ export class ToothService {
   getTeeth(patiendId: number | undefined): Observable<Tooth[]> {
     const url = `${base_url}/teeth/patient/${patiendId}`;
     return this.http.get<Tooth[]>(url, this.headers);
+  }
+
+  create(tooth: Tooth) {
+    const url = `${base_url}/teeth`;
+    this.http.post(url, tooth, this.headers).subscribe({
+      next: () => {
+        Swal.fire('Servicio agregado correctamente', '', 'success');
+        this.recordService.changedRecordsHome.emit(true);
+      },
+      error: () => {
+        Swal.fire('Ocurrio un error intentalo de nuevo', '', 'error');
+      }
+    })
   }
 
 }

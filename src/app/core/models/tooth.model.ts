@@ -13,5 +13,6 @@ export class Tooth {
     public record?: Record,
     public color?: string,
     public id_tooth?: number,
+    public id_service?: number,
   ) {}
 }

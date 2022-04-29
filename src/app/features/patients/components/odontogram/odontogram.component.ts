@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 import { Tooth } from '@models/tooth.model';
+import { ServiceOfferService } from '@services/service-offer.service';
 
 @Component({
   selector: 'app-odontogram',
@@ -17,7 +18,11 @@ export class OdontogramComponent implements OnInit, OnChanges {
   public upTeeth: Tooth[];
   public downTeeth: Tooth[];
 
-  constructor() { }
+  public toothTemp: Tooth | undefined;
+
+  constructor(
+    private serviceOfferServices: ServiceOfferService,
+  ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     const teeth = changes['teeth'].currentValue;
@@ -27,6 +32,11 @@ export class OdontogramComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+  }
+
+  getServicesActive(tooth_number: number, position: 'up' | 'down') {
+    this.toothTemp = (position === 'up') ? this.upTeeth.find(t => t.tooth_number === tooth_number): this.downTeeth.find(t => t.tooth_number === tooth_number);
+    this.serviceOfferServices.getServicesActive(true);
   }
 
   setData(teeth: Tooth[]) {

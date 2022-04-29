@@ -44,7 +44,6 @@ export class ModalServiceComponent implements OnInit, OnDestroy {
         this.subtotal = this.serviceSelected.price * this.quantity;
         this.quantity = 1;
       }
-      console.log(this.services);
     });
   }
 
