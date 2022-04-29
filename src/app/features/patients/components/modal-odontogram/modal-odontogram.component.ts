@@ -7,6 +7,7 @@ import { Tooth } from '@models/tooth.model';
 import { PatientService } from '@services/patient.service';
 import { ServiceOfferService } from '@services/service-offer.service';
 import { ToothService } from '@services/tooth.service';
+import { IUpdateTooth } from '@interfaces/tooth.interface';
 
 @Component({
   selector: 'app-modal-odontogram',
@@ -44,7 +45,7 @@ export class ModalOdontogramComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.servicesActive = this.serviceOfferService.servicesActive.subscribe(services => {
+    this.servicesActive = this.serviceOfferService.servicesActiveOdontogram.subscribe(services => {
       this.services = services
       if(services.length > 0 && (!this.toothSelected.record || !this.tooth?.color)) {
         this.toothSelected.color = this.services[0].color;
@@ -55,8 +56,7 @@ export class ModalOdontogramComponent implements OnInit, OnChanges, OnDestroy {
 
   saveTooth() {
     if(this.isNew) {
-      const { vestibular, ligual, distal, mesial, oclusal } = this.toothSelected;
-      if(vestibular || ligual || distal || mesial || oclusal) {
+      if(this.toothPartSelected()) {
         const newTooth: Tooth = {
           id_service: this.toothSelected.id_service,
           tooth_number: this.toothSelected.tooth_number,
@@ -70,8 +70,25 @@ export class ModalOdontogramComponent implements OnInit, OnChanges, OnDestroy {
         this.toothService.create(newTooth);
       }
     } else {
-      console.log('actualiza');
+      if(this.toothPartSelected()) {
+        const id_service = this.toothSelected.id_service || this.toothSelected.record?.id_service;
+        const updateTooth: IUpdateTooth = {
+          id_service: Number(id_service),
+          vestibular: this.toothSelected.vestibular || false,
+          ligual: this.toothSelected.ligual || false,
+          distal: this.toothSelected.distal || false,
+          mesial: this.toothSelected.mesial || false,
+          oclusal: this.toothSelected.oclusal || false,
+        }
+        const { id_tooth } = this.toothSelected;
+        this.toothService.update(Number(id_tooth), updateTooth);
+      }
     }
+  }
+
+  private toothPartSelected() {
+    const { vestibular, ligual, distal, mesial, oclusal } = this.toothSelected;
+    return (vestibular || ligual || distal || mesial || oclusal);
   }
 
   get getTitleModal() {

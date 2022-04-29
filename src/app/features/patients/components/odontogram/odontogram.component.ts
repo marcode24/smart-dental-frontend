@@ -47,7 +47,8 @@ export class OdontogramComponent implements OnInit, OnChanges {
       if(belongsUp) {
         this.upTeeth.map(t => {
           if (t.tooth_number === tooth.tooth_number) {
-            const { distal, ligual, mesial, oclusal, vestibular, record } = tooth;
+            const { distal, ligual, mesial, oclusal, vestibular, record, id_tooth } = tooth;
+            t.id_tooth = id_tooth;
             t.distal = distal;
             t.ligual = ligual;
             t.mesial = mesial;
@@ -61,7 +62,8 @@ export class OdontogramComponent implements OnInit, OnChanges {
       if(belongsDown) {
         this.downTeeth.map(t => {
           if (t.tooth_number === tooth.tooth_number) {
-            const { distal, ligual, mesial, oclusal, vestibular, record } = tooth;
+            const { distal, ligual, mesial, oclusal, vestibular, record, id_tooth } = tooth;
+            t.id_tooth = id_tooth
             t.distal = distal;
             t.ligual = ligual;
             t.mesial = mesial;

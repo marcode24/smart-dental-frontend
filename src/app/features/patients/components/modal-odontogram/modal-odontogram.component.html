@@ -12,8 +12,7 @@
         <h2 class="mb-3"> # Pieza: {{ toothSelected?.tooth_number }} </h2>
         <label for="selectService" class="form-label">Servicios disponibles</label>
         <select (change)="changeService($event.target)" class="form-select" id="selectService">
-          <option [value]="service.id_service"
-            [selected]="service.id_service === toothSelected.record?.service?.id_service"
+          <option [value]="service.id_service" [selected]="service.id_service === toothSelected.record?.id_service"
             *ngFor="let service of services">
             {{service.name}}</option>
         </select>
@@ -83,7 +82,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button (click)="saveTooth()" type="button" class="btn btn-primary">
+        <button (click)="saveTooth()" type="button" data-bs-dismiss="modal" class="btn btn-primary">
           <i class="bx " [ngClass]="(isNew)?'bx-check': 'bx-save'"></i>Guardar {{(!isNew) ? 'Cambios': ''}}
         </button>
       </div>

@@ -8,6 +8,7 @@ import { RecordService } from './record.service';
 
 import { Tooth } from '@models/tooth.model';
 import Swal from 'sweetalert2';
+import { IUpdateTooth } from '@interfaces/tooth.interface';
 
 const base_url = environment.base_url;
 
@@ -49,6 +50,14 @@ export class ToothService {
       error: () => {
         Swal.fire('Ocurrio un error intentalo de nuevo', '', 'error');
       }
+    })
+  }
+
+  update(toothId: number, data: IUpdateTooth) {
+    const url = `${base_url}/teeth/${toothId}`;
+    this.http.patch(url, data, this.headers).subscribe(resp => {
+      Swal.fire('Diente actualizado correctamente', '', 'success');
+      this.recordService.changedRecordsHome.emit(true);
     })
   }
 

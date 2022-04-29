@@ -7,7 +7,7 @@ import { environment } from 'environments/environment';
 
 import { Record } from '@models/record.model';
 
-import { ICreateRecord } from '@interfaces/create-record.interface';
+import { ICreateRecord, IUpdateRecord } from '@interfaces/create-record.interface';
 
 import { StatusRecordService } from '@enums/status-record.enum';
 
@@ -57,6 +57,13 @@ export class RecordService {
       if(status === StatusRecordService.CANCEL || status === StatusRecordService.PAID) {
         this.changedRecords.emit(true);
       }
+      this.changedRecordsHome.emit(true);
+    })
+  }
+
+  update(recordId: number, data: IUpdateRecord) {
+    const url = `${base_url}/records/update/${recordId}`;
+    this.http.patch(url, data, this.headers).subscribe(resp => {
       this.changedRecordsHome.emit(true);
     })
   }

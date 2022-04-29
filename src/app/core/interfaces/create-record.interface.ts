@@ -10,3 +10,8 @@ export interface ICreateRecord {
   distal?: boolean;
   oclusal?: boolean;
 }
+
+export interface IUpdateRecord {
+  id_service: number;
+  quantity: number;
+}
