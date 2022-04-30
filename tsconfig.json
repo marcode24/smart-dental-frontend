@@ -14,6 +14,8 @@
       "@components/cards/*": [ "app/shared/components/cards/*" ],
       "@components/inputs/*": [ "app/shared/components/inputs/*" ],
       "@components/dropdowns/*": [ "app/shared/components/dropdowns/*" ],
+      "@components/tables/*": [ "app/shared/components/tables/*" ],
+      "@components/modals/*": [ "app/shared/components/modals/*" ],
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
