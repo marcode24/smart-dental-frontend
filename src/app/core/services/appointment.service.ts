@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
-import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 
 import { AuthService } from './auth.service';
@@ -21,12 +20,11 @@ export class AppointmentService {
 
   constructor(
     private http: HttpClient,
-    private cookieService: CookieService,
     private readonly authService: AuthService
   ) { }
 
   get token(): string {
-    return this.cookieService.get('token');
+    return sessionStorage.getItem('token') || '';
   }
 
   get headers() {

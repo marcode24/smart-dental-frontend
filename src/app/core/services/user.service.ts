@@ -2,9 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
-import { CookieService } from 'ngx-cookie-service';
-import Swal from 'sweetalert2';
 import { map, Observable } from 'rxjs';
+import Swal from 'sweetalert2';
 
 import { Gender } from '@enums/gender.enum';
 import { Roles } from '@enums/role.enum';
@@ -12,6 +11,8 @@ import { Roles } from '@enums/role.enum';
 import { User } from '@models/user.model';
 
 import { IResponseUser } from '@interfaces/response.interface';
+
+import Storage from '@utils/storage.util';
 
 const base_url = environment.base_url;
 
@@ -21,16 +22,15 @@ const base_url = environment.base_url;
 export class UserService {
   constructor(
     private http: HttpClient,
-    private cookieService: CookieService,
     private router: Router
   ) {}
 
   get token(): string {
-    return this.cookieService.get('token');
+    return sessionStorage.getItem('token') || '';
   }
 
   get code(): string {
-    return this.cookieService.get('code');
+    return sessionStorage.getItem('code') || '';
   }
 
   get headers() {
@@ -39,14 +39,6 @@ export class UserService {
         'Authorization': `Bearer ${this.token}`
       }
     };
-  }
-
-  private saveCookies(name: string, value: string) {
-    this.cookieService.set(name, value);
-  }
-
-  private deleteCookies(name: string) {
-    this.cookieService.delete(name);
   }
 
   createUser(data: User, role: Roles, fromAuth: boolean = false) {
@@ -60,8 +52,8 @@ export class UserService {
         }
       }
       if(fromAuth) {
-        this.deleteCookies('code');
-        this.saveCookies('token', resp.access_token);
+        Storage.deleteSessionStorage('code');
+        Storage.saveSessionStorage('token', resp.access_token);
         return this.router.navigate(['/']);
       }
       Swal.fire('Usuario creado correctamente', '', 'success');

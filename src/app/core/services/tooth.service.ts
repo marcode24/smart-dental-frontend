@@ -1,13 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
-import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
+import Swal from 'sweetalert2';
 
 import { RecordService } from './record.service';
 
 import { Tooth } from '@models/tooth.model';
-import Swal from 'sweetalert2';
 import { IUpdateTooth } from '@interfaces/tooth.interface';
 
 const base_url = environment.base_url;
@@ -18,13 +17,12 @@ const base_url = environment.base_url;
 export class ToothService {
 
   constructor(
-    private cookieService: CookieService,
     private http: HttpClient,
     private readonly recordService: RecordService
   ) { }
 
   get token(): string {
-    return this.cookieService.get('token');
+    return sessionStorage.getItem('token') || '';
   }
 
   get headers() {

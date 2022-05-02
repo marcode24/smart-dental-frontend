@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { environment } from 'environments/environment';
 import { catchError, map, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -21,13 +20,12 @@ export class PatientService {
   public patientTemp: Patient;
 
   constructor(
-    private cookieService: CookieService,
     private http: HttpClient,
     private readonly authService: AuthService
   ) { }
 
   get token(): string {
-    return this.cookieService.get('token');
+    return sessionStorage.getItem('token') || '';
   }
 
   get headers() {

@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
-import { CookieService } from 'ngx-cookie-service';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { IResponseService } from '@interfaces/response.interface';
 
@@ -23,11 +22,10 @@ export class ServiceOfferService {
 
   constructor(
     private http: HttpClient,
-    private cookieService: CookieService,
   ) { }
 
   get token(): string {
-    return this.cookieService.get('token');
+    return sessionStorage.getItem('token') || '';
   }
 
   get headers() {

@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 import { environment } from 'environments/environment';
@@ -23,11 +22,10 @@ export class RecordService {
 
   constructor(
     private http: HttpClient,
-    private cookieService: CookieService
   ) { }
 
   get token(): string {
-    return this.cookieService.get('token');
+    return sessionStorage.getItem('token') || '';
   }
 
   get headers() {
