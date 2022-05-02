@@ -45,6 +45,11 @@ export class AppointmentService {
     return this.http.get<Appointment[]>(url, this.headers);
   }
 
+  getAppointmentsByPatient(patientId: number): Observable<Appointment[]> {
+    const url = `${base_url}/appointments/patient/${patientId}`;
+    return this.http.get<Appointment[]>(url, this.headers);
+  }
+
   changeStatus(changes: IChangeStatus) {
     const { id_appointment, status } = changes;
     const url = `${base_url}/appointments/${id_appointment}`;

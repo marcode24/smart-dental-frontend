@@ -22,7 +22,7 @@ export class AppointmentsComponent implements OnInit {
     fullname: '',
   }
 
-  private optionAppointment: 'PENDING' | 'CANCELLED' | 'DONE';
+  private optionAppointment: 'PENDING' | 'CANCELLED' | 'DONE' = 'PENDING';
 
   constructor(private appointmentService: AppointmentService) { }
 
@@ -31,14 +31,10 @@ export class AppointmentsComponent implements OnInit {
   }
 
   getAppointments(){
-    this.appointmentService.getAppointmentsByUser(this.optionAppointment).subscribe(resp => {
-      this.appointments = resp;
-      console.log(this.appointments);
-    })
+    this.appointmentService.getAppointmentsByUser(this.optionAppointment).subscribe(resp => this.appointments = resp);
   }
 
   changeOptionAppointment(value: any){
-    console.log(value);
     this.optionAppointment = value;
     this.getAppointments();
   }

@@ -13,8 +13,10 @@
         <div class="d-lg-flex align-items-center justify-content-between mb-4">
           <app-input-search [findName]="'paciente'" (text)="findByFullname($event)" style="width: 32%;">
           </app-input-search>
-          <app-dropdown-appointments (option)="changeOptionAppointment($event)"></app-dropdown-appointments>
-          <app-dropdown-page-list (limit)="changeLimit($event)"></app-dropdown-page-list>
+          <div class="d-flex gap-2">
+            <app-dropdown-appointments (option)="changeOptionAppointment($event)"></app-dropdown-appointments>
+            <app-dropdown-page-list (limit)="changeLimit($event)"></app-dropdown-page-list>
+          </div>
         </div>
         <app-table-appointments (newStatus)="changeStatus($event)" [appointments]="appointments">
         </app-table-appointments>

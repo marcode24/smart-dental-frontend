@@ -60,7 +60,6 @@ export class PatientService {
   getPatientByUser(patientId: number): Observable<boolean> {
     const { id_user } = this.authService.userActive;
     const url = `${base_url}/patients/patient/${patientId}/user/${id_user}`;
-    console.log(url);
     return this.http.get(url, this.headers).pipe(map((resp: any) => {
       const { patient }  = resp;
       if(!patient) {

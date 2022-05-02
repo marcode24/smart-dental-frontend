@@ -23,7 +23,8 @@
         </a>
       </li>
       <li class="nav-item" role="presentation">
-        <a class="nav-link" data-bs-toggle="pill" href="#appointments" role="tab" aria-selected="false">
+        <a class="nav-link" (click)="getAppointments()" data-bs-toggle="pill" href="#appointments" role="tab"
+          aria-selected="false">
           <div class="d-flex align-items-center">
             <div class="tab-icon"><i class="bx bx-id-card font-18 me-1"></i>
             </div>
@@ -62,7 +63,7 @@
         <app-table-odontogram [teeth]="patientTeeth"></app-table-odontogram>
       </div>
       <div class="tab-pane fade" id="appointments" role="tabpanel">
-        <p> appoinments </p>
+        <app-table-appointment *ngIf="patientAppointments" [appointments]="patientAppointments"></app-table-appointment>
       </div>
       <div class="tab-pane fade m-4" id="record" role="tabpanel">
         <app-table-record [records]="patientRecord" [isHome]="false"></app-table-record>

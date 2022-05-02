@@ -3,14 +3,16 @@ import { Subscription } from 'rxjs';
 
 import { StatusRecord } from '@enums/status-record.enum';
 
+import { Appointment } from '@models/appointment.model';
 import { Patient } from '@models/patient.model';
 import { Record } from '@models/record.model';
+import { Tooth } from '@models/tooth.model';
 
+import { AppointmentService } from '@services/appointment.service';
 import { PatientService } from '@services/patient.service';
 import { RecordService } from '@services/record.service';
 import { ServiceOfferService } from '@services/service-offer.service';
 import { ToothService } from '@services/tooth.service';
-import { Tooth } from '@models/tooth.model';
 
 @Component({
   selector: 'app-record',
@@ -24,19 +26,21 @@ export class RecordComponent implements OnInit, OnDestroy {
   public patientRecordHome: Record[];
   public patientRecord: Record[];
   public patientTeeth: Tooth[];
+  public patientAppointments: Appointment[];
 
   private clickRecord: boolean = false;
   public clickOdontogram: boolean = false;
+  public clickAppointment: boolean = false;
 
   private recordsHome: Subscription;
   private records: Subscription;
-  private teeth: Subscription;
 
   constructor(
     private patientService: PatientService,
     private recordService: RecordService,
     private serviceOfferService: ServiceOfferService,
     private toothService: ToothService,
+    private appointmentService: AppointmentService
   ) {
     this.patientTemp = this.patientService.patientTemp;
   }
@@ -75,6 +79,16 @@ export class RecordComponent implements OnInit, OnDestroy {
       this.getAllTeeth();
     }
     this.clickOdontogram = true;
+  }
+
+  // click tab appointments
+  getAppointments() {
+    if(this.clickAppointment === false) {
+      this.appointmentService.getAppointmentsByPatient(Number(this.patientTemp.id_user)).subscribe(resp => {
+        this.patientAppointments = resp;
+      })
+    }
+    this.clickAppointment = true;
   }
 
   getAllTeeth() {
