@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
-import { IChangeStatus } from '@interfaces/appointment.interface';
-import { Appointment } from '@models/appointment.model';
 import { environment } from 'environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 
 import { AuthService } from './auth.service';
+
+import { Appointment } from '@models/appointment.model';
+
+import { IChangeStatus, ICreateAppointment } from '@interfaces/appointment.interface';
 
 const base_url = environment.base_url;
 
@@ -35,8 +37,11 @@ export class AppointmentService {
     };
   }
 
-  getAppointmentsByUser(status: 'PENDING' | 'CANCELLED' | 'DONE'): Observable<Appointment[]> {
-    const url = `${base_url}/appointments/user/${this.authService.userActive.id_user}?status=${status}`;
+  getAppointmentsByUser(status: 'PENDING' | 'CANCELLED' | 'DONE', date?: string): Observable<Appointment[]> {
+    let url = `${base_url}/appointments/user/${this.authService.userActive.id_user}?status=${status}`;
+    if(date) {
+      url = `${url}&date=${date}`
+    }
     return this.http.get<Appointment[]>(url, this.headers);
   }
 
@@ -48,6 +53,15 @@ export class AppointmentService {
 
   changeAppointmentSelected(appoinment: Appointment) {
     this.appointmentSelected.emit(appoinment);
+  }
+
+  create(data: ICreateAppointment): Observable<boolean> {
+    const newAppointment: ICreateAppointment = {
+      ...data,
+      id_user: this.authService.userActive.id_user,
+    }
+    const url = `${base_url}/appointments`;
+    return this.http.post<boolean>(url, newAppointment, this.headers);
   }
 
 }

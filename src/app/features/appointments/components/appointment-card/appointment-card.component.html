@@ -1,0 +1,36 @@
+<div class="row m-0" *ngFor="let appointment of appointmentsTemp; let i = index;">
+  <!-- timeline item 1 left dot -->
+  <div class="col-auto text-center flex-column d-none d-sm-flex">
+    <div class="row h-50">
+      <div class="col" [ngClass]="(appointmentsTemp.length - (appointmentsTemp.length + i) !== i) ? 'border-end': ''">
+        &nbsp;</div>
+      <div class="col">&nbsp;</div>
+    </div>
+    <h5 class="m-2">
+      <span class="badge rounded-pill bg-primary border">&nbsp;</span>
+    </h5>
+    <div class="row h-50">
+      <div class="col" [ngClass]="(appointmentsTemp.length - 1 !== i) ? 'border-end': ''">&nbsp;</div>
+      <div class="col">&nbsp;</div>
+    </div>
+  </div>
+  <!-- timeline item 1 event content -->
+  <div class="col">
+    <div class="card radius-15">
+      <div class="card-body">
+        <div class="float-end text-primary">{{ appointment.date | date: 'shortTime' }}</div>
+        <h5 class="card-title text-primary">{{ buildFullName(appointment) }}</h5>
+        <p class="card-text">{{appointment.description}}</p>
+        <div *ngIf="appointment.records">
+          <button class="btn btn-sm btn-outline-primary" type="button" [attr.data-bs-target]="'#Collapse-'+i"
+            data-bs-toggle="collapse">Ver detalles </button>
+          <div class="collapse border" [id]="'Collapse-'+i">
+            <div class="p-2 text-monospace">
+              <div *ngFor="let record of appointment.records">{{record.service_name}} - {{record.quantity}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

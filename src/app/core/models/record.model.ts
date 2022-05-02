@@ -17,5 +17,6 @@ export class Record {
     public id_service?: number,
     public id_patient?: number,
     public total?: number,
+    public selected?: boolean,
   ) {}
 }

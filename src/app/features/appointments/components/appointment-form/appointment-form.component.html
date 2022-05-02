@@ -1,0 +1,62 @@
+<div class="row g-3 my-1">
+  <div class="col-3 my-2">
+    <label for="inputPatientNumber" class="form-label"># Paciente</label>
+    <input #txtPatientNumber (keyup.enter)="findPatient(txtPatientNumber.value)" type="text" class="form-control"
+      id="inputPatientNumber">
+  </div>
+  <div class="col-9 my-2">
+    <label for="inputPatientName" class="form-label">Nombre</label>
+    <input [value]="getName" disabled type="text" class="form-control" id="inputPatientName">
+  </div>
+</div>
+<div class="d-flex justify-content-end align-items-center" *ngIf="!patientTemp">
+  <button type="button" routerLink="/appointments" class="btn btn-danger radius-30">
+    <i class="bx bx-block"></i>Cancelar
+  </button>
+</div>
+
+
+<form [formGroup]="appointmentForm" (ngSubmit)="saveAppointment()" class="row g-3 my-1" *ngIf="patientTemp">
+  <div class="table-responsive">
+    <table class="table align-middle table-hover">
+      <thead>
+        <tr>
+          <th>Servicio pendiente</th>
+          <th class="text-center">Cantidad</th>
+          <th class="text-center">Seleccionar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let record of recordsPatient" (click)="selectRow(record.id_record)">
+          <td>{{ record.service_name }} </td>
+          <td class="text-center">{{ record.quantity }}</td>
+          <td class="text-center">
+            <input class="form-check-input" [checked]="record.selected" type="checkbox"
+              style="width: 1.1rem; height: 1.1rem;">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-5">
+    <label class="form-label" for="inputDate">Fecha</label>
+    <input formControlName="date" (blur)="findAppointments($event.target)" id="inputDate" type="date"
+      class="form-control">
+  </div>
+  <div class="col-4">
+    <label class="form-label" for="inputTime">Hora</label>
+    <input formControlName="time" type="time" id="inputTime" class="form-control">
+  </div>
+  <div class="col-12">
+    <label class="form-label" for="inputDescription">Observaciones</label>
+    <input formControlName="description" type="text" id="inputDescription" class="form-control">
+  </div>
+  <div class="d-flex justify-content-end align-items-center gap-2">
+    <button type="button" routerLink="/appointments" class="btn btn-danger radius-30">
+      <i class="bx bx-block"></i>Cancelar
+    </button>
+    <button type="submit" class="btn btn-primary radius-30" [disabled]="appointmentForm.invalid">
+      <i class="bx bx-check"></i>Guardar
+    </button>
+  </div>
+</form>
