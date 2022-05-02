@@ -1,12 +1,14 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "environments/environment";
-import { CookieService } from "ngx-cookie-service";
+import { Router } from "@angular/router";
 import { catchError, map, Observable, of, tap } from "rxjs";
 
 import { User } from "@models/user.model";
 
 import { ILogin } from "@interfaces/login.interface";
+
+import Storage from "@utils/storage.util";
 
 const base_url = environment.base_url;
 
@@ -19,15 +21,15 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private cookieService: CookieService
+    private router: Router
   ) { }
 
   get token(): string {
-    return this.cookieService.get('token');
+    return sessionStorage.getItem('token') || '';
   }
 
   get code(): string {
-    return this.cookieService.get('code');
+    return sessionStorage.getItem('code') || '';
   }
 
   get headers() {
@@ -38,18 +40,11 @@ export class AuthService {
     };
   }
 
-  private saveCookies(name: string, value: string) {
-    this.cookieService.set(name, value);
-  }
-
-  private deleteCookies(name: string) {
-    this.cookieService.delete(name);
-  }
 
   login(data: ILogin): Observable<any> {
     const url = `${base_url}/auth/login`;
     return this.http.post(url, data).pipe(tap((resp: any) => {
-      this.saveCookies('token', resp.access_token);
+      Storage.saveSessionStorage('token', resp.access_token);
     }));
   }
 
@@ -64,8 +59,8 @@ export class AuthService {
         city, country, cp, createdAt, date_birth, email, gender, last_name, name,
         phone_number, role, status, street, updatedAt, username, id_user, '', image, code
       );
-      this.deleteCookies('token');
-      this.saveCookies('token', resp.access_token);
+      Storage.deleteSessionStorage('token');
+      Storage.saveSessionStorage('token', resp.access_token);
       return true;
     }), catchError(err => of(false)));
   }
@@ -73,9 +68,14 @@ export class AuthService {
   validateCode(code: string): Observable<boolean> {
     const url = `${base_url}/auth/code/${code}`;
     return this.http.get(url, this.headers).pipe(map((resp: any) => {
-      if(resp.valid) this.saveCookies('code', code);
+      if(resp.valid) Storage.saveSessionStorage('code', code);
       return resp.valid
     }));
+  }
+
+  logout() {
+    Storage.deleteSessionStorage('token');
+    this.router.navigate(['/login']);
   }
 
 }

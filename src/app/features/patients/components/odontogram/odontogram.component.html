@@ -1,0 +1,38 @@
+<div class="d-flex justify-content-center flex-wrap">
+  <div *ngFor="let tooth of upTeeth" class="tooth" data-bs-target="#modalOdontogram"
+    (click)="getServicesActive(tooth.tooth_number, 'up')" data-bs-toggle="modal">
+    <span class="piece" id="">{{tooth.tooth_number}}</span>
+    <section class="buttons" id="18">
+      <div class="button-outside" id="vestibular"
+        [ngStyle]="{'border-bottom': (tooth.vestibular) ? '15px solid ' +tooth.color: ''}"></div>
+      <div class="button-outside" id="ligual"
+        [ngStyle]="{'border-bottom': (tooth.ligual) ? '15px solid ' +tooth.color: ''}"></div>
+      <div class="button-inside" id="oclusal"
+        [ngStyle]="{'border-bottom': (tooth.oclusal) ? '40px solid ' +tooth.color: ''}"></div> <!-- middle part -->
+      <div class="button-outside" id="distal"
+        [ngStyle]="{'border-bottom': (tooth.distal) ? '15px solid ' +tooth.color: ''}"></div>
+      <div class="button-outside" id="mesial"
+        [ngStyle]="{'border-bottom': (tooth.mesial) ? '15px solid ' +tooth.color: ''}"></div>
+    </section>
+  </div>
+</div>
+<div class="d-flex justify-content-center flex-wrap">
+  <div *ngFor="let tooth of downTeeth" class="tooth" data-bs-target="#modalOdontogram"
+    (click)="getServicesActive(tooth.tooth_number, 'down')" data-bs-toggle="modal">
+    <section class="buttons" id="18">
+      <div class="button-outside" id="vestibular"
+        [ngStyle]="{'border-bottom': (tooth.vestibular) ? '15px solid ' +tooth.color: ''}"></div>
+      <div class="button-outside" id="ligual"
+        [ngStyle]="{'border-bottom': (tooth.ligual) ? '15px solid ' +tooth.color: ''}"></div>
+      <div class="button-inside" id="oclusal"
+        [ngStyle]="{'border-bottom': (tooth.oclusal) ? '40px solid ' +tooth.color: ''}"></div>
+      <div class="button-outside" id="distal"
+        [ngStyle]="{'border-bottom': (tooth.distal) ? '15px solid ' +tooth.color: ''}"></div>
+      <div class="button-outside" id="mesial"
+        [ngStyle]="{'border-bottom': (tooth.mesial) ? '15px solid ' +tooth.color: ''}"></div>
+    </section>
+    <span class="piece" id="">{{tooth.tooth_number}}</span>
+  </div>
+</div>
+
+<app-modal-odontogram [tooth]="toothTemp"></app-modal-odontogram>

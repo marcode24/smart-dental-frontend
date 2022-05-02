@@ -16,7 +16,7 @@
   <!--navigation-->
   <ul class="metismenu" id="menu">
     <li>
-      <a href="">
+      <a routerLink="/">
         <div class="parent-icon"><i class="bx bx-home-circle"></i>
         </div>
         <div class="menu-title">Home</div>
@@ -29,6 +29,12 @@
         </div>
         <div class="menu-title">Usuarios</div>
       </a>
+      <ul>
+        <li> <a routerLink="/users"><i class="bx bx-right-arrow-alt"></i>Usuarios Registrados</a>
+        </li>
+        <li> <a routerLink="/users/new"><i class="bx bx-right-arrow-alt"></i>Agregar</a>
+        </li>
+      </ul>
     </li>
     <li>
       <a href="javascript:;" class="has-arrow">
@@ -36,6 +42,12 @@
         </div>
         <div class="menu-title">Pacientes</div>
       </a>
+      <ul>
+        <li> <a routerLink="/patients"><i class="bx bx-right-arrow-alt"></i>Pacientes Registrados</a>
+        </li>
+        <li> <a routerLink="/patients/new"><i class="bx bx-right-arrow-alt"></i>Agregar</a>
+        </li>
+      </ul>
     </li>
     <li>
       <a href="javascript:;" class="has-arrow">
@@ -43,9 +55,15 @@
         </div>
         <div class="menu-title">Citas</div>
       </a>
+      <ul>
+        <li> <a routerLink="/appointments"><i class="bx bx-right-arrow-alt"></i>Ver Citas</a>
+        </li>
+        <li> <a routerLink="/appointments/new"><i class="bx bx-right-arrow-alt"></i>Programar Nueva</a>
+        </li>
+      </ul>
     </li>
     <li>
-      <a href="javascript:;" class="has-arrow">
+      <a routerLink="/services">
         <div class="parent-icon"><i class="bx bx-briefcase"></i>
         </div>
         <div class="menu-title">Servicios</div>
@@ -74,7 +92,7 @@
       </a>
     </li>
     <li>
-      <a href="javascript:;">
+      <a (click)="logout()" class="cursor">
         <div class="parent-icon"><i class="bx bx-log-out"></i>
         </div>
         <div class="menu-title">Cerrar Sesión</div>

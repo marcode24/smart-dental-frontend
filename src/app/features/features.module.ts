@@ -9,10 +9,11 @@ import { HomeModule } from './home/home.module';
 import { UsersModule } from './users/users.module';
 import { ServicesOfferModule } from './services-offer/services-offer.module';
 import { PatientsModule } from './patients/patients.module';
+import { AppointmentsModule } from './appointments/appointments.module';
 
 @NgModule({
   declarations: [
-    FeaturesComponent
+    FeaturesComponent,
   ],
   imports: [
     CommonModule,
@@ -21,7 +22,8 @@ import { PatientsModule } from './patients/patients.module';
     HomeModule,
     UsersModule,
     ServicesOfferModule,
-    PatientsModule
+    PatientsModule,
+    AppointmentsModule
   ],
   providers: [
   ]

@@ -1,20 +1,32 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+import { NewPatientComponent } from './pages/new-patient/new-patient.component';
+
 import { PatientsComponent } from './pages/patients/patients.component';
 
 import { CardsModule } from '@components/cards/cards.module';
 import { InputsModule } from '@components/inputs/inputs.module';
 import { DropdownsModule } from '@components/dropdowns/dropdowns.module';
 
+import { ComponentsModule } from './components/components.module';
+import { RecordComponent } from './pages/record/record.component';
+
+
 @NgModule({
   declarations: [
-    PatientsComponent
+    PatientsComponent,
+    NewPatientComponent,
+    RecordComponent
   ],
   imports: [
     CommonModule,
     InputsModule,
     CardsModule,
-    DropdownsModule
+    DropdownsModule,
+    ComponentsModule,
+    RouterModule
   ]
 })
 export class PatientsModule { }

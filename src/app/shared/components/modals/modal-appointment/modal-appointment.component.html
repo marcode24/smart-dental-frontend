@@ -1,0 +1,60 @@
+<div class="modal fade" id="modalDetailAppointment" tabindex="-1" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div *ngIf="appointment" class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title d-flex text-primary">
+          <i class="bx bx-detail me-1 font-30"></i>
+          Detalles de cita: #{{ appointment.id_appointment }}
+        </h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h1 class="text-center" [ngClass]="getColorStatus"> {{ getStatus }} </h1>
+        <div class="d-flex flex-column gap-2 flex-wrap my-3">
+          <h5><i class="bx bx-hash mx-2"></i>Paciente: {{ appointment.patient?.id_patient }}</h5>
+          <h5><i class="bx bxs-user mx-2"></i>{{ appointment.patient?.name }} {{ appointment.patient?.last_name }}</h5>
+          <h5><i class="bx bxs-home mx-2"></i>{{ getAddress }}</h5>
+          <h5><i class="bx bxs-phone mx-2"></i>{{ appointment.patient?.phone_number }}</h5>
+          <h5><i class="bx bxs-envelope mx-2"></i>{{ appointment.patient?.email }}</h5>
+        </div>
+        <hr>
+        <div class="m-2">
+          <h3> Servicios programados </h3>
+          <div class="table-responsive" *ngIf="appointment.records">
+            <table class="table align-middle table-hover">
+              <thead>
+                <tr>
+                  <th>Fecha de expedición</th>
+                  <th>Servicio</th>
+                  <th class="text-center">Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let record of appointment.records" style="height: 55px;">
+                  <td> {{ record.createdAt | date: 'short' }} </td>
+                  <td> {{ record.service_name }} </td>
+                  <td class="text-center">
+                    <span *ngIf="record.status === 'PENDING'"
+                      class="badge rounded-pill text-primary bg-light-primary p-2 text-uppercase px-3">Pendiente</span>
+                    <span *ngIf="record.status === 'PENDING_PAYMENT'"
+                      class="badge rounded-pill text-danger bg-light-danger p-2 text-uppercase px-3">Pago
+                      Pendiente</span>
+                    <span *ngIf="record.status === 'COMPLETED'"
+                      class="badge rounded-pill text-success bg-light-success p-2 text-uppercase px-3">Completado</span>
+                    <span *ngIf="record.status === 'CANCELLED'"
+                      class="badge rounded-pill text-danger bg-light-danger p-2 text-uppercase px-3">Cancelado</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class=" modal-footer">
+        <button type="button" class="btn btn-danger radius-30" data-bs-dismiss="modal">
+          <i class="bx bx-x"></i> Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

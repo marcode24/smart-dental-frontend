@@ -1,0 +1,55 @@
+<div class="table-responsive" *ngIf="records">
+  <table class="table align-middle table-hover">
+    <thead>
+      <tr>
+        <th>Fecha de expedición</th>
+        <th>Servicio</th>
+        <th>Fecha de realización</th>
+        <th class="text-center">Cantidad</th>
+        <th>$ Precio</th>
+        <th>$ Subtotal</th>
+        <th class="text-center">Estado</th>
+        <th class="text-end">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let record of records" style="height: 55px;">
+        <td> {{ record.createdAt | date: 'short' }} </td>
+        <td> {{ record.service_name }} </td>
+        <td> {{ record.realization_date | date: 'short' }} </td>
+        <td class="text-center"> {{ record.quantity }} </td>
+        <td> {{ record.price | currency: '$ ' }} </td>
+        <td> {{ record.quantity * record.price | currency: '$ ' }} </td>
+        <td class="text-center">
+          <span *ngIf="record.status === 'PENDING'"
+            class="badge rounded-pill text-primary bg-light-primary p-2 text-uppercase px-3">Pendiente</span>
+          <span *ngIf="record.status === 'PENDING_PAYMENT'"
+            class="badge rounded-pill text-danger bg-light-danger p-2 text-uppercase px-3">Pago Pendiente</span>
+          <span *ngIf="record.status === 'COMPLETED'"
+            class="badge rounded-pill text-success bg-light-success p-2 text-uppercase px-3">Completado</span>
+          <span *ngIf="record.status === 'CANCELLED'"
+            class="badge rounded-pill text-danger bg-light-danger p-2 text-uppercase px-3">Cancelado</span>
+        </td>
+        <td>
+          <div class="d-flex justify-content-end order-actions" *ngIf="isHome">
+            <a *ngIf="record.status === 'PENDING'" (click)="serviceDone(record.id_record)" class="cursor ms-2">
+              <i class="bx bx-check"></i>
+            </a>
+            <a *ngIf="record.status === 'PENDING'" (click)="serviceCancelled(record.id_record, record.service_name)"
+              class="cursor ms-2">
+              <i class="bx bx-block"></i>
+            </a>
+            <a *ngIf="record.status === 'PENDING_PAYMENT'" (click)="servicePaid(record.id_record)" class="cursor ms-2">
+              <i class="bx bx-dollar-circle"></i>
+            </a>
+          </div>
+          <div class="d-flex justify-content-end order-actions" *ngIf="!isHome">
+            <a class="cursor ms-2">
+              <i class="bx bx-time"></i>
+            </a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

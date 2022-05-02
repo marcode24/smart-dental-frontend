@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
-import { CookieService } from 'ngx-cookie-service';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { IResponseService } from '@interfaces/response.interface';
 
@@ -18,14 +17,15 @@ export class ServiceOfferService {
 
   public changeDataService: EventEmitter<boolean> = new EventEmitter<boolean>();
   public isNewService: EventEmitter<Service> = new EventEmitter<Service>();
+  public servicesActive: EventEmitter<Service[]> = new EventEmitter<Service[]>();
+  public servicesActiveOdontogram: EventEmitter<Service[]> = new EventEmitter<Service[]>();
 
   constructor(
     private http: HttpClient,
-    private cookieService: CookieService,
   ) { }
 
   get token(): string {
-    return this.cookieService.get('token');
+    return sessionStorage.getItem('token') || '';
   }
 
   get headers() {
@@ -39,6 +39,13 @@ export class ServiceOfferService {
   getServices(limit: number, offset: number, name?: string): Observable<IResponseService> {
     const url = `${base_url}/services?name=${name || ''}&limit=${limit}&offset=${offset}`;
     return this.http.get<IResponseService>(url, this.headers);
+  }
+
+  getServicesActive(odontogram: boolean = false): void {
+    const url = `${base_url}/services/all?odontogram=${odontogram}`;
+    this.http.get<IResponseService>(url, this.headers).subscribe(({ services }) => {
+      (!odontogram) ? this.servicesActive.emit(services) : this.servicesActiveOdontogram.emit(services);
+    });
   }
 
   changeStatus(idService: string | undefined, status: boolean): Observable<Service> {
