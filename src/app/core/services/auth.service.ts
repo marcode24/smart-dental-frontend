@@ -7,6 +7,7 @@ import { catchError, map, Observable, of, tap } from "rxjs";
 import { User } from "@models/user.model";
 
 import { ILogin } from "@interfaces/login.interface";
+import { Router } from "@angular/router";
 
 const base_url = environment.base_url;
 
@@ -19,7 +20,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private router: Router
   ) { }
 
   get token(): string {
@@ -76,6 +78,11 @@ export class AuthService {
       if(resp.valid) this.saveCookies('code', code);
       return resp.valid
     }));
+  }
+
+  logout() {
+    this.cookieService.delete('token');
+    this.router.navigate(['/login']);
   }
 
 }
