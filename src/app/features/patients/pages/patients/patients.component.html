@@ -63,7 +63,8 @@
                     <a *ngIf="patient.status" class="cursor">
                       <i class="bx bx-block"></i>
                     </a>
-                    <a href="javascript:;" class="ms-2"><i class="bx bx-id-card"></i></a>
+                    <a routerLink="/patients/patient/{{patient.id_patient}}/record" class="ms-2"><i
+                        class="bx bx-id-card"></i></a>
                   </div>
                 </td>
               </tr>

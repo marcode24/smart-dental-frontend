@@ -43,7 +43,7 @@ export class AuthService {
 
   login(data: ILogin): Observable<any> {
     const url = `${base_url}/auth/login`;
-    return this.http.post(url, data).pipe(tap((resp: any) => {
+    return this.http.post(url, data).pipe(map((resp: any) => {
       Storage.saveSessionStorage('token', resp.access_token);
     }));
   }
