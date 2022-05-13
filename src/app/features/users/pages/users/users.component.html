@@ -68,6 +68,8 @@
               </tr>
             </tbody>
           </table>
+          <app-pagination *ngIf="totalUsers > 0" [limit]="limit" [total]="totalUsers"
+            (changedOffset)="changePage($event)"></app-pagination>
         </div>
       </div>
     </div>

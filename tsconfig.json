@@ -16,6 +16,7 @@
       "@components/dropdowns/*": [ "app/shared/components/dropdowns/*" ],
       "@components/tables/*": [ "app/shared/components/tables/*" ],
       "@components/modals/*": [ "app/shared/components/modals/*" ],
+      "@components/paginations/*": [ "app/shared/components/paginations/*" ],
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

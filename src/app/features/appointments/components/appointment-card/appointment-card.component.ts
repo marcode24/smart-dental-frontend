@@ -26,7 +26,7 @@ export class AppointmentCardComponent implements OnInit, OnChanges {
 
   buildFullName(appoinment: Appointment) {
     const { patient } = appoinment;
-    return `${appoinment.id_user} - ${patient?.name} ${patient?.last_name}`;
+    return `${appoinment.id_patient} - ${patient?.name} ${patient?.last_name}`;
   }
 
 }

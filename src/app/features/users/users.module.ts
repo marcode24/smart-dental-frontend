@@ -9,6 +9,7 @@ import { CardsModule } from '@components/cards/cards.module';
 import { InputsModule } from '@components/inputs/inputs.module';
 import { DropdownsModule } from '@components/dropdowns/dropdowns.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PaginationsModule } from '@components/paginations/paginations.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CardsModule,
     InputsModule,
     DropdownsModule,
+    PaginationsModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule

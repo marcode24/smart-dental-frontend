@@ -28,7 +28,7 @@ export class CodeComponent implements OnInit {
     if(this.codeForm.valid) {
       this.authService.validateCode(this.codeForm.get('code')?.value).subscribe((valid: boolean) => {
         if(!valid) {
-          return Swal.fire('Código no válido', 'Verifique si esta bien escrito', 'error');
+          return Swal.fire('Código inválido', 'Verifique si esta bien escrito', 'error');
         }
         this.router.navigate(['/register']);
       })
@@ -50,6 +50,10 @@ export class CodeComponent implements OnInit {
 
   changeLabelColor(field: string, error: string): string {
     return this.validateForm(field)?'text-danger':(this.validateField(field,error))?'':'text-success';
+  }
+
+  backToLogin() {
+    this.router.navigate(['/login']);
   }
 
 }

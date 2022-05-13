@@ -67,5 +67,8 @@ export class RegisterComponent implements OnInit {
     return (this.registerForm.get(field)?.hasError(error));
   }
 
+  backToLogin() {
+    this.router.navigate(['/login']);
+  }
 
 }

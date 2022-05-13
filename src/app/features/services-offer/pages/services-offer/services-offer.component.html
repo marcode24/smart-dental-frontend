@@ -29,6 +29,7 @@
                 <th># Servicio</th>
                 <th>Nombre de servicio</th>
                 <th>$ Precio</th>
+                <th class="text-center">Incluido en odontograma</th>
                 <th class="text-center">Estado</th>
                 <th class="text-end">Acciones</th>
               </tr>
@@ -39,10 +40,14 @@
                 <td> {{ service.name }} </td>
                 <td> {{ service.price | currency: '$' }} </td>
                 <td class="text-center">
+                  <i *ngIf="service.odontogram" class="bx bx-check font-30 text-success"></i>
+                  <i *ngIf="!service.odontogram" class="bx bx-x font-30 text-danger"></i>
+                </td>
+                <td class="text-center">
                   <span *ngIf="service.status"
                     class="badge rounded-pill text-success bg-light-success p-2 text-uppercase px-3">Activo</span>
                   <span *ngIf="!service.status"
-                    class="badge rounded-pill text-danger bg-light-danger p-2 text-uppercase px-3">Suspendido</span>
+                    class="badge rounded-pill text-danger bg-light-danger p-2 text-uppercase px-3">Inactivo</span>
                 </td>
                 <td>
                   <div class="d-flex justify-content-end order-actions">

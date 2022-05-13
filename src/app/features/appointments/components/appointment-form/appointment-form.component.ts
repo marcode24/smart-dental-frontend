@@ -79,7 +79,7 @@ export class AppointmentFormComponent implements OnInit {
       let [year, month, day] = date.split('-');
       let [hours, minutes] = time.split(':');
       const newAppointment: ICreateAppointment = {
-        id_patient: Number(this.patientTemp.id_user),
+        id_patient: Number(this.patientTemp.id_patient),
         date: new Date(+year,+month-1, +day, +hours, +minutes).toISOString(),
         description: this.appointmentForm.get('description')?.value,
         id_record: this.id_records,

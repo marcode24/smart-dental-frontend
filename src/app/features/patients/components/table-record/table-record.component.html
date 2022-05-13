@@ -4,7 +4,6 @@
       <tr>
         <th>Fecha de expedición</th>
         <th>Servicio</th>
-        <th>Fecha de realización</th>
         <th class="text-center">Cantidad</th>
         <th>$ Precio</th>
         <th>$ Subtotal</th>
@@ -16,7 +15,6 @@
       <tr *ngFor="let record of records" style="height: 55px;">
         <td> {{ record.createdAt | date: 'short' }} </td>
         <td> {{ record.service_name }} </td>
-        <td> {{ record.realization_date | date: 'short' }} </td>
         <td class="text-center"> {{ record.quantity }} </td>
         <td> {{ record.price | currency: '$ ' }} </td>
         <td> {{ record.quantity * record.price | currency: '$ ' }} </td>

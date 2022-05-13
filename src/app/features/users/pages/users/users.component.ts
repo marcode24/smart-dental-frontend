@@ -21,11 +21,10 @@ export class UsersComponent implements OnInit {
     { title: 'Administradores', quantity: 0, icon: 'bx-shield-quarter', color: 'danger'},
     { title: 'Dentistas', quantity: 0, icon: 'bx-user', color: 'info'}
   ]
-
-  private limit: number = 5;
+  public limit: number = 5;
   private offset: number = 0;
   private findUserByName: string = '';
-
+  public totalUsers: number = 0;
   public users: User[];
 
   constructor(
@@ -40,7 +39,8 @@ export class UsersComponent implements OnInit {
   getUsers() {
     this.userService.getUsers(this.limit, this.offset, this.findUserByName).subscribe(({ users, totalAdmin, totalUser }) => {
       this.users = users;
-      this.cardsIconData[0].quantity = totalAdmin + totalUser;
+      this.totalUsers = totalAdmin + totalUser;
+      this.cardsIconData[0].quantity = this.totalUsers;
       this.cardsIconData[1].quantity = totalAdmin;
       this.cardsIconData[2].quantity = totalUser;
     })
@@ -53,9 +53,14 @@ export class UsersComponent implements OnInit {
 
   changeLimit(limit: number) {
     this.limit = limit;
+    this.offset = 0;
     this.getUsers();
   }
 
+  changePage(value: number) {
+    this.offset = value;
+    this.getUsers();
+  }
 
   changeStatus(fullname:string, idUser: number | undefined) {
     if(idUser === this.authService.userActive.id_user) {
