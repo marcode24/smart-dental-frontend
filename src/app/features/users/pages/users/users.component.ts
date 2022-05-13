@@ -26,6 +26,7 @@ export class UsersComponent implements OnInit {
   private findUserByName: string = '';
   public totalUsers: number = 0;
   public users: User[];
+  public showPagination: boolean = true;
 
   constructor(
     private userService: UserService,
@@ -38,6 +39,7 @@ export class UsersComponent implements OnInit {
 
   getUsers() {
     this.userService.getUsers(this.limit, this.offset, this.findUserByName).subscribe(({ users, totalAdmin, totalUser }) => {
+      this.showPagination = (this.findUserByName.length > 0) ? false : true;
       this.users = users;
       this.totalUsers = totalAdmin + totalUser;
       this.cardsIconData[0].quantity = this.totalUsers;
@@ -47,6 +49,7 @@ export class UsersComponent implements OnInit {
   }
 
   findByFullname(fullname: string) {
+    this.showPagination = false;
     this.findUserByName = fullname;
     this.getUsers();
   }
@@ -78,7 +81,7 @@ export class UsersComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.userService.changeStatus(idUser?.toString(), false).subscribe({
-          next:() => {
+          next: () => {
             this.getUsers();
           },
           error: (e) => {
