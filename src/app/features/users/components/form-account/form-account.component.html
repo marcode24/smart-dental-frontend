@@ -1,0 +1,69 @@
+<div class="card border-top border-0 border-4 border-primary">
+  <div class="card-body p-5">
+    <div class="card-title d-flex align-items-center gap-2">
+      <div>
+        <i class="bx bx-cog me-1 font-30 text-primary"></i>
+      </div>
+      <h3 class="mb-0 text-primary">Configuración de Cuenta</h3>
+    </div>
+    <hr class=my-2>
+    <form [formGroup]="accountForm" (submit)="createAccount()" class="row g-3 my-1">
+      <div class="col-12 my-2 d-flex justify-content-between align-center">
+        <div class="d-flex flex-column" style="width: 50%;">
+          <div class="col-12 my-2  ">
+            <label class="form-label">Cargo</label>
+            <select class="form-select" formControlName="role" (change)="changeBgColorImage($event)">
+              <option value="DENTIST">Dentista</option>
+              <option value="ADMIN">Administrador</option>
+            </select>
+            <div *ngIf="validateAccountForm('role')" class="message-error">
+              <span *ngIf="validateAccountField('role', 'required')" class="text-danger">campo requerido</span>
+            </div>
+          </div>
+          <div class="col-12 my-2 ">
+            <label for="inputUsername" class="form-label">Usuario</label>
+            <input formControlName="username" type="text" class="form-control" id="inputUsername">
+            <div *ngIf="validateAccountForm('username')" class="message-error">
+              <span *ngIf="validateAccountField('username', 'required')" class="text-danger">campo requerido</span>
+              <span *ngIf="validateAccountField('username', 'maxlength')" class="text-danger">máximo 24
+                caracteres</span>
+              <span *ngIf="validateAccountField('username', 'minlength')" class="text-danger">mínimo 5
+                caracteres</span>
+            </div>
+          </div>
+          <div class="col-12 my-2  ">
+            <label for="inputPassword" class="form-label">Password</label>
+            <input formControlName="password" type="password" class="form-control" id="inputPassword">
+            <div *ngIf="validateAccountForm('password')" class="message-error">
+              <span *ngIf="validateAccountField('password', 'required')" class="text-danger">campo requerido</span>
+              <span *ngIf="validateAccountField('password', 'minlength')" class="text-danger">mínimo 5
+                caracteres</span>
+            </div>
+          </div>
+          <div class="col-12 my-2  ">
+            <label for="inputConfirmPassword" class="form-label">Confirmar
+              Password</label>
+            <input formControlName="password2" type="password" class="form-control" id="inputConfirmPassword">
+            <div *ngIf="validateAccountForm('password2')" class="message-error">
+              <span *ngIf="validateAccountField('password2', 'matching')" class="text-danger">Password debe ser
+                igual</span>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center align-items-center" style="width: 50%;">
+          <img [src]="imageUserTemp" alt="Admin" class="rounded-circle p-1" [ngClass]="'bg-'+bgColorImageUser"
+            style="width: 80%;">
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end align-items-center gap-2">
+        <button (click)="backToGeneralInfo()" type="button" class="btn btn-danger radius-10">
+          <i class="bx bx-left-arrow-alt"></i>Regresar
+        </button>
+        <button type="submit" [disabled]="accountForm.invalid" class="btn btn-primary radius-10">
+          <i class="bx bx-save"></i>Guardar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

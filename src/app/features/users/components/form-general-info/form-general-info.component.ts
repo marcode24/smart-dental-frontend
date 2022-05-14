@@ -11,38 +11,62 @@ import { User } from '@models/user.model';
 export class FormGeneralInfoComponent implements OnInit {
   @Input() userActive: User;
   @Output() userInfo: EventEmitter<User> = new EventEmitter();
-  public generalInfoForm: FormGroup;
+  @Input() isNew: boolean = true;
+  private generalInfo: User;
+  public generalInfoForm: FormGroup = this.fb.group({
+    name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+    last_name: ['', [Validators.required,Validators.minLength(2),Validators.maxLength(20)]],
+    date_birth: ['', [Validators.required,Validators.minLength(5),Validators.maxLength(20)]],
+    gender: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.email, Validators.minLength(10)]],
+    phone_number: ['', [Validators.required, Validators.maxLength(12)]],
+    street: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+    cp: ['', [Validators.required, Validators.maxLength(5), Validators.minLength(5)]],
+    city: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+    country: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+  });
 
   constructor(
     private fb: FormBuilder,
-  ) { }
+    ) {}
 
   ngOnInit(): void {
-    this.loadForm();
+    this.isNew ? this.setInfoUserTemp() : this.setInfoUserActive();
   }
 
-  loadForm(){
-    this.generalInfoForm = this.fb.group({
-      name: [this.userActive.name || '', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
-      last_name: [this.userActive.last_name || '', [Validators.required,Validators.minLength(2),Validators.maxLength(20)]],
-      date_birth: [new Date(this.userActive.date_birth).toISOString().split('T')[0] || '', [Validators.required,Validators.minLength(5),Validators.maxLength(20)]],
-      gender: [this.userActive.gender || '', [Validators.required]],
-      email: [this.userActive.email || '', [Validators.required, Validators.email, Validators.minLength(10)]],
-      phone_number: [this.userActive.phone_number || '', [Validators.required, Validators.maxLength(12)]],
-      street: [this.userActive.street || '', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-      cp: [this.userActive.cp || '', [Validators.required, Validators.maxLength(5), Validators.minLength(5)]],
-      city: [this.userActive.city || '', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-      country: [this.userActive.country || '', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-    });
+  setValuesToForm(values: User) {
+    this.generalInfoForm.get('name')?.setValue(values.name);
+    this.generalInfoForm.get('last_name')?.setValue(values.last_name);
+    this.generalInfoForm.get('date_birth')?.setValue((this.isNew) ? values.date_birth : new Date(values.date_birth).toISOString().split('T')[0]);
+    this.generalInfoForm.get('gender')?.setValue(values.gender);
+    this.generalInfoForm.get('email')?.setValue(values.email);
+    this.generalInfoForm.get('phone_number')?.setValue(values.phone_number);
+    this.generalInfoForm.get('street')?.setValue(values.street);
+    this.generalInfoForm.get('cp')?.setValue(values.cp);
+    this.generalInfoForm.get('city')?.setValue(values.city);
+    this.generalInfoForm.get('country')?.setValue(values.country);
+  }
+
+  setInfoUserActive() {
+    this.setValuesToForm(this.userActive);
+  }
+
+  setInfoUserTemp() {
+    const data: any = localStorage.getItem('userTemp');
+    const user: User = JSON.parse(data);
+    this.setValuesToForm(user);
   }
 
   saveUserInfo() {
-    const generalInfo: User = {
-      ...this.generalInfoForm.value,
-      cp: Number(this.generalInfoForm.get('cp')?.value),
-      phone_number: Number(this.generalInfoForm.get('phone_number')?.value),
-    };
-    this.userInfo.emit(generalInfo);
+    if(this.generalInfoForm.valid) {
+      this.generalInfo = {
+        ...this.generalInfoForm.value,
+        cp: Number(this.generalInfoForm.get('cp')?.value),
+        phone_number: Number(this.generalInfoForm.get('phone_number')?.value),
+      };
+      localStorage.setItem('userTemp', JSON.stringify(this.generalInfo));
+      this.userInfo.emit(this.generalInfo);
+    }
   }
 
   validateForm(field: string): boolean | undefined | null {

@@ -3,7 +3,8 @@
     <app-card-detail *ngIf="userActive" [userActive]="userActive" (newStatus)="changeStatus($event)"></app-card-detail>
   </div>
   <div class="col-8">
-    <app-form-general-info *ngIf="userActive" [userActive]="userActive" (userInfo)="updateUserInfo($event)">
+    <app-form-general-info *ngIf="userActive" [isNew]="false" [userActive]="userActive"
+      (userInfo)="updateUserInfo($event)">
     </app-form-general-info>
   </div>
 </div>

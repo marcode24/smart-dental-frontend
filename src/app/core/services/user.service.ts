@@ -41,8 +41,7 @@ export class UserService {
     };
   }
 
-  createUser(data: User, role: Roles, fromAuth: boolean = false) {
-    data.role = role;
+  createUser(data: User, fromAuth: boolean = false) {
     data.image = (data.gender === 'male') ? Gender.MALE : (data.gender === 'female') ? Gender.FEMALE: Gender.OTHER;
     const url = `${base_url}/users`;
     return this.http.post(url, data, {}).pipe(map((resp: any) => {
@@ -57,6 +56,7 @@ export class UserService {
         return this.router.navigate(['/']);
       }
       Swal.fire('Usuario creado correctamente', '', 'success');
+      localStorage.removeItem('userTemp');
       return this.router.navigate(['/users']);
     }))
   }
