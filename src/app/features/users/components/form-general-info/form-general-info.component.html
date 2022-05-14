@@ -1,0 +1,124 @@
+<div class="card radius border-top border-0 border-4 border-primary">
+  <div class="card-body p-5">
+    <div class="card-title d-flex align-items-center gap-2">
+      <i class="bx bx-user me-1 font-30 text-primary"></i>
+      <h3 class="mb-0 text-primary">Información General</h3>
+    </div>
+    <hr class=my-2>
+    <form [formGroup]="generalInfoForm" (submit)="saveUserInfo()" class="row g-3 my-1">
+      <div class="col-6 my-2">
+        <label for="inputName" class="form-label">Nombre</label>
+        <input formControlName="name" type="text" class="form-control radius-10" id="inputName">
+        <div *ngIf="validateForm('name')" class="message-error">
+          <span *ngIf="validateField('name', 'required')" class="text-danger">campo requerido</span>
+          <span *ngIf="validateField('name', 'maxlength')" class="text-danger">máximo 20 caracteres</span>
+          <span *ngIf="validateField('name', 'minlength')" class="text-danger">mínimo 2 caracteres</span>
+        </div>
+      </div>
+      <div class="col-6 my-2">
+        <label for="inputLastName" class="form-label">Apellido</label>
+        <input formControlName="last_name" type="text" class="form-control radius-10" id="inputLastName">
+        <div *ngIf="validateForm('last_name')" class="message-error">
+          <span *ngIf="validateField('last_name', 'required')" class="text-danger">campo requerido</span>
+          <span *ngIf="validateField('last_name', 'maxlength')" class="text-danger">máximo 20
+            caracteres</span>
+          <span *ngIf="validateField('last_name', 'minlength')" class="text-danger">mínimo 2
+            caracteres</span>
+        </div>
+      </div>
+      <div class="col-6 my-2">
+        <label for="inputDateBirth" class="form-label">Fecha de Nacimiento</label>
+        <input formControlName="date_birth" type="date" class="form-control radius-10" id="inputDateBirth">
+        <div *ngIf="validateForm('date_birth')" class="message-error">
+          <span *ngIf="validateField('date_birth', 'required')" class="text-danger">campo requerido</span>
+        </div>
+      </div>
+      <div class="col-6 my-2">
+        <label class="form-label">Sexo</label>
+        <select class="form-select radius-10" formControlName="gender">
+          <option value="" selected>Seleccione una opción</option>
+          <option value="male">Hombre</option>
+          <option value="female">Mujer</option>
+          <option value="other">Otro</option>
+        </select>
+        <div *ngIf="validateForm('gender')" class="message-error">
+          <span *ngIf="validateField('gender', 'required')" class="text-danger">campo requerido</span>
+        </div>
+      </div>
+      <div class="col-6 my-2">
+        <label for="inputEmail" class="form-label">Email</label>
+        <input formControlName="email" type="email" class="form-control radius-10" id="inputEmail">
+        <div *ngIf="validateForm('email')" class="message-error">
+          <span *ngIf="validateField('email', 'required')" class="text-danger">campo requerido</span>
+          <span *ngIf="validateField('email', 'email')" class="text-danger">Debe ser un email
+            correcto</span>
+        </div>
+      </div>
+      <div class="col-6 my-2">
+        <label for="inputPhoneNumber" class="form-label">Teléfono</label>
+        <input formControlName="phone_number" type="tel" class="form-control radius-10" id="inputPhoneNumber">
+        <div *ngIf="validateForm('phone_number')" class="message-error">
+          <span *ngIf="validateField('phone_number', 'required')" class="text-danger">campo
+            requerido</span>
+          <span *ngIf="validateField('phone_number', 'maxlength')" class="text-danger">máximo 12
+            números</span>
+        </div>
+      </div>
+      <div class="card-title d-flex align-items-center m-0 mt-3 gap-2">
+        <i class="bx bx-home me-1 font-30 text-primary"></i>
+        <h4 class="mb-0 text-primary">Dirección</h4>
+      </div>
+      <hr class=my-2>
+      <div class="col-6 my-2">
+        <label for="inputStreet" class="form-label">Calle y Número</label>
+        <input formControlName="street" type="text" class="form-control radius-10" id="inputStreet">
+        <div *ngIf="validateForm('street')" class="message-error">
+          <span *ngIf="validateField('street', 'required')" class="text-danger">campo requerido</span>
+          <span *ngIf="validateField('street', 'maxlength')" class="text-danger">máximo 50
+            caracteres</span>
+          <span *ngIf="validateField('street', 'minlength')" class="text-danger">mínimo 2
+            caracteres</span>
+        </div>
+      </div>
+      <div class="col-6 my-2">
+        <label for="inputCP" class="form-label">CP</label>
+        <input formControlName="cp" type="text" class="form-control radius-10" id="inputCP">
+        <div *ngIf="validateForm('cp')" class="message-error">
+          <span *ngIf="validateField('cp', 'required')" class="text-danger">campo requerido</span>
+          <span *ngIf="validateField('cp', 'maxlength')" class="text-danger">máximo 5
+            caracteres</span>
+          <span *ngIf="validateField('cp', 'minlength')" class="text-danger">mínimo 5
+            caracteres</span>
+        </div>
+      </div>
+      <div class="col-6 my-2">
+        <label for="inputCity" class="form-label">Ciudad</label>
+        <input formControlName="city" type="text" class="form-control radius-10" id="inputCity">
+        <div *ngIf="validateForm('city')" class="message-error">
+          <span *ngIf="validateField('city', 'required')" class="text-danger">campo requerido</span>
+          <span *ngIf="validateField('city', 'maxlength')" class="text-danger">máximo 50
+            caracteres</span>
+          <span *ngIf="validateField('city', 'minlength')" class="text-danger">mínimo 2
+            caracteres</span>
+        </div>
+      </div>
+      <div class="col-6 my-2">
+        <label for="inputCountry" class="form-label">País</label>
+        <input formControlName="country" type="text" class="form-control radius-10" id="inputCountry">
+        <div *ngIf="validateForm('country')" class="message-error">
+          <span *ngIf="validateField('country', 'required')" class="text-danger">campo requerido</span>
+          <span *ngIf="validateField('country', 'maxlength')" class="text-danger">máximo 50
+            caracteres</span>
+          <span *ngIf="validateField('country', 'minlength')" class="text-danger">mínimo 2
+            caracteres</span>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end align-center">
+        <button type="submit" [disabled]="generalInfoForm.invalid" *ngIf="userActive.status"
+          class="btn btn-primary radius-10 ">
+          <i class="bx bx-save"></i>Guardar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

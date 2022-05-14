@@ -10,7 +10,7 @@ import { Roles } from '@enums/role.enum';
 
 import { User } from '@models/user.model';
 
-import { IResponseUser } from '@interfaces/response.interface';
+import { IResponseUser, IResponseUsers } from '@interfaces/response.interface';
 
 import Storage from '@utils/storage.util';
 
@@ -63,12 +63,22 @@ export class UserService {
 
   getUsers(limit: number, offset: number, fullname?: string) {
     const url = `${base_url}/users?fullname=${fullname || ''}&limit=${limit}&offset=${offset}`;
-    return this.http.get<IResponseUser>(url, this.headers);
+    return this.http.get<IResponseUsers>(url, this.headers);
   }
 
   changeStatus(idUser: string | undefined, status: boolean): Observable<number> {
     const url = `${base_url}/users/${idUser}`;
     return this.http.patch<number>(url, { status }, this.headers );
+  }
+
+  getUserByID(userID: number) {
+    const url = `${base_url}/users/${userID}`;
+    return this.http.get<IResponseUser>(url, this.headers);
+  }
+
+  updateUser(userId: number | undefined, data: User): Observable<Array<Number>> {
+    const url = `${base_url}/users/${userId}`;
+    return this.http.put<number[]>(url, data, this.headers);
   }
 
 }

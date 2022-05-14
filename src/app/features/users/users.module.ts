@@ -10,11 +10,14 @@ import { InputsModule } from '@components/inputs/inputs.module';
 import { DropdownsModule } from '@components/dropdowns/dropdowns.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationsModule } from '@components/paginations/paginations.module';
+import { UserDetailComponent } from './pages/user-detail/user-detail.component';
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
   declarations: [
     UserFormComponent,
     UsersComponent,
+    UserDetailComponent,
   ],
   imports: [
     CommonModule,
@@ -24,7 +27,8 @@ import { PaginationsModule } from '@components/paginations/paginations.module';
     PaginationsModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ComponentsModule
   ],
 })
 export class UsersModule { }
