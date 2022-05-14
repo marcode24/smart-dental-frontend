@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
 import { User } from '@models/user.model';
 
 @Component({
@@ -16,10 +18,10 @@ export class FormGeneralInfoComponent implements OnInit {
   public generalInfoForm: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
     last_name: ['', [Validators.required,Validators.minLength(2),Validators.maxLength(20)]],
-    date_birth: ['', [Validators.required,Validators.minLength(5),Validators.maxLength(20)]],
+    date_birth: ['', Validators.required],
     gender: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email, Validators.minLength(10)]],
-    phone_number: ['', [Validators.required, Validators.maxLength(12)]],
+    phone_number: ['', [Validators.required, Validators.maxLength(12), Validators.minLength(10)]],
     street: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
     cp: ['', [Validators.required, Validators.maxLength(5), Validators.minLength(5)]],
     city: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
@@ -28,6 +30,7 @@ export class FormGeneralInfoComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     ) {}
 
   ngOnInit(): void {
@@ -54,7 +57,12 @@ export class FormGeneralInfoComponent implements OnInit {
   setInfoUserTemp() {
     const data: any = localStorage.getItem('userTemp');
     const user: User = JSON.parse(data);
-    this.setValuesToForm(user);
+    if(!user){
+      this.generalInfoForm.reset();
+      this.generalInfoForm.get('gender')?.setValue('');
+    } else {
+      this.setValuesToForm(user);
+    }
   }
 
   saveUserInfo() {
@@ -76,6 +84,11 @@ export class FormGeneralInfoComponent implements OnInit {
 
   validateField(field: string, error: string): boolean | undefined | null {
     return (this.generalInfoForm.get(field)?.hasError(error));
+  }
+
+  cancelCreateUser() {
+    localStorage.removeItem('userTemp');
+    this.router.navigate(['/users']);
   }
 
 }

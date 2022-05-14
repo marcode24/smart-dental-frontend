@@ -17,7 +17,6 @@ import { FormAccountComponent } from './form-account/form-account.component';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterModule
   ],
   exports: [
     FormGeneralInfoComponent,

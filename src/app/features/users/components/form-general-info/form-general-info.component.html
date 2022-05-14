@@ -62,6 +62,8 @@
             requerido</span>
           <span *ngIf="validateField('phone_number', 'maxlength')" class="text-danger">máximo 12
             números</span>
+          <span *ngIf="validateField('phone_number', 'minlength')" class="text-danger">mínimo 10
+            números</span>
         </div>
       </div>
       <div class="card-title d-flex align-items-center m-0 mt-3 gap-2">
@@ -120,7 +122,7 @@
         </button>
       </div>
       <div *ngIf="isNew" class="d-flex justify-content-end align-center gap-2">
-        <button type="button" routerLink="/users" class="btn btn-danger radius-10">
+        <button type="button" (click)="cancelCreateUser()" class="btn btn-danger radius-10">
           <i class="bx bx-block"></i> Cancelar
         </button>
         <button type="submit" [disabled]="generalInfoForm.invalid" class="btn btn-primary radius-10 ">
