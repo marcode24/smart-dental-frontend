@@ -39,14 +39,12 @@ export class PatientService {
   getPatients(options: IOptionsSearch): Observable<IResponsePatient> {
     const { fullname, limit, offset} = options;
     const url = `${base_url}/patients?name=${fullname || ''}&limit=${limit}&offset=${offset}`;
-    console.log('entro a all');
     return this.http.get<IResponsePatient>(url, this.headers);
   }
 
   getPatientsByUser(options: IOptionsSearch, userId: number) {
     const { fullname, limit, offset} = options;
     const url = `${base_url}/patients/${userId}?name=${fullname || ''}&limit=${limit}&offset=${offset}`;
-    console.log('entro a by user');
     return this.http.get<IResponsePatient>(url, this.headers);
   }
 

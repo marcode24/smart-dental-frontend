@@ -30,9 +30,10 @@ export class PatientsComponent implements OnInit {
   }
 
   private allPatients: boolean = false;
-
   public patients: Patient[];
   public userRole: string;
+  public totalPatients: number = 0;
+  public showPagination: boolean = true;
 
   constructor(
     private patientService: PatientService,
@@ -47,7 +48,6 @@ export class PatientsComponent implements OnInit {
 
   changeOptionGet(event: any) {
     this.allPatients = JSON.parse(event.target.value);
-    console.log(this.allPatients);
     const patientStr = 'Pacientes';
     this.cardsIconData[0].title = (this.allPatients) ? patientStr: `Mis ${patientStr}`;
     this.getPatients();
@@ -63,19 +63,31 @@ export class PatientsComponent implements OnInit {
 
   setData(resp: IResponsePatient) {
     const { patients, totalActive, totalInactive } = resp;
+    this.showPagination = this.optionsSearch.fullname && this.optionsSearch.fullname.length > 0 ? false : true;
     this.patients = patients;
-    this.cardsIconData[0].quantity = totalActive + totalInactive;
+    this.totalPatients = totalActive + totalInactive;
+    this.cardsIconData[0].quantity = this.totalPatients;
     this.cardsIconData[1].quantity = totalActive;
     this.cardsIconData[2].quantity = totalInactive;
   }
 
   findByFullname(fullname: string) {
+    this.showPagination = false;
     this.optionsSearch.fullname = fullname;
     this.getPatients();
   }
 
   changeLimit(limit: number) {
     this.optionsSearch.limit = limit;
+    this.getPatients();
+  }
+
+  get getLimitPagination(): number {
+    return this.optionsSearch.limit;
+  }
+
+  changePage(value: number) {
+    this.optionsSearch.offset = value;
     this.getPatients();
   }
 

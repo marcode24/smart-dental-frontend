@@ -6,19 +6,19 @@
 
 <div class="row">
   <div class="col-lg-12">
-    <div class="card">
+    <div class="card radius-10">
       <div class="card-body">
         <div class="d-flex align-items-center justify-content-between flex-wrap w-100 mb-3">
           <h2 class="mb-0 ">
             Pacientes
           </h2>
           <div class="d-flex justify-content-end align-items-center gap-2">
-            <select *ngIf="userRole === 'ADMIN'" class="form-select" (change)="changeOptionGet($event)"
+            <select *ngIf="userRole === 'ADMIN'" class="form-select radius-10" (change)="changeOptionGet($event)"
               style="width: 40%;">
               <option value=false>Mis pacientes</option>
               <option value=true>Todos</option>
             </select>
-            <button type="button" routerLink="/patients/new" class="btn btn-outline-primary px-3 radius-30">
+            <button type="button" routerLink="/patients/new" class="btn btn-outline-primary px-3 radius-10">
               <i class="bx bx-plus mr-1"></i>Nuevo Paciente
             </button>
           </div>
@@ -60,16 +60,18 @@
                 </td>
                 <td>
                   <div class="d-flex justify-content-end order-actions">
-                    <a *ngIf="patient.status" class="cursor">
+                    <a *ngIf="patient.status" class="cursor text-danger bg-light-danger">
                       <i class="bx bx-block"></i>
                     </a>
-                    <a routerLink="/patients/patient/{{patient.id_patient}}/record" class="ms-2"><i
-                        class="bx bx-id-card"></i></a>
+                    <a routerLink="/patients/patient/{{patient.id_patient}}/record"
+                      class="ms-2 text-primary bg-light-primary"><i class="bx bx-id-card"></i></a>
                   </div>
                 </td>
               </tr>
             </tbody>
           </table>
+          <app-pagination *ngIf="totalPatients > 0 && showPagination" [limit]="getLimitPagination"
+            [total]="totalPatients" (changedOffset)="changePage($event)"></app-pagination>
         </div>
       </div>
     </div>
