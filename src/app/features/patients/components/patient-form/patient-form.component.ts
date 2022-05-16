@@ -1,11 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
-import { AuthService } from '@services/auth.service';
-
 import { Patient } from '@models/patient.model';
-
-import { GenderPatient } from '@enums/gender.enum';
 
 @Component({
   selector: 'app-patient-form',
@@ -14,8 +10,9 @@ import { GenderPatient } from '@enums/gender.enum';
   ]
 })
 export class PatientFormComponent implements OnInit {
-
+  @Input() patientActive: Patient;
   @Output() patient: EventEmitter<Patient> = new EventEmitter<Patient>();
+  @Input() isNew: boolean = true;
 
   public patientForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
@@ -38,21 +35,37 @@ export class PatientFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private readonly authService: AuthService,
   ) { }
 
   ngOnInit(): void {
+    !this.isNew ? this.setValuesToForm(this.patientActive) : '';
+  }
+
+  setValuesToForm(values: Patient) {
+    this.patientForm.get('name')?.setValue(values.name);
+    this.patientForm.get('last_name')?.setValue(values.last_name);
+    this.patientForm.get('date_birth')?.setValue(new Date(values.date_birth).toISOString().split('T')[0]);
+    this.patientForm.get('gender')?.setValue(values.gender);
+    this.patientForm.get('email')?.setValue(values.email);
+    this.patientForm.get('phone_number')?.setValue(values.phone_number);
+    this.patientForm.get('street')?.setValue(values.street);
+    this.patientForm.get('cp')?.setValue(values.cp);
+    this.patientForm.get('city')?.setValue(values.city);
+    this.patientForm.get('country')?.setValue(values.country);
+    this.patientForm.get('f_name')?.setValue(values.familiar.familiar_name);
+    this.patientForm.get('f_last_name')?.setValue(values.familiar.familiar_last_name);
+    this.patientForm.get('relationship')?.setValue(values.familiar.relationship);
+    this.patientForm.get('f_gender')?.setValue(values.familiar.familiar_gender);
+    this.patientForm.get('f_email')?.setValue(values.familiar.familiar_email);
+    this.patientForm.get('f_phone_number')?.setValue(values.familiar.familiar_phone_number);
   }
 
   savePatient() {
     if(this.patientForm.valid) {
-      const genderSelected = this.patientForm.get('gender')?.value;
       const newPatient: Patient = {
         ...this.patientForm.value,
-        id_user: this.authService.userActive.id_user,
         cp: Number(this.patientForm.get('cp')?.value),
         phone_number: Number(this.patientForm.get('phone_number')?.value),
-        image: (genderSelected === 'female') ? GenderPatient.FEMALE : (genderSelected === 'male') ? GenderPatient.MALE : GenderPatient.OTHER,
         familiar: {
           familiar_name: this.patientForm.get('f_name')?.value,
           familiar_last_name: this.patientForm.get('f_last_name')?.value,
@@ -74,6 +87,5 @@ export class PatientFormComponent implements OnInit {
   validateField(field: string, error: string): boolean | undefined | null {
     return (this.patientForm.get(field)?.hasError(error));
   }
-
 
 }

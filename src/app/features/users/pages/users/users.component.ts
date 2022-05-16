@@ -7,6 +7,7 @@ import { User } from '@models/user.model';
 
 import { UserService } from '@services/user.service';
 import { AuthService } from '@services/auth.service';
+import { IOptionsSearch } from '@interfaces/options-search.interface';
 
 @Component({
   selector: 'app-users',
@@ -38,7 +39,12 @@ export class UsersComponent implements OnInit {
   }
 
   getUsers() {
-    this.userService.getUsers(this.limit, this.offset, this.findUserByName).subscribe(({ users, totalAdmin, totalUser }) => {
+    const optionsSearch: IOptionsSearch = {
+      limit: this.limit,
+      offset: this.offset,
+      fullname: this.findUserByName
+    };
+    this.userService.getUsers(false, optionsSearch).subscribe(({ users, totalAdmin, totalUser }) => {
       this.showPagination = (this.findUserByName.length > 0) ? false : true;
       this.users = users;
       this.totalUsers = totalAdmin + totalUser;

@@ -20,7 +20,7 @@ export class PaginationComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.limit = changes['limit'].currentValue;
+    this.limit = (changes['limit'] && changes['limit'].currentValue) || 5;
     this.pageActive = 1;
     this.getPages();
   }

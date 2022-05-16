@@ -6,11 +6,11 @@ import { map, Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 
 import { Gender } from '@enums/gender.enum';
-import { Roles } from '@enums/role.enum';
 
 import { User } from '@models/user.model';
 
 import { IResponseUser, IResponseUsers } from '@interfaces/response.interface';
+import { IOptionsSearch } from '@interfaces/options-search.interface';
 
 import Storage from '@utils/storage.util';
 
@@ -61,8 +61,15 @@ export class UserService {
     }))
   }
 
-  getUsers(limit: number, offset: number, fullname?: string) {
-    const url = `${base_url}/users?fullname=${fullname || ''}&limit=${limit}&offset=${offset}`;
+  getUsers(all: boolean, optionsSearch?: IOptionsSearch) {
+    let url = `${base_url}/users?`;
+    if(optionsSearch) {
+      const { limit, offset, fullname } = optionsSearch;
+      url = `${url}fullname=${fullname || ''}&limit=${limit}&offset=${offset}`;
+    }
+    if(all) {
+      url = `${url}all=${all}`;
+    }
     return this.http.get<IResponseUsers>(url, this.headers);
   }
 

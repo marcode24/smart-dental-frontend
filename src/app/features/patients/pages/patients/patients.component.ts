@@ -8,6 +8,7 @@ import { PatientService } from '@services/patient.service';
 import { ICardIconRight } from '@interfaces/card-icon-right.interface';
 import { IOptionsSearch } from '@interfaces/options-search.interface';
 import { IResponsePatient } from '@interfaces/response.interface';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-patients',
@@ -89,6 +90,29 @@ export class PatientsComponent implements OnInit {
   changePage(value: number) {
     this.optionsSearch.offset = value;
     this.getPatients();
+  }
+
+  changeStatus(fullname:string, idPatient: number | undefined) {
+    Swal.fire({
+      title: `¿Estás seguro de suspender a '${fullname}'?`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Si, suspender'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.patientService.changeStatus(Number(idPatient), false).subscribe({
+          next: () => {
+            this.getPatients();
+          },
+          error: (e) => {
+            Swal.fire('Ocurrió un error', 'intentalo de nuevo', 'error');
+          }
+        })
+      }
+    })
   }
 
 }

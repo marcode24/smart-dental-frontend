@@ -1,0 +1,33 @@
+<div class="card border-top border-0 border-4 border-info radius-10">
+  <div class="card-body">
+    <div class="d-flex flex-column align-items-center text-center my-3">
+      <img [src]="patientActive.image" alt="Admin" class="rounded-circle p-1 bg-info" width="150">
+      <div class="mt-3">
+        <h4>{{ patientActive.name }} {{ patientActive.last_name }} </h4>
+      </div>
+    </div>
+    <h6 class="text-muted"><i class="bx bxs-home font-15 mx-1"></i>{{ getAddress }}</h6>
+    <h6 class="text-muted"><i class="bx bxs-phone font-15 mx-1"></i>{{ patientActive.phone_number }}</h6>
+    <div class="row mt-3" *ngIf="patientActive.status">
+      <div class="col-12">
+        <div class="d-grid">
+          <button (click)="changeStatus(false)" class="btn btn-danger radius-10">
+            <i class="bx bx-block"></i>Suspender
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3" *ngIf="!patientActive.status">
+      <h3 class="text-danger text-center my-3"> Paciente suspendido </h3>
+      <div class="row">
+        <div class="col-12">
+          <div class="d-grid">
+            <button (click)="changeStatus(true)" class="btn btn-primary radius-10">
+              <i class="bx bx-check-circle"></i>Habilitar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

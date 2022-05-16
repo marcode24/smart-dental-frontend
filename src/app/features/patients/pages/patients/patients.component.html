@@ -32,26 +32,30 @@
           <table class="table align-middle table-hover">
             <thead>
               <tr>
-                <th class="text-center">Avatar</th>
                 <th># Paciente</th>
-                <th>Nombre</th>
-                <th class="text-center">Teléfono</th>
+                <th>Paciente</th>
+                <th>Teléfono</th>
                 <th>Persona responsable</th>
                 <th>Teléfono del responsable</th>
+                <th>Dentista a cargo</th>
                 <th class="text-center">Estado</th>
                 <th class="text-end">Acciones</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let patient of patients">
-                <td class="text-center">
+                <td> # {{ patient.id_patient }} </td>
+                <td class="my-auto">
                   <img [src]="patient.image" class="user-img" alt="user-avatar">
+                  {{ patient.name }} {{ patient.last_name }}
                 </td>
-                <td> {{ patient.id_patient }} </td>
-                <td class="my-auto"> {{ patient.name }} {{ patient.last_name }} </td>
                 <td> {{ patient.phone_number }} </td>
-                <td> {{ patient.familiar.familiar_name }} </td>
+                <td> {{ patient.familiar.familiar_name }} {{ patient.familiar.familiar_last_name }} </td>
                 <td> {{ patient.familiar.familiar_phone_number }} </td>
+                <td>
+                  <img [src]="patient.user?.image" class="user-img" alt="user-avatar">
+                  {{ patient.user?.name }} {{ patient.user?.last_name }}
+                </td>
                 <td class="text-center">
                   <span *ngIf="patient.status"
                     class="badge rounded-pill text-success bg-light-success p-2 text-uppercase px-3">Activo</span>
@@ -60,11 +64,15 @@
                 </td>
                 <td>
                   <div class="d-flex justify-content-end order-actions">
-                    <a *ngIf="patient.status" class="cursor text-danger bg-light-danger">
+                    <a *ngIf="patient.status" (click)="changeStatus(patient.name +' '+
+                    patient.last_name, patient.id_patient)" class="cursor text-danger bg-light-danger">
                       <i class="bx bx-block"></i>
                     </a>
-                    <a routerLink="/patients/patient/{{patient.id_patient}}/record"
-                      class="ms-2 text-primary bg-light-primary"><i class="bx bx-id-card"></i></a>
+                    <a routerLink="/patients/{{patient.id_patient}}" class="ms-2 cursor bg-light-warning">
+                      <i class="bx bx-pencil"></i>
+                    </a>
+                    <a *ngIf="patient.status" routerLink="/patients/patient/{{patient.id_patient}}/record"
+                      class="ms-2 text-info bg-light-info"><i class="bx bx-id-card"></i></a>
                   </div>
                 </td>
               </tr>
