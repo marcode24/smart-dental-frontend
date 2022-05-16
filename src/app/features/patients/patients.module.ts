@@ -5,14 +5,15 @@ import { RouterModule } from '@angular/router';
 import { NewPatientComponent } from './pages/new-patient/new-patient.component';
 import { RecordComponent } from './pages/record/record.component';
 import { PatientsComponent } from './pages/patients/patients.component';
+import { PatientDetailComponent } from './pages/patient-detail/patient-detail.component';
 
 import { ComponentsModule } from './components/components.module';
 
+import { AlertsModule } from '@components/alerts/alerts.module';
 import { CardsModule } from '@components/cards/cards.module';
 import { InputsModule } from '@components/inputs/inputs.module';
 import { DropdownsModule } from '@components/dropdowns/dropdowns.module';
 import { PaginationsModule } from '@components/paginations/paginations.module';
-import { PatientDetailComponent } from './pages/patient-detail/patient-detail.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { PatientDetailComponent } from './pages/patient-detail/patient-detail.co
     DropdownsModule,
     PaginationsModule,
     ComponentsModule,
-    RouterModule
+    RouterModule,
+    AlertsModule
   ]
 })
 export class PatientsModule { }

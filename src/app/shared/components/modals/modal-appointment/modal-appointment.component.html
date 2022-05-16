@@ -2,11 +2,11 @@
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div *ngIf="appointment" class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title d-flex text-primary">
+        <h3 class="modal-title d-flex text-info">
           <i class="bx bx-detail me-1 font-30"></i>
-          Detalles de cita: #{{ appointment.id_appointment }}
+          Cita: # {{ appointment.id_appointment }}
         </h3>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <i class="bx bx-x-circle text-danger font-30 cursor" data-bs-dismiss="modal" aria-label="Close"></i>
       </div>
       <div class="modal-body">
         <h1 class="text-center" [ngClass]="getColorStatus"> {{ getStatus }} </h1>
@@ -18,7 +18,9 @@
           <h5><i class="bx bxs-envelope mx-2"></i>{{ appointment.patient?.email }}</h5>
         </div>
         <hr>
-        <div class="m-2">
+        <app-text-alert *ngIf="appointment.records && appointment.records.length === 0" [icon]="'bx-briefcase'"
+          [textColor]="'danger'" [text]="'No hay servicios programados'"></app-text-alert>
+        <div class="m-2" *ngIf="appointment.records && appointment.records.length > 0">
           <h3> Servicios programados </h3>
           <div class="table-responsive" *ngIf="appointment.records">
             <table class="table align-middle table-hover">
@@ -51,7 +53,7 @@
         </div>
       </div>
       <div class=" modal-footer">
-        <button type="button" class="btn btn-danger radius-30" data-bs-dismiss="modal">
+        <button type="button" class="btn btn-danger radius-10" data-bs-dismiss="modal">
           <i class="bx bx-x"></i> Cerrar
         </button>
       </div>

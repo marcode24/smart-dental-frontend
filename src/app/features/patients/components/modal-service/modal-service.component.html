@@ -3,24 +3,25 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title d-flex text-primary">
+        <h3 class="modal-title d-flex text-info">
           <i class="bx bx-briefcase me-1 font-30"></i>
           Agregar Servicio
         </h3>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <i class="bx bx-x-circle text-danger font-30 cursor" data-bs-dismiss="modal" aria-label="Close"></i>
       </div>
       <div class="modal-body">
         <div class="row">
           <div class="col-9">
             <label for="selectService" class="form-label">Servicios disponibles</label>
-            <select class="form-select" id="selectService" (change)="changeService($event)">
+            <select class="form-select radius-10" id="selectService" (change)="changeService($event)">
               <option [value]="service.id_service" *ngFor="let service of services">{{ service.name }}</option>
             </select>
           </div>
           <div class="col-3">
             <label for="inputQuantity" class="form-label">Cantidad</label>
-            <input type="number" #txtQuantity (keyup)="changeQuantity(txtQuantity.value)" class="form-control"
-              id="inputQuantity" [value]="quantity" min="1" max="10">
+            <input type="number" #txtQuantity (keyup)="changeQuantity(txtQuantity.value)"
+              (change)="changeQuantity(txtQuantity.value)" class="form-control radius-10" id="inputQuantity"
+              [value]="quantity" min="1" max="10">
           </div>
         </div>
         <div class="d-flex justify-content-end align-items-end flex-column mt-4">
@@ -29,10 +30,10 @@
         </div>
       </div>
       <div class=" modal-footer">
-        <button type="button" class="btn btn-danger radius-30" data-bs-dismiss="modal">
+        <button type="button" class="btn btn-danger radius-10" data-bs-dismiss="modal">
           <i class="bx bx-x"></i> Cerrar
         </button>
-        <button type="button" (click)="createService()" class="btn btn-primary radius-30" data-bs-dismiss="modal">
+        <button type="button" (click)="createService()" class="btn btn-success radius-10" data-bs-dismiss="modal">
           <i class="bx bx-check"></i> Agregar
         </button>
       </div>

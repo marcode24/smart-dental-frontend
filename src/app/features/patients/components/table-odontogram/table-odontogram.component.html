@@ -25,11 +25,12 @@
         <td>
           <div class="d-flex justify-content-center order-actions">
             <a *ngIf="tooth.record?.status === 'PENDING'" (click)="serviceDone(tooth.record?.id_record)"
-              class="cursor ms-2">
-              <i class="bx bx-check"></i>
+              class="cursor ms-2 bg-light-success text-success">
+              <i class="bx bx-check-circle"></i>
             </a>
             <a *ngIf="tooth.record?.status === 'PENDING'"
-              (click)="serviceCancelled(tooth.record?.id_record, tooth.record?.service_name)" class="cursor ms-2">
+              (click)="serviceCancelled(tooth.record?.id_record, tooth.record?.service_name)"
+              class="cursor ms-2 bg-light-danger text-danger">
               <i class="bx bx-block"></i>
             </a>
           </div>

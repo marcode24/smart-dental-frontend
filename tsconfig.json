@@ -17,6 +17,7 @@
       "@components/tables/*": [ "app/shared/components/tables/*" ],
       "@components/modals/*": [ "app/shared/components/modals/*" ],
       "@components/paginations/*": [ "app/shared/components/paginations/*" ],
+      "@components/alerts/*": [ "app/shared/components/alerts/*" ],
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

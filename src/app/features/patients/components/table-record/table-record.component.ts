@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 
-import { StatusRecordService } from '@enums/status-record.enum';
+import { StatusRecord, StatusRecordService } from '@enums/status-record.enum';
 
 import { Record } from '@models/record.model';
 
 import { RecordService } from '@services/record.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-table-record',
@@ -49,5 +49,17 @@ export class TableRecordComponent implements OnInit {
       }
     })
   }
+
+  get getTotalPayment() {
+    const totalPayment = this.records
+      .filter(r => r.status === StatusRecord.PENDING_PAYMENT)
+      .map(r => {
+        r.total = r.quantity * r.price
+        return r;
+      })
+      .reduce((acc, record) => acc + Number(record.total), 0);
+    return totalPayment;
+  }
+
 
 }

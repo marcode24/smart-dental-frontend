@@ -84,7 +84,7 @@ export class RecordComponent implements OnInit, OnDestroy {
   // click tab appointments
   getAppointments() {
     if(this.clickAppointment === false) {
-      this.appointmentService.getAppointmentsByPatient(Number(this.patientTemp.id_user)).subscribe(resp => {
+      this.appointmentService.getAppointmentsByPatient(Number(this.patientTemp.id_patient)).subscribe(resp => {
         this.patientAppointments = resp;
       })
     }
@@ -101,17 +101,6 @@ export class RecordComponent implements OnInit, OnDestroy {
     this.recordService.getRecords(this.patientTemp.id_patient, filter).subscribe(records => {
       (filter === 1 ) ? this.patientRecordHome = records :  this.patientRecord = records;
     });
-  }
-
-  get getTotalPayment() {
-    const totalPayment = this.patientRecordHome
-      .filter(r => r.status === StatusRecord.PENDING_PAYMENT)
-      .map(r => {
-        r.total = r.quantity * r.price
-        return r;
-      })
-      .reduce((acc, record) => acc + Number(record.total), 0);
-    return totalPayment;
   }
 
 }
