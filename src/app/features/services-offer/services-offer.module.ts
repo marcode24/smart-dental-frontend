@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 
 import { ServicesOfferComponent } from './pages/services-offer/services-offer.component';
 
+import { AlertsModule } from '@components/alerts/alerts.module';
 import { CardsModule } from '@components/cards/cards.module';
+import { ComponentsModule } from './components/components.module';
 import { DropdownsModule } from '@components/dropdowns/dropdowns.module';
 import { InputsModule } from '@components/inputs/inputs.module';
-import { ComponentsModule } from './components/components.module';
+import { PaginationsModule } from '@components/paginations/paginations.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { ComponentsModule } from './components/components.module';
     CardsModule,
     InputsModule,
     DropdownsModule,
-    ComponentsModule
+    ComponentsModule,
+    PaginationsModule,
+    AlertsModule
   ]
 })
 export class ServicesOfferModule { }

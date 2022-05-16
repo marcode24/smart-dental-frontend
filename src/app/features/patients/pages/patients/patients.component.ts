@@ -80,6 +80,7 @@ export class PatientsComponent implements OnInit {
 
   changeLimit(limit: number) {
     this.optionsSearch.limit = limit;
+    this.optionsSearch.offset = 0;
     this.getPatients();
   }
 

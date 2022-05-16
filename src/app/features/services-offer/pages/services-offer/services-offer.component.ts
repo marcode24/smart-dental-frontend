@@ -25,9 +25,9 @@ export class ServicesOfferComponent implements OnInit, OnDestroy {
   private limit: number = 5;
   private offset: number = 0;
   private findServiceByName: string = '';
-
+  public totalServices: number = 0;
   public services: Service[];
-
+  public showPagination: boolean = true;
   private changeDataService: Subscription;
 
   constructor(
@@ -46,8 +46,10 @@ export class ServicesOfferComponent implements OnInit, OnDestroy {
   getServices() {
     this.serviceOfferService.getServices(this.limit, this.offset, this.findServiceByName).subscribe(resp => {
       const { services, totalActive, totalInactive } = resp;
+      this.showPagination = (this.findServiceByName.length > 0) ? false : true;
       this.services = services;
-      this.cardsIconData[0].quantity = totalActive + totalInactive;
+      this.totalServices = totalActive + totalInactive;
+      this.cardsIconData[0].quantity = this.totalServices;
       this.cardsIconData[1].quantity = totalActive;
       this.cardsIconData[2].quantity = totalInactive;
       console.log(this.services);
@@ -55,12 +57,14 @@ export class ServicesOfferComponent implements OnInit, OnDestroy {
   }
 
   findByName(name: string) {
+    this.showPagination = false;
     this.findServiceByName = name;
     this.getServices();
   }
 
   changeLimit(limit: number) {
     this.limit = limit;
+    this.offset = 0;
     this.getServices();
   }
 
@@ -94,6 +98,15 @@ export class ServicesOfferComponent implements OnInit, OnDestroy {
 
   emitNewService(service?: Service) {
     this.serviceOfferService.isNewService.emit(service);
+  }
+
+  get getLimitPagination(): number {
+    return this.limit;
+  }
+
+  changePage(value: number) {
+    this.offset = value;
+    this.getServices();
   }
 
 }
