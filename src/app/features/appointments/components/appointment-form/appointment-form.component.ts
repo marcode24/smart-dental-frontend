@@ -36,8 +36,14 @@ export class AppointmentFormComponent implements OnInit {
   }
 
   findPatient(value: string) {
+    if(value.trim().length === 0){
+      return;
+    }
     const patientId = Number(value.trim());
-    if(isNaN(patientId)) {
+    if(this.patientTemp && this.patientTemp.id_patient === patientId) {
+      return;
+    }
+    if(isNaN(patientId) || patientId === 0) {
       return Swal.fire('Ingrese un numero de paciente correcto', '', 'warning');
     }
     this.patientService.getPatientByUser(patientId).subscribe({
@@ -68,19 +74,17 @@ export class AppointmentFormComponent implements OnInit {
   }
 
   get getName() {
-    const fullname = (this.patientTemp) ? `${this.patientTemp?.name} ${this.patientTemp?.last_name}` :'';
-    return fullname;
+    return (this.patientTemp) ? `${this.patientTemp?.name} ${this.patientTemp?.last_name}` :'';
   }
 
   saveAppointment() {
     if(this.appointmentForm.valid){
       const date: string = this.appointmentForm.get('date')?.value;
       const time: string = this.appointmentForm.get('time')?.value;
-      let [year, month, day] = date.split('-');
-      let [hours, minutes] = time.split(':');
       const newAppointment: ICreateAppointment = {
+        time,
         id_patient: Number(this.patientTemp.id_patient),
-        date: new Date(+year,+month-1, +day, +hours, +minutes).toISOString(),
+        date: new Date(date).toISOString(),
         description: this.appointmentForm.get('description')?.value,
         id_record: this.id_records,
       }

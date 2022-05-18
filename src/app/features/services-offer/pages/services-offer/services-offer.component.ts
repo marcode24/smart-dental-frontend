@@ -52,7 +52,6 @@ export class ServicesOfferComponent implements OnInit, OnDestroy {
       this.cardsIconData[0].quantity = this.totalServices;
       this.cardsIconData[1].quantity = totalActive;
       this.cardsIconData[2].quantity = totalInactive;
-      console.log(this.services);
     })
   }
 

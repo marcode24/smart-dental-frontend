@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col-lg-12">
-    <div class="card">
+    <div class="card radius-10">
       <div class="card-body">
         <div class="d-flex align-items-center justify-content-between flex-wrap w-100 mb-3">
           <h2 class="mb-0 ">Citas</h2>
           <div class="d-flex justify-content-end align-items-center gap-2">
-            <button type="button" routerLink="/appointments/new" class="btn btn-outline-primary px-3 radius-30">
+            <button type="button" routerLink="/appointments/new" class="btn btn-outline-primary px-3 radius-10">
               <i class="bx bx-plus mr-1"></i>Nueva Cita
             </button>
           </div>
@@ -18,8 +18,13 @@
             <app-dropdown-page-list (limit)="changeLimit($event)"></app-dropdown-page-list>
           </div>
         </div>
-        <app-table-appointments (newStatus)="changeStatus($event)" [appointments]="appointments">
+        <app-text-alert *ngIf="appointments && appointments.length === 0" [icon]="'bx-detail'" [textColor]="'info'"
+          [text]="'No hay citas'"></app-text-alert>
+        <app-table-appointments *ngIf="appointments && appointments.length > 0" (newStatus)="changeStatus($event)"
+          [appointments]="appointments">
         </app-table-appointments>
+        <app-pagination *ngIf="totalAppointments > 0 && showPagination" [limit]="getLimitPagination"
+          [total]="totalAppointments" (changedOffset)="changePage($event)"></app-pagination>
       </div>
     </div>
   </div>

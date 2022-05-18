@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ICreateAppointment } from '@interfaces/appointment.interface';
+import { IOptionsSearch } from '@interfaces/options-search.interface';
 
 import { Appointment } from '@models/appointment.model';
 
@@ -28,7 +29,11 @@ export class NewAppointmentComponent implements OnInit {
 
   findAppointments(date: string) {
     this.dateSelected = date.split('-').reverse().join('/');
-    this.appointmentService.getAppointmentsByUser('PENDING', date).subscribe(resp => this.appointments = resp);
+    const params: IOptionsSearch = { limit: 0, offset: 0};
+    this.appointmentService.getAppointmentsByUser('PENDING', params, date).subscribe(({appointments}) => {
+      console.log(appointments);
+      this.appointments = appointments
+    });
   }
 
   createAppointment(data: ICreateAppointment) {

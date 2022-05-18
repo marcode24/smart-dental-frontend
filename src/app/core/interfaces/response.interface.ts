@@ -1,3 +1,4 @@
+import { Appointment } from "@models/appointment.model";
 import { Patient } from "@models/patient.model";
 import { Service } from "@models/service.model";
 import { User } from "@models/user.model";
@@ -23,4 +24,9 @@ export interface IResponsePatient {
 export interface IResponseUser {
   user: User;
   status?: number;
+}
+
+export interface IResponseAppointment {
+  appointments: Appointment[];
+  total: number;
 }
