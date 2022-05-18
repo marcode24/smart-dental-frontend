@@ -5,10 +5,12 @@ import { ProfileComponent } from './pages/profile/profile.component';
 
 import { FormsComponentsModule } from '@components/forms/forms-components.module';
 import { CardsModule } from '@components/cards/cards.module';
+import { CodeComponent } from './pages/code/code.component';
 
 @NgModule({
   declarations: [
-    ProfileComponent
+    ProfileComponent,
+    CodeComponent
   ],
   imports: [
     CommonModule,

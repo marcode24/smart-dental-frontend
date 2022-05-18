@@ -20,7 +20,6 @@ export class CardDetailComponent implements OnInit {
   constructor(private authService: AuthService) { }
   ngOnInit(): void {
     this.isSettings = this.userActive.id_user === this.authService.userActive.id_user;
-    console.log(this.isSettings);
   }
 
   get getAddress() {

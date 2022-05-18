@@ -78,6 +78,11 @@ export class UserService {
     return this.http.patch<number>(url, { status }, this.headers );
   }
 
+  changeCode(idUser: number | undefined): Observable<any> {
+    const url = `${base_url}/users/changeCode/${idUser}`;
+    return this.http.patch<any>(url, { }, this.headers);
+  }
+
   getUserByID(userID: number): Observable<IResponseUser> {
     const url = `${base_url}/users/${userID}`;
     return this.http.get<IResponseUser>(url, this.headers);

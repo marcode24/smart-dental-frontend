@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-6 mx-auto">
+    <div class="card radius border-top border-0 border-4 border-primary radius-10">
+      <div class="card-body p-5">
+        <div class="card-title d-flex align-items-center gap-2">
+          <i class="bx bx-bookmark me-1 font-30 text-primary"></i>
+          <h3 class="mb-0 text-primary">Código de Registro</h3>
+        </div>
+        <hr class=my-2>
+        <h1 class="display-1 text-center my-4 text-primary">{{ getCode }}</h1>
+        <h5 class="text-center text-muted"> * Recuerda no compartir este código con cualquiera </h5>
+        <div class="row">
+          <div class="col-12">
+            <div class="d-grid">
+              <button type="button" (click)="changeCode()" class="btn btn-primary radius-10">
+                <i class="bx bx-bookmarks"></i>
+                Nuevo Codigo
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
