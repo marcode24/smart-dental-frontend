@@ -1,4 +1,4 @@
-<div class="card border-top border-0 border-4"
+<div class="card border-top border-0 border-4 radius-10"
   [ngClass]="userActive.role === 'ADMIN' ? 'border-danger': 'border-primary'">
   <div class="card-body">
     <div class="d-flex flex-column align-items-center text-center my-3">
@@ -15,7 +15,7 @@
     <h6><i class="bx bxs-user font-15 mx-1"></i>{{ userActive.username }}</h6>
     <h6><i class="bx bxs-home font-15 mx-1"></i>{{ getAddress }}</h6>
     <h6><i class="bx bxs-phone font-15 mx-1"></i>{{ userActive.phone_number }}</h6>
-    <div class="row mt-3" *ngIf="detail && userActive.status">
+    <div class="row mt-3" *ngIf="detail && userActive.status && !isSettings">
       <div class="col-12">
         <div class="d-grid">
           <button (click)="changeStatus(false)" class="btn btn-danger radius-10">

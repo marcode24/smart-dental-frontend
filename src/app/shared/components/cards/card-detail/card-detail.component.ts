@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { User } from '@models/user.model';
+import { AuthService } from '@services/auth.service';
 
 @Component({
   selector: 'app-card-detail',
@@ -14,9 +15,12 @@ export class CardDetailComponent implements OnInit {
   @Input() detail: boolean = true;
   @Output() newStatus: EventEmitter<boolean> = new EventEmitter();
 
-  constructor() { }
+  public isSettings: boolean = false;
 
+  constructor(private authService: AuthService) { }
   ngOnInit(): void {
+    this.isSettings = this.userActive.id_user === this.authService.userActive.id_user;
+    console.log(this.isSettings);
   }
 
   get getAddress() {

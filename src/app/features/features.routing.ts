@@ -41,6 +41,13 @@ const routes: Routes = [
     canLoad: [AuthGuard],
     loadChildren: () => import('./appointments/appointments.routing').then(m => m.AppointmentsRoutingModule),
   },
+  {
+    path: 'settings',
+    component: FeaturesComponent,
+    canActivate: [AuthGuard],
+    canLoad: [AuthGuard],
+    loadChildren: () => import('./settings/settings.routing').then(m => m.SettingsRoutingModule),
+  }
 ];
 
 @NgModule({

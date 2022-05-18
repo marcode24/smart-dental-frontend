@@ -12,6 +12,7 @@
       "@utils/*": [ "app/core/utils/*" ],
       "@enums/*": [ "app/core/enums/*" ],
       "@components/cards/*": [ "app/shared/components/cards/*" ],
+      "@components/forms/*": [ "app/shared/components/forms/*" ],
       "@components/inputs/*": [ "app/shared/components/inputs/*" ],
       "@components/dropdowns/*": [ "app/shared/components/dropdowns/*" ],
       "@components/tables/*": [ "app/shared/components/tables/*" ],

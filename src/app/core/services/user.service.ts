@@ -22,7 +22,7 @@ const base_url = environment.base_url;
 export class UserService {
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
   ) {}
 
   get token(): string {
@@ -78,14 +78,16 @@ export class UserService {
     return this.http.patch<number>(url, { status }, this.headers );
   }
 
-  getUserByID(userID: number) {
+  getUserByID(userID: number): Observable<IResponseUser> {
     const url = `${base_url}/users/${userID}`;
     return this.http.get<IResponseUser>(url, this.headers);
   }
 
-  updateUser(userId: number | undefined, data: User): Observable<Array<Number>> {
+  updateUser(userId: number | undefined, data: User): Observable<User | null> {
     const url = `${base_url}/users/${userId}`;
-    return this.http.put<number[]>(url, data, this.headers);
+    return this.http.put<User>(url, data, this.headers).pipe(map((resp) => {
+      return resp
+    }));
   }
 
 }

@@ -37,13 +37,12 @@ export class UserDetailComponent implements OnInit {
 
   updateUserInfo(valuesChanged: User) {
     this.userService.updateUser(this.userActive.id_user, valuesChanged).subscribe(resp => {
-      if(resp[0] === 0) {
+      if(resp === null) {
         return Swal.fire('Ocurrio un error al actualizar los datos', '', 'error');
       }
-      if(resp[0] === 1) {
+        localStorage.removeItem('userTemp');
         this.findUser(Number(this.userActive.id_user));
         return Swal.fire('Información actualizada correctamente', '', 'success');
-      }
     })
   }
 

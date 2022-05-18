@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { FormAccountComponent } from './form-account/form-account.component';
+import { FormGeneralInfoComponent } from './form-general-info/form-general-info.component';
 
 @NgModule({
   declarations: [
-    FormAccountComponent,
+    FormGeneralInfoComponent
   ],
   imports: [
     CommonModule,
@@ -14,7 +14,7 @@ import { FormAccountComponent } from './form-account/form-account.component';
     ReactiveFormsModule
   ],
   exports: [
-    FormAccountComponent
+    FormGeneralInfoComponent
   ]
 })
-export class ComponentsModule { }
+export class FormsComponentsModule { }
