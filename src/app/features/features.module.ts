@@ -11,6 +11,7 @@ import { ServicesOfferModule } from './services-offer/services-offer.module';
 import { PatientsModule } from './patients/patients.module';
 import { AppointmentsModule } from './appointments/appointments.module';
 import { SettingsModule } from './settings/settings.module';
+import { StatisticsModule } from './statistics/statistics.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { SettingsModule } from './settings/settings.module';
     ServicesOfferModule,
     PatientsModule,
     AppointmentsModule,
-    SettingsModule
+    SettingsModule,
+    StatisticsModule
   ],
   providers: [
   ]

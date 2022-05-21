@@ -1,0 +1,11 @@
+<div class="card radius-10">
+  <div class="card-body">
+    <div class="d-flex align-items-center mb-3">
+      <div>
+        <h3 class="mb-0 text-muted"> {{statistic.name}} </h3>
+        <h4 class="mb-0">{{statistic.total_service}} </h4>
+      </div>
+    </div>
+    <app-apex-chart *ngIf="totals" [statistics]="statistic.statistics!" [data]="totals"></app-apex-chart>
+  </div>
+</div>

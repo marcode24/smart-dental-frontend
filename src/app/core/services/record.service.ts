@@ -9,6 +9,8 @@ import { Record } from '@models/record.model';
 import { ICreateRecord, IUpdateRecord } from '@interfaces/create-record.interface';
 
 import { StatusRecordService } from '@enums/status-record.enum';
+import { IStatistics, IStatisticsByDate } from '@interfaces/statistics.interface';
+import { ISearchParamsStatistics } from '@interfaces/options-search.interface';
 
 const base_url = environment.base_url;
 
@@ -64,6 +66,17 @@ export class RecordService {
     this.http.patch(url, data, this.headers).subscribe(resp => {
       this.changedRecordsHome.emit(true);
     })
+  }
+
+  getStatistics(limit: number = 3): Observable<IStatistics[]> {
+    const url = `${base_url}/records/statistics?limit${limit}`;
+    return this.http.get<IStatistics[]>(url, this.headers);
+  }
+
+  getStatisticsByDate(params: ISearchParamsStatistics): Observable<IStatisticsByDate> {
+    const { limit, offset, type, option } = params;
+    const url = `${base_url}/records/statistics/date?type=${type}&option=${option}&limit=${limit}&offset=${offset}`;
+    return this.http.get<IStatisticsByDate>(url, this.headers);
   }
 
 

@@ -47,6 +47,13 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     canLoad: [AuthGuard],
     loadChildren: () => import('./settings/settings.routing').then(m => m.SettingsRoutingModule),
+  },
+  {
+    path: 'statistics',
+    component: FeaturesComponent,
+    canActivate: [AuthGuard],
+    canLoad: [AuthGuard],
+    loadChildren: () => import('./statistics/statistics.routing').then(m => m.StatisticsRoutingModule),
   }
 ];
 
