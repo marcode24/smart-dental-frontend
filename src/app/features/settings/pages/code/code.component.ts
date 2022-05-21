@@ -14,6 +14,7 @@ import { UserService } from '@services/user.service';
 export class CodeComponent implements OnInit {
 
   private userActive: User;
+  public isLoadingPage: boolean = true;
 
   constructor(
     private readonly authService: AuthService,
@@ -22,6 +23,7 @@ export class CodeComponent implements OnInit {
 
   ngOnInit(): void {
     this.userActive = this.authService.userActive;
+    this.isLoadingPage = false;
   }
 
   get getCode(): string | undefined {

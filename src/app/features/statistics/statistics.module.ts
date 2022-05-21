@@ -7,6 +7,7 @@ import { StatisticsComponent } from './pages/statistics/statistics.component';
 
 import { DropdownsModule } from '@components/dropdowns/dropdowns.module';
 import { PaginationsModule } from '@components/paginations/paginations.module';
+import { LoadersModule } from '@components/loaders/loaders.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { PaginationsModule } from '@components/paginations/paginations.module';
     CommonModule,
     ComponentsModule,
     DropdownsModule,
-    PaginationsModule
+    PaginationsModule,
+    LoadersModule
   ]
 })
 export class StatisticsModule { }

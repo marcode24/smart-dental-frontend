@@ -5,6 +5,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
 
 import { FormsComponentsModule } from '@components/forms/forms-components.module';
 import { CardsModule } from '@components/cards/cards.module';
+import { LoadersModule } from '@components/loaders/loaders.module';
+
 import { CodeComponent } from './pages/code/code.component';
 
 @NgModule({
@@ -15,7 +17,8 @@ import { CodeComponent } from './pages/code/code.component';
   imports: [
     CommonModule,
     CardsModule,
-    FormsComponentsModule
+    FormsComponentsModule,
+    LoadersModule
   ]
 })
 export class SettingsModule { }

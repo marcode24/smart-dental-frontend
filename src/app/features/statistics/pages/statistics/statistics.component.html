@@ -2,7 +2,7 @@
   <h4 class="mb-0 text-uppercase">Servicios más solicitados</h4>
   <hr>
   <div class="row" *ngIf="statistics">
-    <div class="col-4" *ngFor="let statistic of statistics">
+    <div class="col-xl-4 col-md-4" *ngFor="let statistic of statistics">
       <app-card-chart [statistic]="statistic"></app-card-chart>
     </div>
   </div>
@@ -25,3 +25,5 @@
     </div>
   </div>
 </div>
+
+<app-loader *ngIf="isLoadingPage"></app-loader>
