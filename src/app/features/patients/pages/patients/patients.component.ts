@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 
 import { Patient } from '@models/patient.model';
 
@@ -8,7 +9,6 @@ import { PatientService } from '@services/patient.service';
 import { ICardIconRight } from '@interfaces/card-icon-right.interface';
 import { IOptionsSearch } from '@interfaces/options-search.interface';
 import { IResponsePatient } from '@interfaces/response.interface';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-patients',
@@ -17,24 +17,18 @@ import Swal from 'sweetalert2';
   ]
 })
 export class PatientsComponent implements OnInit {
-
   public cardsIconData: ICardIconRight[] = [
     { title: 'Mis Pacientes', quantity: 0, icon: 'bxs-user', color: 'primary', bg: 'scooter'},
     { title: 'Pacientes activos', quantity: 0, icon: 'bx-check', color: 'success', bg: 'ohhappiness'},
     { title: 'Pacientes inactivos', quantity: 0, icon: 'bx-block', color: 'danger', bg: 'bloody'}
   ]
-
-  private optionsSearch: IOptionsSearch = {
-    limit: 5,
-    offset: 0,
-    fullname: '',
-  }
-
-  private allPatients: boolean = false;
+  private optionsSearch: IOptionsSearch = { limit: 5, offset: 0, fullname: '' };
   public patients: Patient[];
   public userRole: string;
   public totalPatients: number = 0;
   public showPagination: boolean = true;
+  public findingByFullname: boolean = false;
+  private allPatients: boolean = false;
 
   constructor(
     private patientService: PatientService,
@@ -50,6 +44,8 @@ export class PatientsComponent implements OnInit {
   changeOptionGet(event: any) {
     this.allPatients = JSON.parse(event.target.value);
     const patientStr = 'Pacientes';
+    this.findingByFullname = false;
+    this.optionsSearch.fullname = '';
     this.cardsIconData[0].title = (this.allPatients) ? patientStr: `Mis ${patientStr}`;
     this.getPatients();
   }
@@ -73,6 +69,10 @@ export class PatientsComponent implements OnInit {
   }
 
   findByFullname(fullname: string) {
+    this.findingByFullname = true;
+    if(fullname.trim().length === 0) {
+      this.findingByFullname = false;
+    }
     this.showPagination = false;
     this.optionsSearch.fullname = fullname;
     this.getPatients();
@@ -114,6 +114,14 @@ export class PatientsComponent implements OnInit {
         })
       }
     })
+  }
+
+  get showOptions(): boolean {
+    return (this.patients && this.patients.length > 0) || this.findingByFullname;
+  }
+
+  get showColumn(): boolean {
+    return this.authService.userActive.role === 'ADMIN' && this.allPatients;
   }
 
 }

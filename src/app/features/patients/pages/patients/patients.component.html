@@ -8,8 +8,9 @@
   <div class="col-lg-12">
     <div class="card radius-10">
       <div class="card-body">
-        <div class="d-flex align-items-center justify-content-between flex-wrap w-100 mb-3">
-          <h2 class="mb-0 ">
+        <div class="d-flex align-items-center flex-wrap w-100 mb-3"
+          [ngClass]="showOptions ? 'justify-content-between': 'justify-content-end'">
+          <h2 class="mb-0" *ngIf="showOptions">
             Pacientes
           </h2>
           <div class="d-flex justify-content-end align-items-center gap-2">
@@ -23,12 +24,16 @@
             </button>
           </div>
         </div>
-        <div class="d-lg-flex align-items-center justify-content-between mb-4">
-          <app-input-search [findName]="'paciente'" (text)="findByFullname($event)" style="width: 32%;">
+        <div class="d-lg-flex align-items-center justify-content-between mb-4" *ngIf="showOptions">
+          <app-input-search [findName]="'paciente'" (text)="findByFullname($event)" style="width: 32%;"
+            *ngIf="showOptions">
           </app-input-search>
-          <app-dropdown-page-list (limit)="changeLimit($event)"></app-dropdown-page-list>
+          <app-dropdown-page-list (limit)="changeLimit($event)" *ngIf="patients && patients.length > 0">
+          </app-dropdown-page-list>
         </div>
-        <div class="table-responsive">
+        <app-text-alert *ngIf="patients && patients.length === 0" [icon]="'bx-user'" [textColor]="'info'"
+          [text]="'No hay pacientes'"></app-text-alert>
+        <div class="table-responsive" *ngIf="patients && patients.length > 0">
           <table class="table align-middle table-hover">
             <thead>
               <tr>
@@ -37,7 +42,7 @@
                 <th>Teléfono</th>
                 <th>Persona responsable</th>
                 <th>Teléfono del responsable</th>
-                <th>Dentista a cargo</th>
+                <th *ngIf="showColumn">Dentista a cargo</th>
                 <th class="text-center">Estado</th>
                 <th class="text-end">Acciones</th>
               </tr>
@@ -52,7 +57,7 @@
                 <td> {{ patient.phone_number }} </td>
                 <td> {{ patient.familiar.familiar_name }} {{ patient.familiar.familiar_last_name }} </td>
                 <td> {{ patient.familiar.familiar_phone_number }} </td>
-                <td>
+                <td *ngIf="showColumn">
                   <img [src]="patient.user?.image" class="user-img" alt="user-avatar">
                   {{ patient.user?.name }} {{ patient.user?.last_name }}
                 </td>
