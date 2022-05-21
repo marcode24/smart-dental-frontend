@@ -17,9 +17,9 @@ import { ICardIconRight } from '@interfaces/card-icon-right.interface';
 export class ServicesOfferComponent implements OnInit, OnDestroy {
 
   public cardsIconData: ICardIconRight[] = [
-    { title: 'Servicios ofrecidos', quantity: 0, icon: 'bx-briefcase', color: 'primary' },
-    { title: 'Servicios activos', quantity: 0, icon: 'bx-check', color: 'success' },
-    { title: 'Servicios inactivos', quantity: 0, icon: 'bx-x', color: 'danger' },
+    { title: 'Servicios ofrecidos', quantity: 0, icon: 'bx-briefcase', color: 'primary', bg: 'scooter' },
+    { title: 'Servicios activos', quantity: 0, icon: 'bx-check', color: 'success', bg: 'ohhappiness' },
+    { title: 'Servicios inactivos', quantity: 0, icon: 'bx-x', color: 'danger', bg: 'bloody' },
   ];
 
   private limit: number = 5;

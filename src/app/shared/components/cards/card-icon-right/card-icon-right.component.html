@@ -1,11 +1,11 @@
-<div class="card radius-10">
+<div class="card radius-10 card radius-10 border-start border-0 border-3" [ngClass]="'border-'+data.color">
   <div class="card-body">
     <div class="d-flex align-items-center">
       <div>
         <p class="mb-0 text-secondary">{{data.title}}</p>
-        <h4 class="my-1">{{data.quantity}}</h4>
+        <h4 class="my-1" [ngClass]="'text-'+data.color">{{data.quantity}}</h4>
       </div>
-      <div [ngClass]="'text-'+data.color+' '+'bg-light-'+data.color" class="widgets-icons ms-auto">
+      <div class="widgets-icons rounded-circle text-white ms-auto" [ngClass]="'bg-gradient-'+data.bg">
         <i class="bx" [ngClass]="data.icon"></i>
       </div>
     </div>

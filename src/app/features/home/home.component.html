@@ -3,8 +3,9 @@
   <div class="col-lg-8 mx-auto">
     <div class="card radius-10">
       <div class="card-body">
-        <div class="d-flex align-items-center justify-content-between flex-wrap w-100 mb-3">
-          <h2 class="mb-0 ">Citas para hoy</h2>
+        <div class="d-flex align-items-center flex-wrap w-100 mb-3"
+          [ngClass]="totalAppointments > 0 ? 'justify-content-between': 'justify-content-end'">
+          <h2 *ngIf="totalAppointments > 0" class="mb-0 ">Citas para hoy</h2>
           <div class="d-flex justify-content-end align-items-center flex-wrap gap-2">
             <app-dropdown-page-list *ngIf="totalAppointments > 0" (limit)="changeLimit($event)">
             </app-dropdown-page-list>

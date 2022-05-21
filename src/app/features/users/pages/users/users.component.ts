@@ -18,9 +18,9 @@ import { IOptionsSearch } from '@interfaces/options-search.interface';
 export class UsersComponent implements OnInit {
 
   public cardsIconData: ICardIconRight[] = [
-    { title: 'Usuarios', quantity: 0, icon: 'bx-group', color: 'success'},
-    { title: 'Administradores', quantity: 0, icon: 'bx-shield-quarter', color: 'danger'},
-    { title: 'Dentistas', quantity: 0, icon: 'bx-user', color: 'info'}
+    { title: 'Usuarios', quantity: 0, icon: 'bxs-group', color: 'primary', bg: 'scooter'},
+    { title: 'Administradores', quantity: 0, icon: 'bx-shield-quarter', color: 'danger', bg: 'bloody'},
+    { title: 'Dentistas', quantity: 0, icon: 'bxs-user', color: 'success', bg: 'ohhappiness'}
   ]
   public limit: number = 5;
   private offset: number = 0;

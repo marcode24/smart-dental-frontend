@@ -24,4 +24,12 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
   }
 
+  get getFullname() : string {
+    return `${this.userTemp.name} ${this.userTemp.last_name}`;
+  }
+
+  get hasAccess(): boolean {
+    return this.userTemp.role === 'ADMIN';
+  }
+
 }

@@ -23,7 +23,7 @@
       </a>
     </li>
     <li class="menu-label">Administración</li>
-    <li>
+    <li *ngIf="hasAccess">
       <a href="javascript:;" class="has-arrow">
         <div class="parent-icon"><i class="bx bx-user"></i>
         </div>
@@ -62,14 +62,14 @@
         </li>
       </ul>
     </li>
-    <li>
+    <li *ngIf="hasAccess">
       <a routerLink="/services">
         <div class="parent-icon"><i class="bx bx-briefcase"></i>
         </div>
         <div class="menu-title">Servicios</div>
       </a>
     </li>
-    <li>
+    <li *ngIf="hasAccess">
       <a routerLink="/statistics">
         <div class="parent-icon"><i class="bx bx-dollar-circle"></i>
         </div>
@@ -84,7 +84,7 @@
         <div class="menu-title">Cuenta</div>
       </a>
     </li>
-    <li>
+    <li *ngIf="hasAccess">
       <a routerLink="/settings/code">
         <div class="parent-icon"><i class="bx bx-lock"></i>
         </div>

@@ -10,20 +10,33 @@
           data-bs-toggle="dropdown" aria-expanded="false">
           <img [src]="userTemp.image" class="user-img" alt="user avatar">
           <div class="user-info ps-3">
-            <p class="user-name mb-0">{{userTemp.name}} {{userTemp.last_name}}</p>
-            <p class="designattion mb-0">{{ userTemp.role }}</p>
+            <p class="user-name mb-0">{{ getFullname | slice: 0:15}}{{ getFullname.length > 15 ? '...': '' }}</p>
+            <span *ngIf="userTemp.role === 'ADMIN'"
+              class="badge rounded-pill text-danger bg-light-danger p-2 text-uppercase px-3">administrador</span>
+            <span *ngIf="userTemp.role === 'DENTIST'"
+              class="badge rounded-pill text-primary bg-light-primary p-2 text-uppercase px-3">dentista</span>
           </div>
         </a>
         <ul class="dropdown-menu dropdown-menu-end">
           <li>
-            <a class="dropdown-item" href="javascript:;"><i class="bx bx-cog"></i><span>Cuenta</span></a>
+            <a class="dropdown-item" routerLink="/settings/profile">
+              <i class="bx bx-cog"></i>
+              <span>Cuenta</span>
+            </a>
           </li>
-          <li><a class="dropdown-item" href="javascript:;"><i class='bx bx-lock'></i><span>Código</span></a>
+          <li *ngIf="hasAccess">
+            <a class="dropdown-item" routerLink="/settings/code">
+              <i class='bx bx-lock'></i>
+              <span>Código</span>
+            </a>
           <li>
             <div class="dropdown-divider mb-0"></div>
           </li>
-          <li><a class="dropdown-item cursor" (click)="logout()"><i class='bx bx-log-out'></i><span>Cerrar
-                Sesión</span></a>
+          <li>
+            <a class="dropdown-item cursor" (click)="logout()">
+              <i class='bx bx-log-out'></i>
+              <span>Cerrar Sesión</span>
+            </a>
           </li>
         </ul>
       </div>

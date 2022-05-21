@@ -19,9 +19,9 @@ import Swal from 'sweetalert2';
 export class PatientsComponent implements OnInit {
 
   public cardsIconData: ICardIconRight[] = [
-    { title: 'Mis Pacientes', quantity: 0, icon: 'bx-user', color: 'info'},
-    { title: 'Pacientes activos', quantity: 0, icon: 'bx-check', color: 'success'},
-    { title: 'Pacientes inactivos', quantity: 0, icon: 'bx-x', color: 'danger'}
+    { title: 'Mis Pacientes', quantity: 0, icon: 'bxs-user', color: 'primary', bg: 'scooter'},
+    { title: 'Pacientes activos', quantity: 0, icon: 'bx-check', color: 'success', bg: 'ohhappiness'},
+    { title: 'Pacientes inactivos', quantity: 0, icon: 'bx-block', color: 'danger', bg: 'bloody'}
   ]
 
   private optionsSearch: IOptionsSearch = {
