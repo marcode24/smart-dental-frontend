@@ -25,7 +25,6 @@ export class ModalAppointmentComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.changeAppointment = this.appointmentService.appointmentSelected.subscribe(appointment => {
       this.appointment = appointment;
-      console.log(this.appointment);
     });
   }
 
