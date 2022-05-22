@@ -1,9 +1,10 @@
-<div class="row">
+<app-loader *ngIf="isLoadingPage"></app-loader>
+<div class="row" *ngIf="!isLoadingPage">
   <div class="col-lg-12">
     <div class="card radius-10">
       <div class="card-body">
         <div class="d-flex align-items-center justify-content-between flex-wrap w-100 mb-3">
-          <h2 class="mb-0 ">Citas</h2>
+          <h2 class="mb-0">Citas</h2>
           <div class="d-flex justify-content-end align-items-center gap-2">
             <button type="button" routerLink="/appointments/new" class="btn btn-outline-primary px-3 radius-10">
               <i class="bx bx-plus mr-1"></i>Nueva Cita
@@ -14,8 +15,10 @@
           <app-input-search [findName]="'paciente'" (text)="findByFullname($event)" style="width: 32%;">
           </app-input-search>
           <div class="d-flex gap-2">
-            <app-dropdown-appointments (option)="changeOptionAppointment($event)"></app-dropdown-appointments>
-            <app-dropdown-page-list (limit)="changeLimit($event)"></app-dropdown-page-list>
+            <app-dropdown-appointments (option)="changeOptionAppointment($event)">
+            </app-dropdown-appointments>
+            <app-dropdown-page-list (limit)="changeLimit($event)">
+            </app-dropdown-page-list>
           </div>
         </div>
         <app-text-alert *ngIf="appointments && appointments.length === 0" [icon]="'bx-detail'" [textColor]="'info'"
@@ -30,4 +33,4 @@
   </div>
 </div>
 
-<app-modal-appointment></app-modal-appointment>
+<app-modal-appointment *ngIf="appointments && appointments.length > 0"></app-modal-appointment>

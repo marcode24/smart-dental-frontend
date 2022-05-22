@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { AlertsModule } from '@components/alerts/alerts.module';
 import { DropdownsModule } from '@components/dropdowns/dropdowns.module';
 import { InputsModule } from '@components/inputs/inputs.module';
+import { LoadersModule } from '@components/loaders/loaders.module';
 import { ModalsModule } from '@components/modals/modals.module';
 import { PaginationsModule } from '@components/paginations/paginations.module';
 import { TablesModule } from '@components/tables/tables.module';
@@ -28,7 +29,8 @@ import { NewAppointmentComponent } from './pages/new-appointment/new-appointment
     ComponentsModule,
     RouterModule,
     AlertsModule,
-    PaginationsModule
+    PaginationsModule,
+    LoadersModule
   ]
 })
 export class AppointmentsModule { }

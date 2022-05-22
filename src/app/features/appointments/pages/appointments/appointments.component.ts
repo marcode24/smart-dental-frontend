@@ -18,6 +18,8 @@ export class AppointmentsComponent implements OnInit {
   public appointments: Appointment[];
   public totalAppointments: number = 0;
   public showPagination: boolean = true;
+  public findingByFullname: boolean = false;
+  public isLoadingPage: boolean = true;
   private optionsSearch: IOptionsSearch = {
     limit: 5,
     offset: 0,
@@ -36,12 +38,14 @@ export class AppointmentsComponent implements OnInit {
     this.appointmentService.getAppointmentsByUser(this.optionAppointment, this.optionsSearch).subscribe(({ appointments, total }) => {
       this.showPagination = (fullnameTemp && fullnameTemp.toString().length > 0) ? false : true;
       this.appointments = appointments;
-      console.log(this.appointments);
       this.totalAppointments = total;
+      this.isLoadingPage = false;
     });
   }
 
   changeOptionAppointment(value: any){
+    this.findingByFullname = false;
+    this.optionsSearch.fullname = '';
     this.optionAppointment = value;
     this.getAppointments();
   }
@@ -51,13 +55,11 @@ export class AppointmentsComponent implements OnInit {
   }
 
   findByFullname(fullname: string) {
-    this.showPagination = false;
     this.optionsSearch.fullname = fullname.trim();
     this.getAppointments();
   }
 
   changeLimit(limit: number) {
-    console.log({limit});
     this.optionsSearch.limit = limit;
     this.optionsSearch.offset = 0;
     this.getAppointments();
