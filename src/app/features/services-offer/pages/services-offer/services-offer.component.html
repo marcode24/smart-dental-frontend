@@ -1,11 +1,11 @@
-<div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
+<app-loader *ngIf="isLoadingPage"></app-loader>
+
+<div *ngIf="!isLoadingPage" class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
   <div class="col" *ngFor="let cardData of cardsIconData">
     <app-card-icon-right [data]="cardData"></app-card-icon-right>
   </div>
 </div>
-
-
-<div class="row">
+<div *ngIf="!isLoadingPage" class="row">
   <div class="col-lg-12">
     <div class="card radius-10">
       <div class="card-body">
@@ -77,4 +77,4 @@
   </div>
 </div>
 
-<app-modal></app-modal>
+<app-modal *ngIf="services && services.length > 0"></app-modal>

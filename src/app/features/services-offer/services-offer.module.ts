@@ -8,6 +8,7 @@ import { CardsModule } from '@components/cards/cards.module';
 import { ComponentsModule } from './components/components.module';
 import { DropdownsModule } from '@components/dropdowns/dropdowns.module';
 import { InputsModule } from '@components/inputs/inputs.module';
+import { LoadersModule } from '@components/loaders/loaders.module';
 import { PaginationsModule } from '@components/paginations/paginations.module';
 
 @NgModule({
@@ -21,7 +22,8 @@ import { PaginationsModule } from '@components/paginations/paginations.module';
     DropdownsModule,
     ComponentsModule,
     PaginationsModule,
-    AlertsModule
+    AlertsModule,
+    LoadersModule
   ]
 })
 export class ServicesOfferModule { }

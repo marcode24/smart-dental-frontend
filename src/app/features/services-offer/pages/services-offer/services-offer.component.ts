@@ -29,6 +29,7 @@ export class ServicesOfferComponent implements OnInit, OnDestroy {
   public services: Service[];
   public showPagination: boolean = true;
   private changeDataService: Subscription;
+  public isLoadingPage: boolean = true;
 
   constructor(
     private readonly serviceOfferService: ServiceOfferService
@@ -52,6 +53,7 @@ export class ServicesOfferComponent implements OnInit, OnDestroy {
       this.cardsIconData[0].quantity = this.totalServices;
       this.cardsIconData[1].quantity = totalActive;
       this.cardsIconData[2].quantity = totalInactive;
+      this.isLoadingPage = false;
     })
   }
 
