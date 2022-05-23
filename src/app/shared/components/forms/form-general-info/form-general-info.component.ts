@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 
 import { User } from '@models/user.model';
 
+import { RegexClass } from '@utils/regex.util';
+import ValidationDateBirth from '@utils/validation-date-birth.util';
+
 @Component({
   selector: 'app-form-general-info',
   templateUrl: './form-general-info.component.html',
@@ -14,18 +17,23 @@ export class FormGeneralInfoComponent implements OnInit {
   @Input() userActive: User;
   @Output() userInfo: EventEmitter<User> = new EventEmitter();
   @Input() isNew: boolean = true;
+  private regexExpressions = RegexClass;
   private generalInfo: User;
   public generalInfoForm: FormGroup = this.fb.group({
-    name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
-    last_name: ['', [Validators.required,Validators.minLength(2),Validators.maxLength(20)]],
+    name: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
+    last_name: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
     date_birth: ['', Validators.required],
     gender: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email, Validators.minLength(10)]],
-    phone_number: ['', [Validators.required, Validators.maxLength(12), Validators.minLength(10)]],
-    street: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-    cp: ['', [Validators.required, Validators.maxLength(5), Validators.minLength(5)]],
-    city: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-    country: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+    phone_number: ['', [Validators.required, Validators.pattern(this.regexExpressions.PHONE_NUMBER)]],
+    street: ['', [Validators.required, Validators.pattern(this.regexExpressions.STREET)]],
+    cp: ['', [Validators.required, Validators.pattern(this.regexExpressions.CP)]],
+    city: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
+    country: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
+  }, {
+    validators: [
+      ValidationDateBirth.validate('date_birth'),
+    ]
   });
 
   constructor(

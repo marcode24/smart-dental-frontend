@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IAccountInfo } from '@interfaces/user.interface';
+import { RegexClass } from '@utils/regex.util';
 import Validation from '@utils/validation';
 
 @Component({
@@ -14,7 +15,7 @@ export class FormAccountComponent implements OnInit {
   @Input() imageUserTemp: string;
   @Output() showGeneralInfo: EventEmitter<boolean> = new EventEmitter();
   @Output() accountInfo: EventEmitter<IAccountInfo> = new EventEmitter();
-
+  private regexExpressions = RegexClass;
   public accountForm: FormGroup;
   public bgColorImageUser: string = 'primary';
 
@@ -40,8 +41,8 @@ export class FormAccountComponent implements OnInit {
   loadForm() {
     this.accountForm = this.fb.group({
       role: ['DENTIST', [Validators.required]],
-      username: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(24)]],
-      password: ['', [Validators.required, Validators.minLength(5)]],
+      username: ['', [Validators.required, Validators.pattern(this.regexExpressions.USER_NAME)]],
+      password: ['', [Validators.required, Validators.pattern(this.regexExpressions.PASSWORD)]],
       password2: ['', [Validators.required]],
     },
     {

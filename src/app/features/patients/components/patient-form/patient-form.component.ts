@@ -3,6 +3,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 import { Patient } from '@models/patient.model';
 
+import { RegexClass } from '@utils/regex.util';
+import ValidationDateBirth from '@utils/validation-date-birth.util';
+
 @Component({
   selector: 'app-patient-form',
   templateUrl: './patient-form.component.html',
@@ -13,24 +16,27 @@ export class PatientFormComponent implements OnInit {
   @Input() patientActive: Patient;
   @Output() patient: EventEmitter<Patient> = new EventEmitter<Patient>();
   @Input() isNew: boolean = true;
+  private regexExpressions = RegexClass;
 
   public patientForm = this.fb.group({
-    name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
-    last_name: ['', [Validators.required,Validators.minLength(2),Validators.maxLength(20)]],
-    date_birth: ['', [Validators.required,Validators.minLength(5),Validators.maxLength(20)]],
+    name: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
+    last_name: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
+    date_birth: ['', Validators.required],
     gender: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email, Validators.minLength(10)]],
-    phone_number: ['', [Validators.required, Validators.maxLength(12)]],
-    street: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-    cp: ['', [Validators.required, Validators.maxLength(5), Validators.minLength(5)]],
-    city: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-    country: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-    f_name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
-    f_last_name: ['', [Validators.required, Validators.minLength(2),Validators.maxLength(20)]],
+    phone_number: ['', [Validators.required, Validators.pattern(this.regexExpressions.PHONE_NUMBER)]],
+    street: ['', [Validators.required, Validators.pattern(this.regexExpressions.STREET)]],
+    cp: ['', [Validators.required, Validators.pattern(this.regexExpressions.CP)]],
+    city: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
+    country: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
+    f_name: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
+    f_last_name: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
     relationship: ['', Validators.required],
     f_gender: ['', Validators.required],
-    f_email: ['', [Validators.required, Validators.email, Validators.minLength(10)]],
-    f_phone_number: ['', [Validators.required, Validators.maxLength(12)]],
+    f_email: ['', [Validators.required, Validators.email]],
+    f_phone_number: ['', [Validators.required, Validators.pattern(this.regexExpressions.PHONE_NUMBER)]],
+  },{
+    validators: [ ValidationDateBirth.validate('date_birth') ]
   });
 
   constructor(

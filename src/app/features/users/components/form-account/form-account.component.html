@@ -25,10 +25,8 @@
             <input formControlName="username" type="text" class="form-control" id="inputUsername">
             <div *ngIf="validateAccountForm('username')" class="message-error">
               <span *ngIf="validateAccountField('username', 'required')" class="text-danger">campo requerido</span>
-              <span *ngIf="validateAccountField('username', 'maxlength')" class="text-danger">máximo 24
-                caracteres</span>
-              <span *ngIf="validateAccountField('username', 'minlength')" class="text-danger">mínimo 5
-                caracteres</span>
+              <span *ngIf="validateAccountField('username', 'pattern')" class="text-danger">ingrese un usuario
+                correcto</span>
             </div>
           </div>
           <div class="col-12 my-2  ">
@@ -36,8 +34,8 @@
             <input formControlName="password" type="password" class="form-control" id="inputPassword">
             <div *ngIf="validateAccountForm('password')" class="message-error">
               <span *ngIf="validateAccountField('password', 'required')" class="text-danger">campo requerido</span>
-              <span *ngIf="validateAccountField('password', 'minlength')" class="text-danger">mínimo 5
-                caracteres</span>
+              <span *ngIf="validateAccountField('password', 'pattern')" class="text-danger">ingrese una contraseña
+                correcta</span>
             </div>
           </div>
           <div class="col-12 my-2  ">
