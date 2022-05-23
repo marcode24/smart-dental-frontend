@@ -47,10 +47,18 @@
     <label class="form-label" for="inputDate">Fecha</label>
     <input formControlName="date" (blur)="findAppointments($event.target)" id="inputDate" type="date"
       class="form-control radius-10">
+    <div *ngIf="validateForm('date')" class="message-error">
+      <span *ngIf="validateField('date', 'required')" class="text-danger">campo requerido</span>
+      <span *ngIf="validateField('date', 'isMin')" class="text-danger">fecha incorrecta</span>
+    </div>
   </div>
   <div class="col-4">
     <label class="form-label" for="inputTime">Hora</label>
     <input formControlName="time" type="time" id="inputTime" class="form-control radius-10">
+    <div *ngIf="validateForm('time')" class="message-error">
+      <span *ngIf="validateField('time', 'required')" class="text-danger">campo requerido</span>
+      <span *ngIf="validateField('time', 'isMinTime')" class="text-danger">hora incorrecta</span>
+    </div>
   </div>
   <div class="col-12">
     <label class="form-label" for="inputDescription">Observaciones</label>

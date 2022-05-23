@@ -8,6 +8,8 @@ import { Record } from '@models/record.model';
 import { PatientService } from '@services/patient.service';
 import { RecordService } from '@services/record.service';
 import { ICreateAppointment } from '@interfaces/appointment.interface';
+import ValidationDate from '@utils/validation-date.util';
+import ValidationTime from '@utils/validation-time.util';
 
 @Component({
   selector: 'app-appointment-form',
@@ -32,7 +34,6 @@ export class AppointmentFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadForm();
   }
 
   findPatient(value: string) {
@@ -49,6 +50,7 @@ export class AppointmentFormComponent implements OnInit {
     this.patientService.getPatientByUser(patientId).subscribe({
       next: (resp: boolean) => {
         if(resp) {
+          this.loadForm();
           this.patientTemp = this.patientService.patientTemp;
           this.recordService.getRecords(this.patientTemp.id_patient, 3).subscribe(records => {
             this.recordsPatient = records.map(r => {
@@ -93,6 +95,9 @@ export class AppointmentFormComponent implements OnInit {
   }
 
   findAppointments(event: any) {
+    if(!event.value || this.appointmentForm.get('date')?.hasError('isMin')) {
+      return;
+    }
     this.dateSelected.emit(event.value);
   }
 
@@ -101,7 +106,21 @@ export class AppointmentFormComponent implements OnInit {
       date: ['', Validators.required],
       time: ['', Validators.required],
       description: ['', Validators.maxLength(1024)],
+    }, {
+      validators: [
+        ValidationDate.validate('date'),
+        ValidationTime.validate('date', 'time')
+      ],
     });
+  }
+
+  validateForm(field: string): boolean | undefined | null {
+    const myForm = this.appointmentForm.get(field);
+    return myForm?.errors && (myForm?.dirty || myForm?.touched);
+  }
+
+  validateField(field: string, error: string): boolean | undefined | null {
+    return (this.appointmentForm.get(field)?.hasError(error));
   }
 
 }
