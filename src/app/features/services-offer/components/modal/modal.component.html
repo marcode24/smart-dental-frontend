@@ -15,13 +15,15 @@
             <input formControlName="name" type="text" class="form-control radius-10" id="inputName">
             <div *ngIf="validateForm('name')" class="message-error">
               <span *ngIf="validateField('name', 'required')" class="text-danger">campo requerido</span>
-              <span *ngIf="validateField('name', 'maxlength')" class="text-danger">máximo 20 caracteres</span>
-              <span *ngIf="validateField('name', 'minlength')" class="text-danger">mínimo 2 caracteres</span>
+              <span *ngIf="validateField('name', 'pattern')" class="text-danger">ingrese un valor correcto</span>
             </div>
           </div>
           <div class="col-12 my-1">
             <label for="inputDescription" class="form-label">Descripcion</label>
             <input formControlName="description" type="text" class="form-control radius-10" id="inputDescription">
+            <div *ngIf="validateForm('description')" class="message-error">
+              <span *ngIf="validateField('description', 'pattern')" class="text-danger">ingrese un valor correcto</span>
+            </div>
           </div>
           <div class="col-6 my-1">
             <label for="inputPrice" class="form-label">$ Precio </label>
@@ -29,6 +31,7 @@
             <div *ngIf="validateForm('price')" class="message-error">
               <span *ngIf="validateField('price', 'required')" class="text-danger">campo requerido</span>
               <span *ngIf="validateField('price', 'min')" class="text-danger">precio debe ser mayor a 0</span>
+              <span *ngIf="validateField('price', 'pattern')" class="text-danger">ingrese un valor correcto</span>
             </div>
           </div>
           <div class="col-6 my-1">

@@ -40,7 +40,7 @@
               <tr *ngFor="let service of services">
                 <td># {{ service.id_service }} </td>
                 <td> {{ service.name }} </td>
-                <td> {{ service.price | currency: '$' }} </td>
+                <td> {{ service.price | currency: '$ ' }} </td>
                 <td class="text-center">
                   <i *ngIf="service.odontogram" class="bx bx-check font-30 text-success"></i>
                   <i *ngIf="!service.odontogram" class="bx bx-x font-30 text-danger"></i>
