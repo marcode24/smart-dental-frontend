@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { AdminGuard } from "@guards/admin.guard";
 
 import { AuthGuard } from "@guards/auth.guard";
 
@@ -41,6 +42,20 @@ const routes: Routes = [
     canLoad: [AuthGuard],
     loadChildren: () => import('./appointments/appointments.routing').then(m => m.AppointmentsRoutingModule),
   },
+  {
+    path: 'settings',
+    component: FeaturesComponent,
+    canActivate: [AuthGuard],
+    canLoad: [AuthGuard],
+    loadChildren: () => import('./settings/settings.routing').then(m => m.SettingsRoutingModule),
+  },
+  {
+    path: 'statistics',
+    component: FeaturesComponent,
+    canActivate: [AuthGuard],
+    canLoad: [AuthGuard],
+    loadChildren: () => import('./statistics/statistics.routing').then(m => m.StatisticsRoutingModule),
+  }
 ];
 
 @NgModule({

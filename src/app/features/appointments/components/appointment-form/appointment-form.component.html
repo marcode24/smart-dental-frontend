@@ -1,23 +1,28 @@
-<div class="row g-3 my-1">
-  <div class="col-3 my-2">
+<div class="d-flex my-3 gap-3">
+  <div class="flex-grow-1">
     <label for="inputPatientNumber" class="form-label"># Paciente</label>
-    <input #txtPatientNumber (keyup.enter)="findPatient(txtPatientNumber.value)" type="text" class="form-control"
-      id="inputPatientNumber">
+    <input #txtPatientNumber (keyup.enter)="findPatient(txtPatientNumber.value)" type="text"
+      class="form-control radius-10" id="inputPatientNumber">
   </div>
-  <div class="col-9 my-2">
-    <label for="inputPatientName" class="form-label">Nombre</label>
-    <input [value]="getName" disabled type="text" class="form-control" id="inputPatientName">
-  </div>
+  <button (click)="findPatient(txtPatientNumber.value)" class="btn btn-success align-self-end radius-10">
+    <i class="bx bx-search ms-1"></i>
+  </button>
 </div>
-<div class="d-flex justify-content-end align-items-center" *ngIf="!patientTemp">
-  <button type="button" routerLink="/appointments" class="btn btn-danger radius-30">
+<div class="d-flex justify-content-end align-items-center mt-4" *ngIf="!patientTemp">
+  <button type="button" routerLink="/appointments" class="btn btn-danger radius-10">
     <i class="bx bx-block"></i>Cancelar
   </button>
 </div>
 
 
 <form [formGroup]="appointmentForm" (ngSubmit)="saveAppointment()" class="row g-3 my-1" *ngIf="patientTemp">
-  <div class="table-responsive">
+  <div class="col-12 my-2">
+    <label for="inputPatientName" class="form-label">Nombre</label>
+    <input [value]="getName" disabled type="text" class="form-control radius-10" id="inputPatientName">
+  </div>
+  <app-text-alert *ngIf="recordsPatient && recordsPatient.length === 0" [icon]="'bx-briefcase'" [textColor]="'info'"
+    [text]="'No hay servicios por realizar'"></app-text-alert>
+  <div class="table-responsive" *ngIf="recordsPatient && recordsPatient.length > 0">
     <table class="table align-middle table-hover">
       <thead>
         <tr>
@@ -41,22 +46,30 @@
   <div class="col-5">
     <label class="form-label" for="inputDate">Fecha</label>
     <input formControlName="date" (blur)="findAppointments($event.target)" id="inputDate" type="date"
-      class="form-control">
+      class="form-control radius-10">
+    <div *ngIf="validateForm('date')" class="message-error">
+      <span *ngIf="validateField('date', 'required')" class="text-danger">campo requerido</span>
+      <span *ngIf="validateField('date', 'isMin')" class="text-danger">fecha incorrecta</span>
+    </div>
   </div>
   <div class="col-4">
     <label class="form-label" for="inputTime">Hora</label>
-    <input formControlName="time" type="time" id="inputTime" class="form-control">
+    <input formControlName="time" type="time" id="inputTime" class="form-control radius-10">
+    <div *ngIf="validateForm('time')" class="message-error">
+      <span *ngIf="validateField('time', 'required')" class="text-danger">campo requerido</span>
+      <span *ngIf="validateField('time', 'isMinTime')" class="text-danger">hora incorrecta</span>
+    </div>
   </div>
   <div class="col-12">
     <label class="form-label" for="inputDescription">Observaciones</label>
-    <input formControlName="description" type="text" id="inputDescription" class="form-control">
+    <input formControlName="description" type="text" id="inputDescription" class="form-control radius-10">
   </div>
   <div class="d-flex justify-content-end align-items-center gap-2">
-    <button type="button" routerLink="/appointments" class="btn btn-danger radius-30">
+    <button type="button" routerLink="/appointments" class="btn btn-danger radius-10">
       <i class="bx bx-block"></i>Cancelar
     </button>
-    <button type="submit" class="btn btn-primary radius-30" [disabled]="appointmentForm.invalid">
-      <i class="bx bx-check"></i>Guardar
+    <button type="submit" class="btn btn-primary radius-10" [disabled]="appointmentForm.invalid">
+      <i class="bx bx-save"></i>Guardar
     </button>
   </div>
 </form>

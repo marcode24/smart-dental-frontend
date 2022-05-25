@@ -8,6 +8,8 @@ import { AuthService } from './auth.service';
 import { Appointment } from '@models/appointment.model';
 
 import { IChangeStatus, ICreateAppointment } from '@interfaces/appointment.interface';
+import { IOptionsSearch } from '@interfaces/options-search.interface';
+import { IResponseAppointment } from '@interfaces/response.interface';
 
 const base_url = environment.base_url;
 
@@ -35,12 +37,28 @@ export class AppointmentService {
     };
   }
 
-  getAppointmentsByUser(status: 'PENDING' | 'CANCELLED' | 'DONE', date?: string): Observable<Appointment[]> {
-    let url = `${base_url}/appointments/user/${this.authService.userActive.id_user}?status=${status}`;
+  getAppointmentsByUser(
+    status: 'PENDING' | 'CANCELLED' | 'DONE',
+    options?: IOptionsSearch,
+    date?: string
+  ): Observable<IResponseAppointment> {
+    const idUser = this.authService.userActive.id_user;
+    let url = `${base_url}/appointments/user/${idUser}?status=${status}`;
+    let fullname;
+    if(options) {
+      let { limit, offset, fullname: f } = options;
+      fullname = f;
+      url = `${url}&limit=${limit}&offset=${offset}`;
+    }
+    if(fullname) {
+      fullname = fullname.toString().trim();
+      url = `${url}&fullname=${fullname}`
+    }
     if(date) {
       url = `${url}&date=${date}`
     }
-    return this.http.get<Appointment[]>(url, this.headers);
+    console.log({url});
+    return this.http.get<IResponseAppointment>(url, this.headers);
   }
 
   getAppointmentsByPatient(patientId: number): Observable<Appointment[]> {

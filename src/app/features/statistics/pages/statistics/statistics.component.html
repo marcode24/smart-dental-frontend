@@ -1,0 +1,29 @@
+<div *ngIf="!isLoadingPage">
+  <h4 class="mb-0 text-uppercase">Servicios más solicitados</h4>
+  <hr>
+  <div class="row" *ngIf="statistics">
+    <div class="col-xl-4 col-md-4" *ngFor="let statistic of statistics">
+      <app-card-chart [statistic]="statistic"></app-card-chart>
+    </div>
+  </div>
+  <div class="card radius-10">
+    <div class="card-body">
+      <div class="d-flex align-items-center justify-content-between flex-wrap w-100 mb-3">
+        <h2 class="mb-0 ">Ganancias</h2>
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+          <app-dropdown-statistics (option)="changeOption($event)" (type)="changeType($event)">
+          </app-dropdown-statistics>
+          <app-dropdown-page-list (limit)="changeLimit($event)"></app-dropdown-page-list>
+        </div>
+      </div>
+      <app-table-records [records]="statisticsDate"></app-table-records>
+      <app-pagination *ngIf="totalRecords > 0" [limit]="getLimitPagination" [total]="totalRecords"
+        (changedOffset)="changePage($event)"></app-pagination>
+      <h1 class="d-flex justify-content-end align-items-center mt-3">
+        Ganancia: {{ earnings | currency: '$' }}
+      </h1>
+    </div>
+  </div>
+</div>
+
+<app-loader *ngIf="isLoadingPage"></app-loader>

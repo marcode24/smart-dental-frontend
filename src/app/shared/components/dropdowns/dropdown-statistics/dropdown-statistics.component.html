@@ -1,0 +1,10 @@
+<div class="d-flex align-items-center justify-content-between gap-1">
+  <span> Filtrar por </span>
+  <select class="form-select radius-10" (change)="changeType($event)" style=" width: auto;">
+    <option value="month" selected>Mes</option>
+  </select>
+  <select class="form-select radius-10" (change)="changeOption($event)" style=" width: auto;">
+    <option value="current" selected>Actual</option>
+    <option value="last">Pasado</option>
+  </select>
+</div>

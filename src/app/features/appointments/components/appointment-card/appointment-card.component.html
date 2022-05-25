@@ -14,19 +14,18 @@
       <div class="col">&nbsp;</div>
     </div>
   </div>
-  <!-- timeline item 1 event content -->
   <div class="col">
-    <div class="card radius-15">
+    <div class="card radius-10">
       <div class="card-body">
-        <div class="float-end text-primary">{{ appointment.date | date: 'shortTime' }}</div>
+        <div class="float-end text-primary">{{ appointment.date + ' ' + appointment.time | customDate: 'time' }}</div>
         <h5 class="card-title text-primary">{{ buildFullName(appointment) }}</h5>
         <p class="card-text">{{appointment.description}}</p>
-        <div *ngIf="appointment.records">
-          <button class="btn btn-sm btn-outline-primary" type="button" [attr.data-bs-target]="'#Collapse-'+i"
+        <div *ngIf="appointment.records && appointment.records.length > 0">
+          <button class="btn btn-sm btn-outline-primary radius-10" type="button" [attr.data-bs-target]="'#Collapse-'+i"
             data-bs-toggle="collapse">Ver detalles </button>
-          <div class="collapse border" [id]="'Collapse-'+i">
+          <div class="collapse border radius-10" [id]="'Collapse-'+i">
             <div class="p-2 text-monospace">
-              <div *ngFor="let record of appointment.records">{{record.service_name}} - {{record.quantity}}</div>
+              <div *ngFor="let record of appointment.records">{{record.quantity}} - {{record.service_name}}</div>
             </div>
           </div>
         </div>

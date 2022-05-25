@@ -15,7 +15,6 @@ import { AppointmentService } from '@services/appointment.service';
 export class TableAppointmentsComponent implements OnInit {
 
   @Input() appointments: Appointment[];
-
   @Output() newStatus: EventEmitter<IChangeStatus> = new EventEmitter();
 
   constructor(private readonly appointmentService: AppointmentService) { }

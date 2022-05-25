@@ -39,6 +39,7 @@
               "src/assets/css/icons.css"
             ],
             "scripts": [
+              "node_modules/apexcharts/dist/apexcharts.min.js",
               "src/assets/js/app.js",
               "src/assets/js/pace.min.js",
               "src/assets/js/bootstrap.bundle.min.js",

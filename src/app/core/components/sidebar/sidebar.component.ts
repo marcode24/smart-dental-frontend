@@ -10,13 +10,21 @@ import { AuthService } from '@services/auth.service';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  private userActiveRole: string;
+
+  constructor(private authService: AuthService) {
+    this.userActiveRole = this.authService.userActive.role;
+  }
 
   ngOnInit(): void {
   }
 
   logout() {
     this.authService.logout();
+  }
+
+  get hasAccess(): boolean {
+    return this.userActiveRole === 'ADMIN';
   }
 
 }

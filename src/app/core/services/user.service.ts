@@ -6,11 +6,11 @@ import { map, Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 
 import { Gender } from '@enums/gender.enum';
-import { Roles } from '@enums/role.enum';
 
 import { User } from '@models/user.model';
 
-import { IResponseUser } from '@interfaces/response.interface';
+import { IResponseUser, IResponseUsers } from '@interfaces/response.interface';
+import { IOptionsSearch } from '@interfaces/options-search.interface';
 
 import Storage from '@utils/storage.util';
 
@@ -22,7 +22,7 @@ const base_url = environment.base_url;
 export class UserService {
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
   ) {}
 
   get token(): string {
@@ -41,8 +41,7 @@ export class UserService {
     };
   }
 
-  createUser(data: User, role: Roles, fromAuth: boolean = false) {
-    data.role = role;
+  createUser(data: User, fromAuth: boolean = false) {
     data.image = (data.gender === 'male') ? Gender.MALE : (data.gender === 'female') ? Gender.FEMALE: Gender.OTHER;
     const url = `${base_url}/users`;
     return this.http.post(url, data, {}).pipe(map((resp: any) => {
@@ -57,18 +56,43 @@ export class UserService {
         return this.router.navigate(['/']);
       }
       Swal.fire('Usuario creado correctamente', '', 'success');
+      localStorage.removeItem('userTemp');
       return this.router.navigate(['/users']);
     }))
   }
 
-  getUsers(limit: number, offset: number, fullname?: string) {
-    const url = `${base_url}/users?fullname=${fullname || ''}&limit=${limit}&offset=${offset}`;
-    return this.http.get<IResponseUser>(url, this.headers);
+  getUsers(all: boolean, optionsSearch?: IOptionsSearch) {
+    let url = `${base_url}/users?`;
+    if(optionsSearch) {
+      const { limit, offset, fullname } = optionsSearch;
+      url = `${url}fullname=${fullname || ''}&limit=${limit}&offset=${offset}`;
+    }
+    if(all) {
+      url = `${url}all=${all}`;
+    }
+    return this.http.get<IResponseUsers>(url, this.headers);
   }
 
   changeStatus(idUser: string | undefined, status: boolean): Observable<number> {
     const url = `${base_url}/users/${idUser}`;
     return this.http.patch<number>(url, { status }, this.headers );
+  }
+
+  changeCode(idUser: number | undefined): Observable<any> {
+    const url = `${base_url}/users/changeCode/${idUser}`;
+    return this.http.patch<any>(url, { }, this.headers);
+  }
+
+  getUserByID(userID: number): Observable<IResponseUser> {
+    const url = `${base_url}/users/${userID}`;
+    return this.http.get<IResponseUser>(url, this.headers);
+  }
+
+  updateUser(userId: number | undefined, data: User): Observable<User | null> {
+    const url = `${base_url}/users/${userId}`;
+    return this.http.put<User>(url, data, this.headers).pipe(map((resp) => {
+      return resp
+    }));
   }
 
 }

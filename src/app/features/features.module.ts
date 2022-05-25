@@ -10,6 +10,8 @@ import { UsersModule } from './users/users.module';
 import { ServicesOfferModule } from './services-offer/services-offer.module';
 import { PatientsModule } from './patients/patients.module';
 import { AppointmentsModule } from './appointments/appointments.module';
+import { SettingsModule } from './settings/settings.module';
+import { StatisticsModule } from './statistics/statistics.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { AppointmentsModule } from './appointments/appointments.module';
     UsersModule,
     ServicesOfferModule,
     PatientsModule,
-    AppointmentsModule
+    AppointmentsModule,
+    SettingsModule,
+    StatisticsModule
   ],
   providers: [
   ]

@@ -179,3 +179,10 @@ html.color-sidebar .sidebar-wrapper {
 .tooth {
   margin: 0.8rem;
 }
+
+.switch-odontogram {
+  width: 3rem !important;
+  height: 1.5rem !important;
+  margin-left: 0rem !important;
+  margin-top: 0 !important;
+}

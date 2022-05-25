@@ -12,8 +12,8 @@
     </thead>
     <tbody>
       <tr *ngFor="let appointment of appointments">
-        <td class="text-center">{{ appointment.id_appointment }}</td>
-        <td>{{ appointment.date | date: 'short' }}</td>
+        <td class="text-center"># {{ appointment.id_appointment }}</td>
+        <td>{{ appointment.date + ' ' + appointment.time | customDate }}</td>
         <td>{{ appointment.patient?.name }} {{ appointment.patient?.last_name }} </td>
         <td>{{ appointment.patient?.phone_number }}</td>
         <td class="text-center">
@@ -27,18 +27,15 @@
         <td>
           <div class="d-flex justify-content-center order-actions">
             <a (click)="changeStatus(appointment.id_appointment, 'DONE')" *ngIf="appointment.status === 'PENDING'"
-              class="cursor">
+              class="cursor bg-light-success text-success">
               <i class="bx bx-check"></i>
             </a>
             <a (click)="changeStatus(appointment.id_appointment, 'CANCELLED')" *ngIf="appointment.status === 'PENDING'"
-              class="ms-2 cursor">
+              class="ms-2 cursor bg-light-danger text-danger">
               <i class="bx bx-block"></i>
             </a>
-            <a *ngIf="appointment.status === 'PENDING'" class="ms-2 cursor">
-              <i class="bx bx-pencil"></i>
-            </a>
             <a (click)="showDetails(appointment)" data-bs-toggle="modal" data-bs-target="#modalDetailAppointment"
-              class="ms-2"><i class="bx bx-id-card"></i></a>
+              class="ms-2 bg-light-primary text-primary cursor"><i class="bx bx-id-card"></i></a>
           </div>
         </td>
       </tr>

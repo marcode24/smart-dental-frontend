@@ -1,9 +1,10 @@
 <div class="d-flex justify-content-between align-items-center gap-2">
   <span> Pagina {{pageActive}} de {{totalPages}} </span>
   <div class="btn-group m-1" role="group" aria-label="Basic example">
-    <button [disabled]="pageActive === 1" (click)="changePage(-limit)" type="button" class="btn btn-outline-primary">
+    <button [disabled]="pageActive === 1" (click)="changePage(-limit)" type="button"
+      class="btn btn-outline-primary radius-10">
       Anterior </button>
     <button [disabled]="pageActive === totalPages" (click)="changePage(limit)" type="button"
-      class="btn btn-outline-primary"> Siguiente </button>
+      class="btn btn-outline-primary radius-10"> Siguiente </button>
   </div>
 </div>

@@ -8,7 +8,7 @@
         <th>$ Precio</th>
         <th>$ Subtotal</th>
         <th class="text-center">Estado</th>
-        <th class="text-end">Acciones</th>
+        <th class="text-center">Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -30,19 +30,21 @@
         </td>
         <td>
           <div class="d-flex justify-content-end order-actions" *ngIf="isHome">
-            <a *ngIf="record.status === 'PENDING'" (click)="serviceDone(record.id_record)" class="cursor ms-2">
-              <i class="bx bx-check"></i>
+            <a *ngIf="record.status === 'PENDING'" (click)="serviceDone(record.id_record)"
+              class="cursor ms-2 bg-light-success text-success">
+              <i class="bx bx-check-circle"></i>
             </a>
             <a *ngIf="record.status === 'PENDING'" (click)="serviceCancelled(record.id_record, record.service_name)"
-              class="cursor ms-2">
+              class="cursor ms-2 bg-light-danger text-danger">
               <i class="bx bx-block"></i>
             </a>
-            <a *ngIf="record.status === 'PENDING_PAYMENT'" (click)="servicePaid(record.id_record)" class="cursor ms-2">
+            <a *ngIf="record.status === 'PENDING_PAYMENT'" (click)="servicePaid(record.id_record)"
+              class="cursor ms-2 bg-light-warning">
               <i class="bx bx-dollar-circle"></i>
             </a>
           </div>
-          <div class="d-flex justify-content-end order-actions" *ngIf="!isHome">
-            <a class="cursor ms-2">
+          <div class="d-flex justify-content-center order-actions" *ngIf="!isHome">
+            <a class="cursor ms-2 bg-light-primary text-primary">
               <i class="bx bx-time"></i>
             </a>
           </div>
@@ -50,4 +52,7 @@
       </tr>
     </tbody>
   </table>
+  <h1 class="d-flex justify-content-end align-items-center" *ngIf="records && isHome">
+    Total a pagar: {{ getTotalPayment | currency: '$ ' }}
+  </h1>
 </div>

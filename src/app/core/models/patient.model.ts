@@ -1,4 +1,5 @@
 import { Familiar } from "./familiar.model";
+import { User } from "./user.model";
 
 export class Patient {
   constructor(
@@ -14,6 +15,7 @@ export class Patient {
     public country: string,
     public status: boolean,
     public familiar: Familiar,
+    public user?: User,
     public image?: string,
     public id_patient?: number,
     public id_familiar?: number,

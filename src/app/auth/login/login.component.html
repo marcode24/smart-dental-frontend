@@ -18,13 +18,14 @@
                   <form [formGroup]="loginForm" (submit)="login()" class="row g-3 my-1">
                     <div class="col-12">
                       <label class="form-label">Usuario</label>
-                      <input formControlName="username" type="text" class="form-control form-control-lg mb-2" />
+                      <input formControlName="username" type="text"
+                        class="form-control form-control-lg mb-2 radius-10" />
                     </div>
                     <div class="col-12">
                       <label class="form-label">Password</label>
                       <div class="input-group" id="show_hide_password">
                         <input formControlName="password" type="password"
-                          class="form-control form-control-lg border-end-0" id="inputChoosePassword" />
+                          class="form-control form-control-lg border-end-0 radius-10" id="inputChoosePassword" />
                         <a href="javascript:;" class="input-group-text bg-transparent"><i class="bx bx-hide"></i></a>
                       </div>
                     </div>
@@ -41,7 +42,7 @@
                     </div>
                     <div class="col-12">
                       <div class="d-grid">
-                        <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary radius-30">
+                        <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary radius-10">
                           <i class="bx bx-log-in"></i>Ingresar
                         </button>
                       </div>

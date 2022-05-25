@@ -6,13 +6,13 @@
 
 <div class="row">
   <div class="col-lg-12">
-    <div class="card">
+    <div class="card radius-10">
       <div class="card-body">
         <div class="d-flex align-items-center justify-content-between flex-wrap w-100 mb-3">
           <h2 class="mb-0">
             Usuarios
           </h2>
-          <button routerLink="/users/new" type="button" class="btn btn-outline-primary px-3 radius-30">
+          <button routerLink="/users/new" type="button" class="btn btn-outline-primary px-3 radius-10">
             <i class="bx bx-plus mr-1"></i>Nuevo Usuario
           </button>
         </div>
@@ -59,16 +59,17 @@
                 <td>
                   <div class="d-flex justify-content-end order-actions">
                     <a *ngIf="user.status" (click)="changeStatus(user.name+' '+user.last_name, user.id_user)"
-                      class="cursor">
+                      class="cursor text-danger bg-light-danger">
                       <i class="bx bx-block"></i>
                     </a>
-                    <a href="javascript:;" class="ms-2"><i class="bx bx-id-card"></i></a>
+                    <a [routerLink]="['/users/', user.id_user]" class="ms-2 cursor text-primary bg-light-primary"><i
+                        class="bx bx-id-card"></i></a>
                   </div>
                 </td>
               </tr>
             </tbody>
           </table>
-          <app-pagination *ngIf="totalUsers > 0" [limit]="limit" [total]="totalUsers"
+          <app-pagination *ngIf="totalUsers > 0 && showPagination" [limit]="limit" [total]="totalUsers"
             (changedOffset)="changePage($event)"></app-pagination>
         </div>
       </div>

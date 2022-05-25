@@ -8,6 +8,8 @@ import { Record } from '@models/record.model';
 import { PatientService } from '@services/patient.service';
 import { RecordService } from '@services/record.service';
 import { ICreateAppointment } from '@interfaces/appointment.interface';
+import ValidationDate from '@utils/validation-date.util';
+import ValidationTime from '@utils/validation-time.util';
 
 @Component({
   selector: 'app-appointment-form',
@@ -32,17 +34,23 @@ export class AppointmentFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadForm();
   }
 
   findPatient(value: string) {
+    if(value.trim().length === 0){
+      return;
+    }
     const patientId = Number(value.trim());
-    if(isNaN(patientId)) {
+    if(this.patientTemp && this.patientTemp.id_patient === patientId) {
+      return;
+    }
+    if(isNaN(patientId) || patientId === 0) {
       return Swal.fire('Ingrese un numero de paciente correcto', '', 'warning');
     }
     this.patientService.getPatientByUser(patientId).subscribe({
       next: (resp: boolean) => {
         if(resp) {
+          this.loadForm();
           this.patientTemp = this.patientService.patientTemp;
           this.recordService.getRecords(this.patientTemp.id_patient, 3).subscribe(records => {
             this.recordsPatient = records.map(r => {
@@ -68,19 +76,17 @@ export class AppointmentFormComponent implements OnInit {
   }
 
   get getName() {
-    const fullname = (this.patientTemp) ? `${this.patientTemp?.name} ${this.patientTemp?.last_name}` :'';
-    return fullname;
+    return (this.patientTemp) ? `${this.patientTemp?.name} ${this.patientTemp?.last_name}` :'';
   }
 
   saveAppointment() {
     if(this.appointmentForm.valid){
       const date: string = this.appointmentForm.get('date')?.value;
       const time: string = this.appointmentForm.get('time')?.value;
-      let [year, month, day] = date.split('-');
-      let [hours, minutes] = time.split(':');
       const newAppointment: ICreateAppointment = {
+        time,
         id_patient: Number(this.patientTemp.id_patient),
-        date: new Date(+year,+month-1, +day, +hours, +minutes).toISOString(),
+        date: new Date(date).toISOString(),
         description: this.appointmentForm.get('description')?.value,
         id_record: this.id_records,
       }
@@ -89,6 +95,9 @@ export class AppointmentFormComponent implements OnInit {
   }
 
   findAppointments(event: any) {
+    if(!event.value || this.appointmentForm.get('date')?.hasError('isMin')) {
+      return;
+    }
     this.dateSelected.emit(event.value);
   }
 
@@ -97,7 +106,21 @@ export class AppointmentFormComponent implements OnInit {
       date: ['', Validators.required],
       time: ['', Validators.required],
       description: ['', Validators.maxLength(1024)],
+    }, {
+      validators: [
+        ValidationDate.validate('date'),
+        ValidationTime.validate('date', 'time')
+      ],
     });
+  }
+
+  validateForm(field: string): boolean | undefined | null {
+    const myForm = this.appointmentForm.get(field);
+    return myForm?.errors && (myForm?.dirty || myForm?.touched);
+  }
+
+  validateField(field: string, error: string): boolean | undefined | null {
+    return (this.appointmentForm.get(field)?.hasError(error));
   }
 
 }

@@ -56,8 +56,8 @@ export class AuthService {
         gender, date_birth, phone_number, last_name, email, createdAt, name, image
       } = resp.user as User;
       this.userActive = new User(
-        city, country, cp, createdAt, date_birth, email, gender, last_name, name,
-        phone_number, role, status, street, updatedAt, username, id_user, '', image, code
+        city, country, cp, date_birth, email, gender, last_name, name,
+        phone_number, role, status, street, createdAt, username, updatedAt, id_user, '', image, code
       );
       Storage.deleteSessionStorage('token');
       Storage.saveSessionStorage('token', resp.access_token);

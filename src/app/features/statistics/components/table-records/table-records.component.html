@@ -1,0 +1,25 @@
+<div class="table-responsive" *ngIf="records">
+  <table class="table align-middle table-hover">
+    <thead>
+      <tr>
+        <th>Fecha de expedición</th>
+        <th>Servicio</th>
+        <th>Fecha de pago</th>
+        <th class="text-center">Cantidad</th>
+        <th>$ Precio</th>
+        <th>$ Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let record of records" style="height: 50px;">
+        <td> {{ record.createdAt | date: 'short' }} </td>
+        <td> {{ record.service_name }} </td>
+        <td> {{ record.payment_date + ' ' + record.payment_time | customDate }} </td>
+        <td class="text-center"> {{ record.quantity }} </td>
+        <td> {{ record.price | currency: '$ ' }} </td>
+        <td> {{ record.quantity * record.price | currency: '$ ' }} </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

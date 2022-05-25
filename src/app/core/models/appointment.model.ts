@@ -6,6 +6,7 @@ export class Appointment {
     public id_patient: number,
     public id_user: number,
     public date: Date,
+    public time: string,
     public status: string,
     public description?: string,
     public id_appointment?: number,

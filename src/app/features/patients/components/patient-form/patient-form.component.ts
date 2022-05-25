@@ -1,11 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-
-import { AuthService } from '@services/auth.service';
 
 import { Patient } from '@models/patient.model';
 
-import { GenderPatient } from '@enums/gender.enum';
+import { RegexClass } from '@utils/regex.util';
+import ValidationDateBirth from '@utils/validation-date-birth.util';
 
 @Component({
   selector: 'app-patient-form',
@@ -14,45 +13,65 @@ import { GenderPatient } from '@enums/gender.enum';
   ]
 })
 export class PatientFormComponent implements OnInit {
-
+  @Input() patientActive: Patient;
   @Output() patient: EventEmitter<Patient> = new EventEmitter<Patient>();
+  @Input() isNew: boolean = true;
+  private regexExpressions = RegexClass;
 
   public patientForm = this.fb.group({
-    name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
-    last_name: ['', [Validators.required,Validators.minLength(2),Validators.maxLength(20)]],
-    date_birth: ['', [Validators.required,Validators.minLength(5),Validators.maxLength(20)]],
+    name: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
+    last_name: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
+    date_birth: ['', Validators.required],
     gender: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email, Validators.minLength(10)]],
-    phone_number: ['', [Validators.required, Validators.maxLength(12)]],
-    street: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-    cp: ['', [Validators.required, Validators.maxLength(5), Validators.minLength(5)]],
-    city: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-    country: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-    f_name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
-    f_last_name: ['', [Validators.required, Validators.minLength(2),Validators.maxLength(20)]],
+    phone_number: ['', [Validators.required, Validators.pattern(this.regexExpressions.PHONE_NUMBER)]],
+    street: ['', [Validators.required, Validators.pattern(this.regexExpressions.STREET)]],
+    cp: ['', [Validators.required, Validators.pattern(this.regexExpressions.CP)]],
+    city: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
+    country: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
+    f_name: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
+    f_last_name: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
     relationship: ['', Validators.required],
     f_gender: ['', Validators.required],
-    f_email: ['', [Validators.required, Validators.email, Validators.minLength(10)]],
-    f_phone_number: ['', [Validators.required, Validators.maxLength(12)]],
+    f_email: ['', [Validators.required, Validators.email]],
+    f_phone_number: ['', [Validators.required, Validators.pattern(this.regexExpressions.PHONE_NUMBER)]],
+  },{
+    validators: [ ValidationDateBirth.validate('date_birth') ]
   });
 
   constructor(
     private fb: FormBuilder,
-    private readonly authService: AuthService,
   ) { }
 
   ngOnInit(): void {
+    !this.isNew ? this.setValuesToForm(this.patientActive) : '';
+  }
+
+  setValuesToForm(values: Patient) {
+    this.patientForm.get('name')?.setValue(values.name);
+    this.patientForm.get('last_name')?.setValue(values.last_name);
+    this.patientForm.get('date_birth')?.setValue(new Date(values.date_birth).toISOString().split('T')[0]);
+    this.patientForm.get('gender')?.setValue(values.gender);
+    this.patientForm.get('email')?.setValue(values.email);
+    this.patientForm.get('phone_number')?.setValue(values.phone_number);
+    this.patientForm.get('street')?.setValue(values.street);
+    this.patientForm.get('cp')?.setValue(values.cp);
+    this.patientForm.get('city')?.setValue(values.city);
+    this.patientForm.get('country')?.setValue(values.country);
+    this.patientForm.get('f_name')?.setValue(values.familiar.familiar_name);
+    this.patientForm.get('f_last_name')?.setValue(values.familiar.familiar_last_name);
+    this.patientForm.get('relationship')?.setValue(values.familiar.relationship);
+    this.patientForm.get('f_gender')?.setValue(values.familiar.familiar_gender);
+    this.patientForm.get('f_email')?.setValue(values.familiar.familiar_email);
+    this.patientForm.get('f_phone_number')?.setValue(values.familiar.familiar_phone_number);
   }
 
   savePatient() {
     if(this.patientForm.valid) {
-      const genderSelected = this.patientForm.get('gender')?.value;
       const newPatient: Patient = {
         ...this.patientForm.value,
-        id_user: this.authService.userActive.id_user,
         cp: Number(this.patientForm.get('cp')?.value),
         phone_number: Number(this.patientForm.get('phone_number')?.value),
-        image: (genderSelected === 'female') ? GenderPatient.FEMALE : (genderSelected === 'male') ? GenderPatient.MALE : GenderPatient.OTHER,
         familiar: {
           familiar_name: this.patientForm.get('f_name')?.value,
           familiar_last_name: this.patientForm.get('f_last_name')?.value,
@@ -74,6 +93,5 @@ export class PatientFormComponent implements OnInit {
   validateField(field: string, error: string): boolean | undefined | null {
     return (this.patientForm.get(field)?.hasError(error));
   }
-
 
 }

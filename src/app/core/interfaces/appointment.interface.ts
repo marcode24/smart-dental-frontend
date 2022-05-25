@@ -6,6 +6,7 @@ export class IChangeStatus {
 export class ICreateAppointment {
   id_patient: number;
   date: Date | any;
+  time: string;
   id_record?: number[];
   description?: string;
   id_user?: number;

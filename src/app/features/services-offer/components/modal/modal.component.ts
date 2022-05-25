@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { Service } from '@models/service.model';
 
 import { ServiceOfferService } from '@services/service-offer.service';
+import { RegexClass } from '@utils/regex.util';
 
 @Component({
   selector: 'app-modal',
@@ -13,18 +14,18 @@ import { ServiceOfferService } from '@services/service-offer.service';
   ]
 })
 export class ModalComponent implements OnInit, OnDestroy {
-
+  private regexExpressions = RegexClass;
+  private isNewService: Subscription;
+  private isUpdate: boolean = false;
+  private serviceTemp: Service;
   public serviceForm: FormGroup = this.fb.group({
-    name: ['', Validators.required],
-    description: [''],
-    price: ['', [Validators.required, Validators.min(0)]],
+    name: ['', [Validators.required, Validators.pattern(this.regexExpressions.TEXT_SERVICE)]],
+    description: ['', Validators.pattern(this.regexExpressions.TEXT_SERVICE)],
+    price: ['', [Validators.required, Validators.pattern(this.regexExpressions.PRICE)]],
     status: [true, Validators.required],
     odontogram: [false],
     color: ['#008cff'],
   })
-  private isNewService: Subscription;
-  private isUpdate: boolean = false;
-  private serviceTemp: Service;
 
   constructor(
     private fb: FormBuilder,

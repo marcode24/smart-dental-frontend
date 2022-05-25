@@ -6,52 +6,61 @@
 
 <div class="row">
   <div class="col-lg-12">
-    <div class="card">
+    <div class="card radius-10">
       <div class="card-body">
-        <div class="d-flex align-items-center justify-content-between flex-wrap w-100 mb-3">
-          <h2 class="mb-0 ">
+        <div class="d-flex align-items-center flex-wrap w-100 mb-3"
+          [ngClass]="showOptions ? 'justify-content-between': 'justify-content-end'">
+          <h2 class="mb-0" *ngIf="showOptions">
             Pacientes
           </h2>
           <div class="d-flex justify-content-end align-items-center gap-2">
-            <select *ngIf="userRole === 'ADMIN'" class="form-select" (change)="changeOptionGet($event)"
-              style="width: 40%;">
+            <select *ngIf="userRole === 'ADMIN'" class="form-select radius-10" (change)="changeOptionGet($event)"
+              style="width: auto;">
               <option value=false>Mis pacientes</option>
               <option value=true>Todos</option>
             </select>
-            <button type="button" routerLink="/patients/new" class="btn btn-outline-primary px-3 radius-30">
+            <button type="button" routerLink="/patients/new" class="btn btn-outline-primary px-3 radius-10">
               <i class="bx bx-plus mr-1"></i>Nuevo Paciente
             </button>
           </div>
         </div>
-        <div class="d-lg-flex align-items-center justify-content-between mb-4">
-          <app-input-search [findName]="'paciente'" (text)="findByFullname($event)" style="width: 32%;">
+        <div class="d-lg-flex align-items-center justify-content-between mb-4" *ngIf="showOptions">
+          <app-input-search [findName]="'paciente'" (text)="findByFullname($event)" style="width: 32%;"
+            *ngIf="showOptions">
           </app-input-search>
-          <app-dropdown-page-list (limit)="changeLimit($event)"></app-dropdown-page-list>
+          <app-dropdown-page-list (limit)="changeLimit($event)" *ngIf="patients && patients.length > 0">
+          </app-dropdown-page-list>
         </div>
-        <div class="table-responsive">
+        <app-text-alert *ngIf="patients && patients.length === 0" [icon]="'bx-user'" [textColor]="'info'"
+          [text]="'No hay pacientes'"></app-text-alert>
+        <div class="table-responsive" *ngIf="patients && patients.length > 0">
           <table class="table align-middle table-hover">
             <thead>
               <tr>
-                <th class="text-center">Avatar</th>
                 <th># Paciente</th>
-                <th>Nombre</th>
-                <th class="text-center">Teléfono</th>
+                <th>Paciente</th>
+                <th>Teléfono</th>
                 <th>Persona responsable</th>
                 <th>Teléfono del responsable</th>
+                <th *ngIf="showColumn">Dentista a cargo</th>
                 <th class="text-center">Estado</th>
                 <th class="text-end">Acciones</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let patient of patients">
-                <td class="text-center">
+                <td> # {{ patient.id_patient }} </td>
+                <td class="my-auto">
                   <img [src]="patient.image" class="user-img" alt="user-avatar">
+                  {{ patient.name }} {{ patient.last_name }}
                 </td>
-                <td> {{ patient.id_patient }} </td>
-                <td class="my-auto"> {{ patient.name }} {{ patient.last_name }} </td>
                 <td> {{ patient.phone_number }} </td>
-                <td> {{ patient.familiar.familiar_name }} </td>
+                <td> {{ patient.familiar.familiar_name }} {{ patient.familiar.familiar_last_name }} </td>
                 <td> {{ patient.familiar.familiar_phone_number }} </td>
+                <td *ngIf="showColumn">
+                  <img [src]="patient.user?.image" class="user-img" alt="user-avatar">
+                  {{ patient.user?.name }} {{ patient.user?.last_name }}
+                </td>
                 <td class="text-center">
                   <span *ngIf="patient.status"
                     class="badge rounded-pill text-success bg-light-success p-2 text-uppercase px-3">Activo</span>
@@ -60,16 +69,22 @@
                 </td>
                 <td>
                   <div class="d-flex justify-content-end order-actions">
-                    <a *ngIf="patient.status" class="cursor">
+                    <a *ngIf="patient.status" (click)="changeStatus(patient.name +' '+
+                    patient.last_name, patient.id_patient)" class="cursor text-danger bg-light-danger">
                       <i class="bx bx-block"></i>
                     </a>
-                    <a routerLink="/patients/patient/{{patient.id_patient}}/record" class="ms-2"><i
-                        class="bx bx-id-card"></i></a>
+                    <a routerLink="/patients/{{patient.id_patient}}" class="ms-2 cursor bg-light-warning">
+                      <i class="bx bx-pencil"></i>
+                    </a>
+                    <a *ngIf="patient.status" routerLink="/patients/patient/{{patient.id_patient}}/record"
+                      class="ms-2 text-info bg-light-info"><i class="bx bx-id-card"></i></a>
                   </div>
                 </td>
               </tr>
             </tbody>
           </table>
+          <app-pagination *ngIf="totalPatients > 0 && showPagination" [limit]="getLimitPagination"
+            [total]="totalPatients" (changedOffset)="changePage($event)"></app-pagination>
         </div>
       </div>
     </div>

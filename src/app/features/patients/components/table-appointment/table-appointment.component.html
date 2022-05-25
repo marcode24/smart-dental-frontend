@@ -10,8 +10,9 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let appointment of appointments">
-        <td class="text-center">{{ appointment.id_appointment }}</td>
+      <tr class="cursor" *ngFor="let appointment of appointments" data-bs-toggle="modal"
+        data-bs-target="#modalDetailAppointment" (click)="showDetails(appointment)">
+        <td class="text-center"># {{ appointment.id_appointment }}</td>
         <td>{{ appointment.createdAt | date: 'short' }}</td>
         <td>{{ appointment.description }}</td>
         <td class="text-center">
@@ -24,8 +25,10 @@
         </td>
         <td>
           <div class="d-flex justify-content-center order-actions">
-            <a class="ms-2 cursor" data-bs-toggle="modal" data-bs-target="#modalDetailAppointment"
-              (click)="showDetails(appointment)"><i class="bx bx-time"></i></a>
+            <a class="ms-2 cursor bg-light-primary text-primary" data-bs-toggle="modal"
+              data-bs-target="#modalDetailAppointment" (click)="showDetails(appointment)">
+              <i class="bx bx-id-card"></i>
+            </a>
           </div>
         </td>
       </tr>
