@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
     let data: any = localStorage.getItem('user') || null;
     data = data && JSON.parse(data);
     this.saveUser = (data) ? true: false;
-    console.log(this.saveUser);
     this.loginForm = this.fb.group({
       username: [data?.username || '', Validators.required],
       password: [data?.password || '', Validators.required]
@@ -39,14 +38,12 @@ export class LoginComponent implements OnInit {
   saveUserInfo(event: any) {
     const value = event.checked;
     this.saveUser = value;
-    console.log(this.saveUser);
   }
 
   login() {
     if(this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
         next: () => {
-          console.log('entra a home', this.saveUser);
           this.router.navigate(['/']);
           if(!this.saveUser) {
             localStorage.removeItem('user');
