@@ -21,16 +21,16 @@ import { RegexClass } from '@utils/regex.util';
 export class RegisterComponent implements OnInit {
   private regexExpressions = RegexClass;
   public registerForm = this.fb.group({
-    name: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
-    last_name: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
-    date_birth: ['', Validators.required],
-    gender: ['', [Validators.required]],
-    email: ['', [Validators.required, Validators.email, Validators.minLength(10)]],
-    phone_number: ['', [Validators.required, Validators.pattern(this.regexExpressions.PHONE_NUMBER)]],
-    street: ['', [Validators.required, Validators.pattern(this.regexExpressions.STREET)]],
-    cp: ['', [Validators.required, Validators.pattern(this.regexExpressions.CP)]],
-    city: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
-    country: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
+    name: ['nombre', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
+    last_name: ['apellido', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
+    date_birth: ['2001-09-21', Validators.required],
+    gender: ['male', [Validators.required]],
+    email: ['ejemplo@gmail.com', [Validators.required, Validators.email, Validators.minLength(10)]],
+    phone_number: ['1234567890', [Validators.required, Validators.pattern(this.regexExpressions.PHONE_NUMBER)]],
+    street: ['Avenida 1', [Validators.required, Validators.pattern(this.regexExpressions.STREET)]],
+    cp: ['12345', [Validators.required, Validators.pattern(this.regexExpressions.CP)]],
+    city: ['CDMX', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
+    country: ['Mexic', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
     username: ['', [Validators.required, Validators.pattern(this.regexExpressions.USER_NAME)]],
     password: ['', [Validators.required, Validators.pattern(this.regexExpressions.PASSWORD) ]],
     password2: ['', [Validators.required]],
@@ -50,6 +50,13 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+  }
+
+  setPassword(value: string, field: 'password' | 'password2') {
+    this.registerForm.get(field)?.setValue(value);
+    this.registerForm.get(field)?.markAsTouched();
+    this.registerForm.get(field)?.markAsPristine();
+    this.registerForm.get(field)?.markAsDirty();
   }
 
   register() {

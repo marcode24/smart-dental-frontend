@@ -46,7 +46,7 @@
                     </div>
                     <div class="col-xl-6 col-md-6 col-sm-12 my-1">
                       <label class="form-label">Sexo*</label>
-                      <select class="form-select mb-2 radius-10" formControlName="gender">
+                      <select class="form-select radius-10" formControlName="gender">
                         <option value="" selected>Seleccione una opción</option>
                         <option value="male">Hombre</option>
                         <option value="female">Mujer</option>
@@ -61,7 +61,7 @@
                       <input formControlName="email" type="email" class="form-control radius-10 " id="inputEmail">
                       <div *ngIf="validateForm('email')" class="message-error">
                         <span *ngIf="validateField('email', 'required')" class="text-danger">campo requerido</span>
-                        <span *ngIf="validateField('email', 'email')" class="text-danger">Debe ser un email
+                        <span *ngIf="validateField('email', 'email')" class="text-danger">ingrese un email
                           correcto</span>
                       </div>
                     </div>
@@ -125,8 +125,7 @@
                     </div>
                     <div class="col-xl-6 col-md-6 col-sm-12 my-1">
                       <label for="inputPassword" class="form-label">Password*</label>
-                      <input formControlName="password" type="password" class="form-control radius-10 "
-                        id="inputPassword">
+                      <app-input-password (password)="setPassword($event, 'password')"></app-input-password>
                       <div *ngIf="validateForm('password')" class="message-error">
                         <span *ngIf="validateField('password', 'required')" class="text-danger">campo requerido</span>
                         <span *ngIf="validateField('password', 'pattern')" class="text-danger">ingrese un password
@@ -136,8 +135,7 @@
                     <div class="col-xl-6 col-md-6 col-sm-12 my-1">
                       <label for="inputConfirmPassword" class="form-label">Confirmar
                         Password*</label>
-                      <input formControlName="password2" type="password" class="form-control radius-10 "
-                        id="inputConfirmPassword">
+                      <app-input-password (password)="setPassword($event, 'password2')"></app-input-password>
                       <div *ngIf="validateForm('password2')" class="message-error">
                         <span *ngIf="validateField('password2', 'required')" class="text-danger">campo requerido</span>
                         <span *ngIf="validateField('password2', 'matching')" class="text-danger">Password deben ser
