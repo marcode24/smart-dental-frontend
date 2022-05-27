@@ -1,4 +1,4 @@
-<div class="sidebar-wrapper" data-simplebar="true">
+<div class="sidebar-wrapper" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()" data-simplebar="true">
   <div class="sidebar-header">
     <div>
       <img src="assets/images/tooth.png" class="logo-icon" alt="logo icon">
@@ -10,7 +10,7 @@
         <h3 class="secondary">Dental</h3>
       </div>
     </div>
-    <div class="toggle-icon ms-auto"><i class='bx bx-arrow-to-left'></i>
+    <div class="toggle-icon ms-auto" (click)="toggled()"><i class='bx bx-arrow-to-left'></i>
     </div>
   </div>
   <!--navigation-->

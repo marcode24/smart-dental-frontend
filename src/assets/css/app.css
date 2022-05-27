@@ -2440,7 +2440,7 @@ input.search-control-2::placeholder {
 		bottom: 0;
 		left: 0;
 		background: #000;
-		opacity: .6;
+		opacity: 0.2;
 		z-index: 10;
 		display: block;
 		cursor: move;

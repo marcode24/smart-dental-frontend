@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-declare let customInitFunction:any;
+declare const customInitFunction:any;
 
 @Component({
   selector: 'app-features',
