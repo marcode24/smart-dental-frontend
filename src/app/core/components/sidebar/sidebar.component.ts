@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 import { AuthService } from '@services/auth.service';
 
@@ -9,8 +9,8 @@ import { AuthService } from '@services/auth.service';
   ]
 })
 export class SidebarComponent implements OnInit {
-
   private userActiveRole: string;
+  private wrapper = document.querySelector('.wrapper');
 
   constructor(private authService: AuthService) {
     this.userActiveRole = this.authService.userActive.role;
@@ -19,12 +19,29 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  mouseEnter() {
+    this.wrapper?.classList.add('sidebar-hovered');
+  }
+
+  mouseLeave() {
+    this.wrapper?.classList.remove('sidebar-hovered');
+  }
+
   logout() {
     this.authService.logout();
   }
 
   get hasAccess(): boolean {
     return this.userActiveRole === 'ADMIN';
+  }
+
+  toggled() {
+    const has = this.wrapper?.classList.contains('toggled');
+    if(has) {
+      this.wrapper?.classList.remove('toggled');
+    } else {
+      this.wrapper?.classList.add('toggled');
+    }
   }
 
 }

@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
 
   public loginForm: FormGroup;
   public saveUser: boolean = false;
+  private passwordTemp: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -29,7 +30,7 @@ export class LoginComponent implements OnInit {
     let data: any = localStorage.getItem('user') || null;
     data = data && JSON.parse(data);
     this.saveUser = (data) ? true: false;
-    console.log(this.saveUser);
+    this.passwordTemp = (data && data.password) ? data.password: '';
     this.loginForm = this.fb.group({
       username: [data?.username || '', Validators.required],
       password: [data?.password || '', Validators.required]
@@ -39,14 +40,20 @@ export class LoginComponent implements OnInit {
   saveUserInfo(event: any) {
     const value = event.checked;
     this.saveUser = value;
-    console.log(this.saveUser);
+  }
+
+  setPassword(value: string) {
+    this.loginForm.get('password')?.setValue(value);
+  }
+
+  get getPasswordTemp(): string {
+    return this.passwordTemp;
   }
 
   login() {
     if(this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
         next: () => {
-          console.log('entra a home', this.saveUser);
           this.router.navigate(['/']);
           if(!this.saveUser) {
             localStorage.removeItem('user');
@@ -58,7 +65,7 @@ export class LoginComponent implements OnInit {
           const error = e.error;
           const message = error?.message;
           if(message === 'User disabled') {
-            Swal.fire('Usuario deshabilitado', 'Pide ayuda a tu administrador', 'error');
+            Swal.fire('Usuario deshabilitado', 'pidele ayuda a tu administrador', 'warning');
           } else if(message === 'User or password are incorrect') {
             Swal.fire('Usuario y/o password incorrectos', '', 'error');
           } else {

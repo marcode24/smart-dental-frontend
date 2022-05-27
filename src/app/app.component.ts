@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Smart Dental';
+  removeToggled() {
+    const wrapper = document.querySelector('.wrapper');
+    wrapper?.classList.remove('toggled');
+  }
 }

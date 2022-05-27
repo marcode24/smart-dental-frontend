@@ -47,7 +47,7 @@ export class UserService {
     return this.http.post(url, data, {}).pipe(map((resp: any) => {
       if(resp.status === 400) {
         if(resp.message === 'username already in use') {
-          return Swal.fire('Nombre de usuario no esta disponible', '', 'error');
+          return Swal.fire('Nombre de usuario no disponible', '', 'error');
         }
       }
       if(fromAuth) {

@@ -27,9 +27,6 @@
               "src/assets"
             ],
             "styles": [
-              "src/assets/plugins/vectormap/jquery-jvectormap-2.0.2.css",
-              "src/assets/plugins/simplebar/css/simplebar.css",
-              "src/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css",
               "src/assets/plugins/metismenu/css/metisMenu.min.css",
               "src/assets/css/pace.min.css",
               "src/assets/css/bootstrap.min.css",
@@ -43,14 +40,8 @@
               "src/assets/js/app.js",
               "src/assets/js/pace.min.js",
               "src/assets/js/bootstrap.bundle.min.js",
-              "src/assets/js/jquery.min.js",
-              "src/assets/plugins/simplebar/js/simplebar.min.js",
-              "src/assets/plugins/metismenu/js/metisMenu.min.js",
               "src/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js",
-              "src/assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js",
-              "src/assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js",
-              "src/assets/plugins/chartjs/js/Chart.min.js",
-              "src/assets/plugins/chartjs/js/Chart.extension.js"
+              "src/assets/plugins/metismenu/js/metisMenu.min.js"
             ]
           },
           "configurations": {
@@ -58,8 +49,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "3mb",
+                  "maximumError": "4mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -120,6 +111,9 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }

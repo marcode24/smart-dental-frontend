@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { CodeComponent } from './code/code.component';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InputsModule } from '@components/inputs/inputs.module';
 
 
 
@@ -20,7 +21,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    InputsModule
   ]
 })
 export class AuthModule { }
