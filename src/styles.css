@@ -1,12 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
-html.color-sidebar.sidebarcolor2 .sidebar-wrapper {
-  background-image: url(./assets/images/2.png);
+html.color-sidebar .sidebar-wrapper{
+  background-image: linear-gradient(to left bottom, #008cff, #188afd, #2488fa, #2d86f8, #3484f5, #367ff4, #387af2, #3b75f0, #3e6bee, #4460eb, #4b55e7, #5448e2);
+  border-right: 1px solid rgb(228 228 228 / 0%);
 }
 
-html.color-sidebar .sidebar-wrapper{
-	background-color: #171717;
-    border-right: 1px solid rgb(228 228 228 / 0%);
-}
 html.color-sidebar .sidebar-header{
 	background-color: transparent;
     border-right: 1px solid #e4e4e400;
@@ -37,15 +33,17 @@ html.color-sidebar .sidebar-wrapper .metismenu .mm-active>a, html.color-sidebar 
   color: #fff;
   text-decoration: none;
   background: rgb(255 255 255 / 18%);
+  border-radius: 10px;
 }
 
 html.color-sidebar .sidebar-wrapper .metismenu a {
-  color: rgb(255 255 255 / 85%);
+  color: rgb(255 255 255);
 }
 
 html.color-sidebar .sidebar-wrapper .metismenu ul {
   border: 1px solid #ffffff00;
   background: rgb(255 255 255 / 8%);
+  border-radius: 10px;
 }
 
 
@@ -80,10 +78,12 @@ html.color-sidebar .sidebar-wrapper {
   color: #5448E2 !important;
 }
 
-.redressed > h2.secondary,
-.redressed > h3.secondary {
+.redressed > h2.secondary {
   color: #30BCF7 !important;
   filter: brightness();
+}
+.redressed > h3.secondary {
+  color: #ffffff !important;
 }
 
 .cursor {
