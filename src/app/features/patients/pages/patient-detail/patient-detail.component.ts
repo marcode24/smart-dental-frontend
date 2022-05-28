@@ -25,7 +25,6 @@ export class PatientDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.patientTemp = this.patientService.patientTemp;
-    console.log(this.patientTemp);
     this.patientSub = this.patientService.patientTempChanged.subscribe(patient => this.patientTemp = patient );
   }
 

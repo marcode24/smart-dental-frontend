@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title d-flex text-info">
+        <h3 class="modal-title d-flex text-info align-items-center">
           <i class="bx bx-briefcase me-1 font-30"></i>
           {{ getTitleModal }}
         </h3>
@@ -16,42 +16,42 @@
             *ngFor="let service of services">
             {{service.name}}</option>
         </select>
-        <div class="row m-3">
-          <div class="col-8">
-            <h6 class="text-center">Parte</h6>
+        <div class="row m-3 gap-2 gap-sm-0">
+          <div class="col-12 col-sm-8">
+            <h6 class="text-center">Parte dental</h6>
             <div class="row">
               <div class="col-6">
                 <div class="form-check form-switch gap-2 d-flex align-items-center my-2" style="padding-left: 0;">
                   <input (change)="changeColor('vestibular', $event.target)" [checked]="toothSelected?.vestibular"
                     class="form-check-input switch-odontogram" type="checkbox" id="switchVestibular">
-                  <label class="form-check-label " for="switchVestibular">Vestibular</label>
+                  <label class="form-check-label text-nowrap text-truncate" for="switchVestibular">Vestibular</label>
                 </div>
                 <div class="form-check form-switch gap-2 d-flex align-items-center my-2" style="padding-left: 0;">
                   <input (change)="changeColor('ligual', $event.target)" [checked]="toothSelected?.ligual"
                     class="form-check-input switch-odontogram" type="checkbox" id="switchLigual">
-                  <label class="form-check-label " for="switchLigual">Ligual</label>
+                  <label class="form-check-label text-nowrap text-truncate" for="switchLigual">Ligual</label>
                 </div>
                 <div class="form-check form-switch gap-2 d-flex align-items-center my-2" style="padding-left: 0;">
                   <input (change)="changeColor('oclusal', $event.target)" [checked]="toothSelected?.oclusal"
                     class="form-check-input switch-odontogram" type="checkbox" id="switchOclusal">
-                  <label class="form-check-label " for="switchOclusal">Oclusal</label>
+                  <label class="form-check-label text-nowrap text-truncate" for="switchOclusal">Oclusal</label>
                 </div>
               </div>
               <div class="col-6">
                 <div class="form-check form-switch gap-2 d-flex align-items-center my-2" style="padding-left: 0;">
                   <input (change)="changeColor('mesial', $event.target)" [checked]="toothSelected?.mesial"
                     class="form-check-input switch-odontogram" type="checkbox" id="switchMesial">
-                  <label class="form-check-label " for="switchMesial">Mesial</label>
+                  <label class="form-check-label text-nowrap text-truncate" for="switchMesial">Mesial</label>
                 </div>
                 <div class="form-check form-switch gap-2 d-flex align-items-center my-2" style="padding-left: 0;">
                   <input (change)="changeColor('distal', $event.target)" [checked]="toothSelected?.distal"
                     class="form-check-input switch-odontogram" type="checkbox" id="switchDistal">
-                  <label class="form-check-label " for="switchDistal">Distal</label>
+                  <label class="form-check-label text-nowrap text-truncate" for="switchDistal">Distal</label>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-4">
+          <div class="col-12 col-sm-4">
             <h6 class="text-center">Vista Previa</h6>
             <div class="d-flex justify-content-center flex-wrap">
               <section class="buttons" id="18">
@@ -81,7 +81,7 @@
           Cancelar
         </button>
         <button (click)="saveTooth()" type="button" data-bs-dismiss="modal" class="btn btn-success radius-10">
-          <i class="bx " [ngClass]="(isNew)?'bx-check-circle': 'bx-save'"></i>Guardar {{(!isNew) ? 'Cambios': ''}}
+          <i class="bx " [ngClass]="(isNew)?'bx-check-circle': 'bx-save'"></i>Guardar {{(!isNew) ? 'cambios': ''}}
         </button>
       </div>
     </div>

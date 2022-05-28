@@ -1,84 +1,94 @@
-<app-card-patient-info [patient]="patientTemp"></app-card-patient-info>
+<div class="row">
 
-<div class="card radius-10">
-  <div class="card-body">
-    <ul class="nav nav-tabs nav-primary" role="tablist">
-      <li class="nav-item" role="presentation">
-        <a class="nav-link active" data-bs-toggle="pill" href="#home" role="tab" aria-selected="true">
-          <div class="d-flex align-items-center">
-            <div class="tab-icon"><i class="bx bx-home font-18 me-1"></i>
-            </div>
-            <div class="tab-title">Inicio</div>
-          </div>
-        </a>
-      </li>
-      <li class="nav-item" role="presentation">
-        <a class="nav-link" (click)="getTeeth()" data-bs-toggle="pill" href="#odontogram" role="tab"
-          aria-selected="false">
-          <div class="d-flex align-items-center">
-            <div class="tab-icon"><i class="bx bx-detail font-18 me-1"></i>
-            </div>
-            <div class="tab-title">Odontograma</div>
-          </div>
-        </a>
-      </li>
-      <li class="nav-item" role="presentation">
-        <a class="nav-link" (click)="getAppointments()" data-bs-toggle="pill" href="#appointments" role="tab"
-          aria-selected="false">
-          <div class="d-flex align-items-center">
-            <div class="tab-icon"><i class="bx bx-id-card font-18 me-1"></i>
-            </div>
-            <div class="tab-title">Citas</div>
-          </div>
-        </a>
-      </li>
-      <li class="nav-item" role="presentation">
-        <a class="nav-link" (click)="getRecords()" data-bs-toggle="pill" href="#record" role="tab"
-          aria-selected="false">
-          <div class="d-flex align-items-center">
-            <div class="tab-icon"><i class="bx bx-time font-18 me-1"></i>
-            </div>
-            <div class="tab-title">Historial</div>
-          </div>
-        </a>
-      </li>
-    </ul>
+  <div class="col-12 col-xl-2">
+    <app-card-patient-info [patient]="patientTemp"></app-card-patient-info>
+  </div>
+  <div class="col-12 col-xl-10">
 
-    <div class="tab-content py-3">
-      <div class="tab-pane fade m-4 active show" id="home" role="tabpanel">
-        <div class="d-flex align-items-center justify-content-between flex-wrap w-100 mb-3">
-          <h2 class="mb-0 "> Servicios por realizar </h2>
-          <button (click)="getServicesActive()" type="button" data-bs-toggle="modal" data-bs-target="#modalAddService"
-            data-backdrop="static" data-keyboard="false" class="btn btn-outline-primary px-3 radius-10">
-            <i class="bx bx-plus mr-1"></i>Agregar Servicio
-          </button>
+    <div class="card border-top border-0 border-4 border-info radius-10">
+      <div class="card-body">
+        <ul class="nav nav-pills nav-pills-success" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link active" data-bs-toggle="pill" href="#home" role="tab" aria-selected="true">
+              <div class="d-flex align-items-center">
+                <div class="tab-icon"><i class="bx bx-home font-18 me-1"></i>
+                </div>
+                <div class="tab-title">Inicio</div>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" (click)="getTeeth()" data-bs-toggle="pill" href="#odontogram" role="tab"
+              aria-selected="false">
+              <div class="d-flex align-items-center">
+                <div class="tab-icon"><i class="bx bx-detail font-18 me-1"></i>
+                </div>
+                <div class="tab-title">Odontograma</div>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" (click)="getAppointments()" data-bs-toggle="pill" href="#appointments" role="tab"
+              aria-selected="false">
+              <div class="d-flex align-items-center">
+                <div class="tab-icon"><i class="bx bx-id-card font-18 me-1"></i>
+                </div>
+                <div class="tab-title">Citas</div>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" (click)="getRecords()" data-bs-toggle="pill" href="#record" role="tab"
+              aria-selected="false">
+              <div class="d-flex align-items-center">
+                <div class="tab-icon"><i class="bx bx-time font-18 me-1"></i>
+                </div>
+                <div class="tab-title">Historial</div>
+              </div>
+            </a>
+          </li>
+        </ul>
+
+        <div class="tab-content py-3">
+          <div class="tab-pane fade m-4 active show" id="home" role="tabpanel">
+            <div class="d-flex align-items-center justify-content-between flex-wrap w-100 mb-3 gap-1">
+              <h2 class="mb-0 "> Servicios por realizar </h2>
+              <button (click)="getServicesActive()" type="button" data-bs-toggle="modal"
+                data-bs-target="#modalAddService" data-backdrop="static" data-keyboard="false"
+                class="btn btn-outline-primary px-3 radius-10">
+                <i class="bx bx-plus mr-1"></i>Agregar Servicio
+              </button>
+            </div>
+            <app-text-alert *ngIf="patientRecordHome && patientRecordHome.length === 0" [icon]="'bx-briefcase'"
+              [textColor]="'info'" [text]="'No hay servicios por realizar'"></app-text-alert>
+            <app-table-record *ngIf="patientRecordHome && patientRecordHome.length > 0" [records]="patientRecordHome">
+            </app-table-record>
+          </div>
+          <div class="tab-pane fade" id="odontogram" role="tabpanel">
+            <app-odontogram [teeth]="patientTeeth"></app-odontogram>
+            <app-text-alert *ngIf="patientTeeth && patientTeeth.length === 0" [icon]="'bx-briefcase'"
+              [textColor]="'info'" [text]="'No hay servicios por realizar en Odontograma'"></app-text-alert>
+            <app-table-odontogram *ngIf="patientTeeth && patientTeeth.length > 0" [teeth]="patientTeeth">
+            </app-table-odontogram>
+          </div>
+          <div class="tab-pane fade m-4" id="appointments" role="tabpanel">
+            <app-text-alert *ngIf="patientAppointments && patientAppointments.length === 0" [icon]="'bx-id-card'"
+              [textColor]="'info'" [text]="'No hay citas programadas'"></app-text-alert>
+            <app-table-appointment *ngIf="patientAppointments && patientAppointments.length > 0"
+              [appointments]="patientAppointments"></app-table-appointment>
+          </div>
+          <div class="tab-pane fade m-4" id="record" role="tabpanel">
+            <app-text-alert *ngIf="patientRecord&& patientRecord.length === 0" [icon]="'bx-id-card'"
+              [textColor]="'info'" [text]="'No hay registros de este Paciente'"></app-text-alert>
+            <app-table-record *ngIf="patientRecord&& patientRecord.length > 0" [records]="patientRecord"
+              [isHome]="false">
+            </app-table-record>
+          </div>
         </div>
-        <app-text-alert *ngIf="patientRecordHome && patientRecordHome.length === 0" [icon]="'bx-briefcase'"
-          [textColor]="'info'" [text]="'No hay servicios por realizar'"></app-text-alert>
-        <app-table-record *ngIf="patientRecordHome && patientRecordHome.length > 0" [records]="patientRecordHome">
-        </app-table-record>
-      </div>
-      <div class="tab-pane fade" id="odontogram" role="tabpanel">
-        <app-odontogram [teeth]="patientTeeth"></app-odontogram>
-        <app-text-alert *ngIf="patientTeeth && patientTeeth.length === 0" [icon]="'bx-briefcase'" [textColor]="'info'"
-          [text]="'No hay servicios por realizar en Odontograma'"></app-text-alert>
-        <app-table-odontogram *ngIf="patientTeeth && patientTeeth.length > 0" [teeth]="patientTeeth">
-        </app-table-odontogram>
-      </div>
-      <div class="tab-pane fade m-4" id="appointments" role="tabpanel">
-        <app-text-alert *ngIf="patientAppointments && patientAppointments.length === 0" [icon]="'bx-id-card'"
-          [textColor]="'info'" [text]="'No hay citas programadas'"></app-text-alert>
-        <app-table-appointment *ngIf="patientAppointments && patientAppointments.length > 0"
-          [appointments]="patientAppointments"></app-table-appointment>
-      </div>
-      <div class="tab-pane fade m-4" id="record" role="tabpanel">
-        <app-text-alert *ngIf="patientRecord&& patientRecord.length === 0" [icon]="'bx-id-card'" [textColor]="'info'"
-          [text]="'No hay registros de este Paciente'"></app-text-alert>
-        <app-table-record *ngIf="patientRecord&& patientRecord.length > 0" [records]="patientRecord" [isHome]="false">
-        </app-table-record>
       </div>
     </div>
   </div>
+
 </div>
 
 <app-modal-service [patientIdTemp]="patientTemp.id_patient"></app-modal-service>

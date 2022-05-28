@@ -23,7 +23,6 @@ export class CardUserDetailComponent implements OnInit {
   constructor(private readonly userService: UserService) { }
 
   ngOnInit(): void {
-    console.log(this.patientActive);
   }
 
   getUsers() {
