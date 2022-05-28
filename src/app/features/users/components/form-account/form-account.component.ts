@@ -50,6 +50,13 @@ export class FormAccountComponent implements OnInit {
     })
   }
 
+  setPassword(value: string, field: 'password' | 'password2') {
+    this.accountForm.get(field)?.setValue(value);
+    this.accountForm.get(field)?.markAsTouched();
+    this.accountForm.get(field)?.markAsPristine();
+    this.accountForm.get(field)?.markAsDirty();
+  }
+
   changeBgColorImage(event: any) {
     const value = event.target.value;
     this.bgColorImageUser = (value === 'ADMIN') ? 'danger' : 'primary';

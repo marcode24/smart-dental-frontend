@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-7 mx-auto">
+  <div class="col-12 col-sm-12 col-md-7 mx-auto">
     <div class="card border-top border-0 border-4 border-primary radius-10">
       <div class="card-body p-4">
         <div class="card-title d-flex align-items-center gap-2">
@@ -14,7 +14,7 @@
       </div>
     </div>
   </div>
-  <div class="col-5" *ngIf="appointments">
+  <div class="col-12 col-sm-12 col-md-5" *ngIf="appointments">
     <h3 class="font-weight-light text-center text-muted mt-3">Citas programadas para el dia </h3>
     <h3 class="font-weight-light text-center text-muted mb-3"> {{dateSelected}}</h3>
     <div class="alert alert-primary radius-10" role="alert" *ngIf="appointments.length === 0">

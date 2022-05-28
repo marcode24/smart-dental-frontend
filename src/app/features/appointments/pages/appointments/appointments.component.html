@@ -7,12 +7,14 @@
           <h2 class="mb-0">Citas</h2>
           <div class="d-flex justify-content-end align-items-center gap-2">
             <button type="button" routerLink="/appointments/new" class="btn btn-outline-primary px-3 radius-10">
-              <i class="bx bx-plus mr-1"></i>Nueva Cita
+              <i class="bx bx-plus mr-1"></i>Nueva
             </button>
           </div>
         </div>
-        <div class="d-lg-flex align-items-center justify-content-between mb-4">
-          <app-input-search [findName]="'paciente'" (text)="findByFullname($event)" style="width: 32%;">
+        <div
+          class="d-flex align-items-center justify-content-end justify-content-sm-end justify-content-md-between mb-3 flex-wrap gap-2">
+          <app-input-search [findName]="'paciente'" (text)="findByFullname($event)"
+            class="mr-auto flex-grow-1 flex-sm-grow-1 flex-md-grow-1 flex-lg-grow-0">
           </app-input-search>
           <div class="d-flex gap-2">
             <app-dropdown-appointments (option)="changeOptionAppointment($event)">
