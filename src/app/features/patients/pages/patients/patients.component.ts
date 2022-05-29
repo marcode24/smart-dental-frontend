@@ -29,6 +29,7 @@ export class PatientsComponent implements OnInit {
   public showPagination: boolean = true;
   public findingByFullname: boolean = false;
   private allPatients: boolean = false;
+  public isLoadingPage: boolean = true;
 
   constructor(
     private patientService: PatientService,
@@ -66,6 +67,7 @@ export class PatientsComponent implements OnInit {
     this.cardsIconData[0].quantity = this.totalPatients;
     this.cardsIconData[1].quantity = totalActive;
     this.cardsIconData[2].quantity = totalInactive;
+    this.isLoadingPage = false;
   }
 
   findByFullname(fullname: string) {

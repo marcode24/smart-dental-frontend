@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="!isLoadingPage">
   <div class="col-sm-12 col-md-4 col-xl-4">
     <app-card-detail *ngIf="userActive" [userActive]="userActive" (newStatus)="changeStatus($event)"></app-card-detail>
   </div>
@@ -8,3 +8,5 @@
     </app-form-general-info>
   </div>
 </div>
+
+<app-loader *ngIf="isLoadingPage"></app-loader>

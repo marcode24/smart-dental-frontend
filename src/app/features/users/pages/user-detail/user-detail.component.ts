@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 export class UserDetailComponent implements OnInit {
 
   public userActive: User;
+  public isLoadingPage: boolean = true;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -32,6 +33,7 @@ export class UserDetailComponent implements OnInit {
         return this.router.navigate(['/users']);
       }
       this.userActive = resp.user;
+      this.isLoadingPage = false;
     });
   }
 

@@ -42,6 +42,7 @@ export class RegisterComponent implements OnInit {
       ]
     }
   );
+  public isLoadingPage: boolean = true;
 
   constructor(
     private fb: FormBuilder,
@@ -50,6 +51,7 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.isLoadingPage = false;
   }
 
   setPassword(value: string, field: 'password' | 'password2') {

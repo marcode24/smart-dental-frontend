@@ -32,7 +32,6 @@ export class HomeComponent implements OnInit {
       next: ({ appointments, total }) => {
         this.appointments = appointments;
         this.totalAppointments = total;
-        console.log({ appointments, total });
       },
       complete: () => {
         this.isLoadingPage = false;
