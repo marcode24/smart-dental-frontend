@@ -28,6 +28,7 @@ export class UsersComponent implements OnInit {
   public totalUsers: number = 0;
   public users: User[];
   public showPagination: boolean = true;
+  public isLoadingPage: boolean = true;
 
   constructor(
     private userService: UserService,
@@ -51,6 +52,7 @@ export class UsersComponent implements OnInit {
       this.cardsIconData[0].quantity = this.totalUsers;
       this.cardsIconData[1].quantity = totalAdmin;
       this.cardsIconData[2].quantity = totalUser;
+      this.isLoadingPage = false;
     })
   }
 

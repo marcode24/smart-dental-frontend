@@ -5,7 +5,6 @@
         <th>Fecha de expedición</th>
         <th>Servicio</th>
         <th class="text-center"># Pieza</th>
-        <th>Fecha de realización</th>
         <th>$ Subtotal</th>
         <th class="text-center">Estado</th>
         <th class="text-center">Acciones</th>
@@ -16,7 +15,6 @@
         <td>{{ tooth.record?.createdAt | date: 'short' }}</td>
         <td>{{ tooth.record?.service_name }}</td>
         <td class="text-center">{{ tooth.tooth_number }}</td>
-        <td>{{ tooth.record?.realization_date | date: 'short' }}</td>
         <td>{{ tooth.record?.price | currency: '$ ' }}</td>
         <td class="text-center">
           <span *ngIf="tooth.record?.status === 'PENDING'"

@@ -13,7 +13,7 @@ export class CodeComponent implements OnInit {
 
   public codeForm = this.fb.group({
     code: ['', [Validators.required, Validators.minLength(6)]]
-  })
+  });
 
   constructor(
     private fb: FormBuilder,

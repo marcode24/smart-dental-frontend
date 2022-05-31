@@ -5,6 +5,8 @@ import Swal from 'sweetalert2';
 import { Patient } from '@models/patient.model';
 
 import { PatientService } from '@services/patient.service';
+import { User } from '@models/user.model';
+import { AuthService } from '@services/auth.service';
 
 @Component({
   selector: 'app-patient-detail',
@@ -16,8 +18,14 @@ export class PatientDetailComponent implements OnInit, OnDestroy {
 
   public patientTemp: Patient;
   private patientSub: Subscription;
+  private userActive: User;
 
-  constructor(private patientService: PatientService) { }
+  constructor(
+    private patientService: PatientService,
+    private authService: AuthService,
+  ) {
+    this.userActive = this.authService.userActive;
+  }
 
   ngOnDestroy(): void {
     this.patientSub.unsubscribe();
@@ -25,7 +33,6 @@ export class PatientDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.patientTemp = this.patientService.patientTemp;
-    console.log(this.patientTemp);
     this.patientSub = this.patientService.patientTempChanged.subscribe(patient => this.patientTemp = patient );
   }
 
@@ -52,4 +59,9 @@ export class PatientDetailComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  public getRole(): string {
+    return this.userActive.role;
+  }
+
 }

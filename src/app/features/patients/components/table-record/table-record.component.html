@@ -52,7 +52,7 @@
       </tr>
     </tbody>
   </table>
-  <h1 class="d-flex justify-content-end align-items-center" *ngIf="records && isHome">
-    Total a pagar: {{ getTotalPayment | currency: '$ ' }}
-  </h1>
 </div>
+<h1 class="d-flex justify-content-end align-items-center text-center text-sm-end" *ngIf="records && isHome">
+  Total a pagar: {{ getTotalPayment | currency: '$ ' }}
+</h1>

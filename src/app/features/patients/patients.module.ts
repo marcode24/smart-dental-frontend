@@ -11,8 +11,9 @@ import { ComponentsModule } from './components/components.module';
 
 import { AlertsModule } from '@components/alerts/alerts.module';
 import { CardsModule } from '@components/cards/cards.module';
-import { InputsModule } from '@components/inputs/inputs.module';
 import { DropdownsModule } from '@components/dropdowns/dropdowns.module';
+import { InputsModule } from '@components/inputs/inputs.module';
+import { LoadersModule } from '@components/loaders/loaders.module';
 import { PaginationsModule } from '@components/paginations/paginations.module';
 
 @NgModule({
@@ -30,7 +31,8 @@ import { PaginationsModule } from '@components/paginations/paginations.module';
     PaginationsModule,
     ComponentsModule,
     RouterModule,
-    AlertsModule
+    AlertsModule,
+    LoadersModule
   ]
 })
 export class PatientsModule { }

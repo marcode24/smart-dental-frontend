@@ -18,7 +18,6 @@ export class TableAppointmentComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.appointments);
   }
 
   showDetails(appointment: Appointment) {

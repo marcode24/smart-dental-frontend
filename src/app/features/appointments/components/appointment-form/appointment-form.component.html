@@ -43,7 +43,7 @@
       </tbody>
     </table>
   </div>
-  <div class="col-5">
+  <div class="col-12 col-sm-12 col-md-6 col-lg-5">
     <label class="form-label" for="inputDate">Fecha</label>
     <input formControlName="date" (blur)="findAppointments($event.target)" id="inputDate" type="date"
       class="form-control radius-10">
@@ -52,7 +52,7 @@
       <span *ngIf="validateField('date', 'isMin')" class="text-danger">fecha incorrecta</span>
     </div>
   </div>
-  <div class="col-4">
+  <div class="col-12 col-sm-12 col-md-6 col-lg-5">
     <label class="form-label" for="inputTime">Hora</label>
     <input formControlName="time" type="time" id="inputTime" class="form-control radius-10">
     <div *ngIf="validateForm('time')" class="message-error">

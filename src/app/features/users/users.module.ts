@@ -14,6 +14,7 @@ import { DropdownsModule } from '@components/dropdowns/dropdowns.module';
 import { FormsComponentsModule } from '@components/forms/forms-components.module';
 import { InputsModule } from '@components/inputs/inputs.module';
 import { PaginationsModule } from '@components/paginations/paginations.module';
+import { LoadersModule } from '@components/loaders/loaders.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { PaginationsModule } from '@components/paginations/paginations.module';
     FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
-    FormsComponentsModule
+    FormsComponentsModule,
+    LoadersModule,
   ],
 })
 export class UsersModule { }

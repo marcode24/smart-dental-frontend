@@ -57,7 +57,6 @@ export class AppointmentService {
     if(date) {
       url = `${url}&date=${date}`
     }
-    console.log({url});
     return this.http.get<IResponseAppointment>(url, this.headers);
   }
 

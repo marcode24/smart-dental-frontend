@@ -20,16 +20,16 @@ export class FormGeneralInfoComponent implements OnInit {
   private regexExpressions = RegexClass;
   private generalInfo: User;
   public generalInfoForm: FormGroup = this.fb.group({
-    name: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
-    last_name: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
-    date_birth: ['', Validators.required],
-    gender: ['', [Validators.required]],
-    email: ['', [Validators.required, Validators.email, Validators.minLength(10)]],
-    phone_number: ['', [Validators.required, Validators.pattern(this.regexExpressions.PHONE_NUMBER)]],
-    street: ['', [Validators.required, Validators.pattern(this.regexExpressions.STREET)]],
-    cp: ['', [Validators.required, Validators.pattern(this.regexExpressions.CP)]],
-    city: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
-    country: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
+    name: ['ejemplo', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
+    last_name: ['ejemplo', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
+    date_birth: ['2001-04-23', Validators.required],
+    gender: ['female', [Validators.required]],
+    email: ['ejemplo@gmail.com', [Validators.required, Validators.email, Validators.minLength(10)]],
+    phone_number: ['1234567890', [Validators.required, Validators.pattern(this.regexExpressions.PHONE_NUMBER)]],
+    street: ['avenida 1', [Validators.required, Validators.pattern(this.regexExpressions.STREET)]],
+    cp: ['12432', [Validators.required, Validators.pattern(this.regexExpressions.CP)]],
+    city: ['CDMX', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
+    country: ['Mexico', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
   }, {
     validators: [
       ValidationDateBirth.validate('date_birth'),

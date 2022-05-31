@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
   public saveUser: boolean = false;
   private passwordTemp: string = '';
+  public isLoadingPage: boolean = true;
 
   constructor(
     private fb: FormBuilder,
@@ -35,6 +36,7 @@ export class LoginComponent implements OnInit {
       username: [data?.username || '', Validators.required],
       password: [data?.password || '', Validators.required]
     })
+    this.isLoadingPage = false;
   }
 
   saveUserInfo(event: any) {

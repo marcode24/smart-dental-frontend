@@ -31,6 +31,7 @@ export class RecordComponent implements OnInit, OnDestroy {
   private clickRecord: boolean = false;
   public clickOdontogram: boolean = false;
   public clickAppointment: boolean = false;
+  public isLoadingPage: boolean = true;
 
   private recordsHome: Subscription;
   private records: Subscription;
@@ -100,6 +101,7 @@ export class RecordComponent implements OnInit, OnDestroy {
   getAllRecords(filter: 1 | 2) {
     this.recordService.getRecords(this.patientTemp.id_patient, filter).subscribe(records => {
       (filter === 1 ) ? this.patientRecordHome = records :  this.patientRecord = records;
+      this.isLoadingPage = false;
     });
   }
 
