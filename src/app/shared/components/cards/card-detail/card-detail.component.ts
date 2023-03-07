@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { User } from '@models/user.model';
 import { AuthService } from '@services/auth.service';
+
+import { User } from '@models/user.model';
 
 @Component({
   selector: 'app-card-detail',
@@ -12,10 +13,10 @@ import { AuthService } from '@services/auth.service';
 export class CardDetailComponent implements OnInit {
 
   @Input() userActive: User;
-  @Input() detail: boolean = true;
+  @Input() detail = true;
   @Output() newStatus: EventEmitter<boolean> = new EventEmitter();
 
-  public isSettings: boolean = false;
+  public isSettings = false;
 
   constructor(private authService: AuthService) { }
   ngOnInit(): void {

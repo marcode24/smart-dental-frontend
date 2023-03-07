@@ -1,15 +1,17 @@
+import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
-import { catchError, map, Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 
-import { AuthService } from './auth.service';
+import { catchError, map, Observable, of } from 'rxjs';
+
+import Swal from 'sweetalert2';
+
+import { Patient } from '@models/patient.model';
 
 import { IOptionsSearch } from '@interfaces/options-search.interface';
 import { IResponsePatient } from '@interfaces/response.interface';
 
-import { Patient } from '@models/patient.model';
-import Swal from 'sweetalert2';
+import { AuthService } from './auth.service';
 
 const base_url = environment.base_url;
 
@@ -40,13 +42,15 @@ export class PatientService {
 
   getPatients(options: IOptionsSearch): Observable<IResponsePatient> {
     const { fullname, limit, offset} = options;
-    const url = `${base_url}/patients?name=${fullname || ''}&limit=${limit}&offset=${offset}`;
+    const url =
+      `${base_url}/patients?name=${fullname}&limit=${limit}&offset=${offset}`;
     return this.http.get<IResponsePatient>(url, this.headers);
   }
 
   getPatientsByUser(options: IOptionsSearch, userId: number) {
     const { fullname, limit, offset} = options;
-    const url = `${base_url}/patients/${userId}?name=${fullname || ''}&limit=${limit}&offset=${offset}`;
+    const url =
+      `${base_url}/patients/${userId}?name=${fullname}&limit=${limit}&offset=${offset}`;
     return this.http.get<IResponsePatient>(url, this.headers);
   }
 
@@ -55,10 +59,11 @@ export class PatientService {
     return this.http.post(url, patient, this.headers);
   }
 
-  getPatientByUser(patientId: number, fromDetail: boolean = false): Observable<boolean> {
+  getPatientByUser(patientId: number, fromDetail = false): Observable<boolean> {
     const { id_user } = this.authService.userActive;
     const isAdmin = this.authService.userActive.role === 'ADMIN';
-    const url = `${base_url}/patients/patient/${patientId}/user/${id_user}?isAdmin=${isAdmin}`;
+    const url =
+      `${base_url}/patients/patient/${patientId}/user/${id_user}?isAdmin=${isAdmin}`;
     return this.http.get(url, this.headers).pipe(map((resp: any) => {
       const { patient }  = resp;
       if(!patient) {
@@ -70,7 +75,7 @@ export class PatientService {
       }
       return true;
     }),
-    catchError(e => of(false))
+    catchError(() => of(false))
     );
   }
 

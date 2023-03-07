@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
 import { ICardIconRight } from '@interfaces/card-icon-right.interface';
 
 @Component({
@@ -7,12 +8,6 @@ import { ICardIconRight } from '@interfaces/card-icon-right.interface';
   styles: [
   ]
 })
-export class CardIconRightComponent implements OnInit {
+export class CardIconRightComponent {
   @Input() data: ICardIconRight;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }

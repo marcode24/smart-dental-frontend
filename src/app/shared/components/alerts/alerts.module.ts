@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
 import { TextAlertComponent } from './text-alert/text-alert.component';
 
 @NgModule({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-declare const customInitFunction:any;
+declare const customInitFunction: any;
 
 @Component({
   selector: 'app-features',
@@ -8,8 +8,6 @@ declare const customInitFunction:any;
   styleUrls: ['./features.component.css']
 })
 export class FeaturesComponent implements OnInit {
-
-  constructor() { }
 
   ngOnInit(): void {
     customInitFunction();

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { IStatisticsDays } from '@interfaces/statistics.interface';
+
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -11,7 +11,10 @@ import {
   ApexTitleSubtitle,
   ApexTooltip,
   ApexXAxis,
+  ChartComponent
 } from 'ng-apexcharts';
+
+import { IStatisticsDays } from '@interfaces/statistics.interface';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -24,10 +27,8 @@ export type ChartOptions = {
   stroke: ApexStroke;
   fill: ApexFill;
   tooltip: ApexTooltip,
-  colors: any[];
+  colors: string[];
 };
-
-import { ChartComponent } from 'ng-apexcharts';
 
 @Component({
   selector: 'app-apex-chart',
@@ -40,12 +41,10 @@ export class ApexChartComponent implements OnInit {
   public chartOptions: Partial<ChartOptions>;
 
   @Input() statistics: IStatisticsDays[] = [];
-  @Input() data: number[]
+  @Input() data: number[];
 
-  public readyToShow: boolean = false;
+  public readyToShow = false;
 
-  constructor() {
-  }
   ngOnInit(): void {
     this.chartOptions = {
       series: [
@@ -112,7 +111,7 @@ export class ApexChartComponent implements OnInit {
         },
         y: {
           title: {
-            formatter: function (e: any) {
+            formatter: function () {
               return '';
             },
           },

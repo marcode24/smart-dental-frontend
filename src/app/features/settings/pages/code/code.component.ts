@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { User } from '@models/user.model';
-
 import { AuthService } from '@services/auth.service';
 import { UserService } from '@services/user.service';
+
+import { User } from '@models/user.model';
 
 @Component({
   selector: 'app-code',
@@ -14,7 +14,7 @@ import { UserService } from '@services/user.service';
 export class CodeComponent implements OnInit {
 
   private userActive: User;
-  public isLoadingPage: boolean = true;
+  public isLoadingPage = true;
 
   constructor(
     private readonly authService: AuthService,

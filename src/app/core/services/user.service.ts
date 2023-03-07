@@ -2,17 +2,19 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
-import { map, Observable } from 'rxjs';
-import Swal from 'sweetalert2';
 
-import { Gender } from '@enums/gender.enum';
+import { map, Observable } from 'rxjs';
+
+import Swal from 'sweetalert2';
 
 import { User } from '@models/user.model';
 
-import { IResponseUser, IResponseUsers } from '@interfaces/response.interface';
 import { IOptionsSearch } from '@interfaces/options-search.interface';
+import { IResponseUser, IResponseUsers } from '@interfaces/response.interface';
 
 import Storage from '@utils/storage.util';
+
+import { Gender } from '@enums/gender.enum';
 
 const base_url = environment.base_url;
 
@@ -41,8 +43,12 @@ export class UserService {
     };
   }
 
-  createUser(data: User, fromAuth: boolean = false) {
-    data.image = (data.gender === 'male') ? Gender.MALE : (data.gender === 'female') ? Gender.FEMALE: Gender.OTHER;
+  createUser(data: User, fromAuth = false) {
+    data.image = (data.gender === 'male')
+    ? Gender.MALE
+    : (data.gender === 'female')
+      ? Gender.FEMALE
+      : Gender.OTHER;
     const url = `${base_url}/users`;
     return this.http.post(url, data, {}).pipe(map((resp: any) => {
       if(resp.status === 400) {
@@ -58,7 +64,7 @@ export class UserService {
       Swal.fire('Usuario creado correctamente', '', 'success');
       localStorage.removeItem('userTemp');
       return this.router.navigate(['/users']);
-    }))
+    }));
   }
 
   getUsers(all: boolean, optionsSearch?: IOptionsSearch) {
@@ -91,7 +97,7 @@ export class UserService {
   updateUser(userId: number | undefined, data: User): Observable<User | null> {
     const url = `${base_url}/users/${userId}`;
     return this.http.put<User>(url, data, this.headers).pipe(map((resp) => {
-      return resp
+      return resp;
     }));
   }
 

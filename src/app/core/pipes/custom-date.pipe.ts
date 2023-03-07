@@ -1,4 +1,4 @@
-import { DatePipe, registerLocaleData } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
@@ -8,7 +8,7 @@ export class CustomDatePipe implements PipeTransform {
   transform(value: any, ...args: any): any {
     const getDate = value.split(' ')[0].split('-');
     const getTime = value.split(' ')[1];
-    let newDate = new Date(getDate);
+    const newDate = new Date(getDate);
     newDate.setHours(getTime.split(':')[0]);
     newDate.setMinutes(getTime.split(':')[1]);
     const datePipe = new DatePipe('en-US');

@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ICreateAppointment } from '@interfaces/appointment.interface';
-import { IOptionsSearch } from '@interfaces/options-search.interface';
+
+import Swal from 'sweetalert2';
+
+import { AppointmentService } from '@services/appointment.service';
 
 import { Appointment } from '@models/appointment.model';
 
-import { AppointmentService } from '@services/appointment.service';
-import Swal from 'sweetalert2';
+import { ICreateAppointment } from '@interfaces/appointment.interface';
+import { IOptionsSearch } from '@interfaces/options-search.interface';
 
 @Component({
   selector: 'app-new-appointment',
@@ -14,7 +16,7 @@ import Swal from 'sweetalert2';
   styles: [
   ]
 })
-export class NewAppointmentComponent implements OnInit {
+export class NewAppointmentComponent {
 
   public appointments: Appointment[];
   public dateSelected: string;
@@ -24,15 +26,12 @@ export class NewAppointmentComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit(): void {
-  }
-
   findAppointments(date: string) {
     this.dateSelected = date.split('-').reverse().join('/');
     const params: IOptionsSearch = { limit: 0, offset: 0};
-    this.appointmentService.getAppointmentsByUser('PENDING', params, date).subscribe(({appointments}) => {
-      console.log(appointments);
-      this.appointments = appointments
+    this.appointmentService.getAppointmentsByUser('PENDING', params, date)
+      .subscribe(({appointments}) => {
+        this.appointments = appointments;
     });
   }
 

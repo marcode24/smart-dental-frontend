@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 import { AppointmentService } from '@services/appointment.service';
 
+import { Appointment } from '@models/appointment.model';
+
 import { IChangeStatus } from '@interfaces/appointment.interface';
 import { IOptionsSearch } from '@interfaces/options-search.interface';
-
-import { Appointment } from '@models/appointment.model';
 
 @Component({
   selector: 'app-home',
@@ -15,9 +15,9 @@ import { Appointment } from '@models/appointment.model';
 })
 export class HomeComponent implements OnInit {
 
-  public isLoadingPage: boolean = true;
+  public isLoadingPage = true;
   public appointments: Appointment[];
-  public totalAppointments: number = 0;
+  public totalAppointments = 0;
   private optionsSearch: IOptionsSearch = { limit: 5, offset: 0 };
   private today: string = new Date().toISOString().split('T')[0];
 
@@ -28,15 +28,17 @@ export class HomeComponent implements OnInit {
   }
 
   getAppointments() {
-    this.appointmentService.getAppointmentsByUser('PENDING', this.optionsSearch, this.today).subscribe({
-      next: ({ appointments, total }) => {
-        this.appointments = appointments;
-        this.totalAppointments = total;
-      },
-      complete: () => {
-        this.isLoadingPage = false;
-      }
-    })
+    this.appointmentService
+      .getAppointmentsByUser('PENDING', this.optionsSearch, this.today)
+      .subscribe({
+        next: ({ appointments, total }) => {
+          this.appointments = appointments;
+          this.totalAppointments = total;
+        },
+        complete: () => {
+          this.isLoadingPage = false;
+        }
+    });
   }
 
   changeLimit(limit: number) {

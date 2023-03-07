@@ -1,13 +1,16 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import Swal from 'sweetalert2';
+
+import { PatientService } from '@services/patient.service';
+import { RecordService } from '@services/record.service';
 
 import { Patient } from '@models/patient.model';
 import { Record } from '@models/record.model';
 
-import { PatientService } from '@services/patient.service';
-import { RecordService } from '@services/record.service';
 import { ICreateAppointment } from '@interfaces/appointment.interface';
+
 import ValidationDate from '@utils/validation-date.util';
 import ValidationTime from '@utils/validation-time.util';
 
@@ -17,7 +20,7 @@ import ValidationTime from '@utils/validation-time.util';
   styles: [
   ]
 })
-export class AppointmentFormComponent implements OnInit {
+export class AppointmentFormComponent {
 
   @Output() dateSelected: EventEmitter<string> = new EventEmitter();
   @Output() newAppointment: EventEmitter<ICreateAppointment> = new EventEmitter();
@@ -33,11 +36,8 @@ export class AppointmentFormComponent implements OnInit {
     private readonly recordService: RecordService,
   ) { }
 
-  ngOnInit(): void {
-  }
-
   findPatient(value: string) {
-    if(value.trim().length === 0){
+    if(value.trim().length === 0) {
       return;
     }
     const patientId = Number(value.trim());
@@ -52,19 +52,20 @@ export class AppointmentFormComponent implements OnInit {
         if(resp) {
           this.loadForm();
           this.patientTemp = this.patientService.patientTemp;
-          this.recordService.getRecords(this.patientTemp.id_patient, 3).subscribe(records => {
-            this.recordsPatient = records.map(r => {
-              r.selected = false
-              return r;
-            });
-          })
+          this.recordService.getRecords(this.patientTemp.id_patient, 3)
+            .subscribe(records => {
+              this.recordsPatient = records.map(r => {
+                r.selected = false;
+                return r;
+              });
+          });
         }
       },
     });
   }
 
   selectRow(id_record: number) {
-    const recordFound = this.recordsPatient.find(r => r.id_record === id_record)
+    const recordFound = this.recordsPatient.find(r => r.id_record === id_record);
     if(recordFound) {
       recordFound.selected = !recordFound.selected;
         if(!this.id_records.includes(recordFound.id_record)) {
@@ -76,11 +77,13 @@ export class AppointmentFormComponent implements OnInit {
   }
 
   get getName() {
-    return (this.patientTemp) ? `${this.patientTemp?.name} ${this.patientTemp?.last_name}` :'';
+    return (this.patientTemp)
+      ? `${this.patientTemp?.name} ${this.patientTemp?.last_name}`
+      : '';
   }
 
   saveAppointment() {
-    if(this.appointmentForm.valid){
+    if(this.appointmentForm.valid) {
       const date: string = this.appointmentForm.get('date')?.value;
       const time: string = this.appointmentForm.get('time')?.value;
       const newAppointment: ICreateAppointment = {
@@ -89,7 +92,7 @@ export class AppointmentFormComponent implements OnInit {
         date: new Date(date).toISOString(),
         description: this.appointmentForm.get('description')?.value,
         id_record: this.id_records,
-      }
+      };
       this.newAppointment.emit(newAppointment);
     }
   }

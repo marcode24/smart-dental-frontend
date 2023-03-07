@@ -15,26 +15,59 @@ import ValidationDateBirth from '@utils/validation-date-birth.util';
 export class PatientFormComponent implements OnInit {
   @Input() patientActive: Patient;
   @Output() patient: EventEmitter<Patient> = new EventEmitter<Patient>();
-  @Input() isNew: boolean = true;
+  @Input() isNew = true;
   private regexExpressions = RegexClass;
 
   public patientForm = this.fb.group({
-    name: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
-    last_name: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
+    name: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.ONLY_TEXT)
+    ]],
+    last_name: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.ONLY_TEXT)
+    ]],
     date_birth: ['', Validators.required],
     gender: ['', [Validators.required]],
-    email: ['', [Validators.required, Validators.email, Validators.minLength(10)]],
-    phone_number: ['', [Validators.required, Validators.pattern(this.regexExpressions.PHONE_NUMBER)]],
-    street: ['', [Validators.required, Validators.pattern(this.regexExpressions.STREET)]],
-    cp: ['', [Validators.required, Validators.pattern(this.regexExpressions.CP)]],
-    city: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
-    country: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
-    f_name: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
-    f_last_name: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
+    email: ['', [
+      Validators.required,
+      Validators.email, Validators.minLength(10)
+    ]],
+    phone_number: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.PHONE_NUMBER)
+    ]],
+    street: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.STREET)
+    ]],
+    cp: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.CP)
+    ]],
+    city: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.ONLY_TEXT)
+    ]],
+    country: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.ONLY_TEXT)
+    ]],
+    f_name: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.ONLY_TEXT)
+    ]],
+    f_last_name: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.ONLY_TEXT)
+    ]],
     relationship: ['', Validators.required],
     f_gender: ['', Validators.required],
     f_email: ['', [Validators.required, Validators.email]],
-    f_phone_number: ['', [Validators.required, Validators.pattern(this.regexExpressions.PHONE_NUMBER)]],
+    f_phone_number: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.PHONE_NUMBER)
+    ]],
   },{
     validators: [ ValidationDateBirth.validate('date_birth') ]
   });
@@ -50,7 +83,8 @@ export class PatientFormComponent implements OnInit {
   setValuesToForm(values: Patient) {
     this.patientForm.get('name')?.setValue(values.name);
     this.patientForm.get('last_name')?.setValue(values.last_name);
-    this.patientForm.get('date_birth')?.setValue(new Date(values.date_birth).toISOString().split('T')[0]);
+    this.patientForm.get('date_birth')?.setValue(new Date(values.date_birth)
+      .toISOString().split('T')[0]);
     this.patientForm.get('gender')?.setValue(values.gender);
     this.patientForm.get('email')?.setValue(values.email);
     this.patientForm.get('phone_number')?.setValue(values.phone_number);
@@ -63,7 +97,8 @@ export class PatientFormComponent implements OnInit {
     this.patientForm.get('relationship')?.setValue(values.familiar.relationship);
     this.patientForm.get('f_gender')?.setValue(values.familiar.familiar_gender);
     this.patientForm.get('f_email')?.setValue(values.familiar.familiar_email);
-    this.patientForm.get('f_phone_number')?.setValue(values.familiar.familiar_phone_number);
+    this.patientForm.get('f_phone_number')
+      ?.setValue(values.familiar.familiar_phone_number);
   }
 
   savePatient() {
@@ -80,7 +115,7 @@ export class PatientFormComponent implements OnInit {
           familiar_phone_number: Number(this.patientForm.get('f_phone_number')?.value),
           relationship: this.patientForm.get('relationship')?.value ,
         }
-      }
+      };
       this.patient.emit(newPatient);
     }
   }

@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { UserService } from '@services/user.service';
 
 import { User } from '@models/user.model';
 
-import { Gender } from '@enums/gender.enum';
 import { IAccountInfo } from '@interfaces/user.interface';
+
+import { Gender } from '@enums/gender.enum';
 
 @Component({
   selector: 'app-user-form',
@@ -13,25 +14,24 @@ import { IAccountInfo } from '@interfaces/user.interface';
   styles: [
   ]
 })
-export class UserFormComponent implements OnInit {
+export class UserFormComponent {
 
-  public showAccountForm: boolean = false;
-
+  public showAccountForm = false;
   public imageUser: string;
-
   private newUser: User;
 
   constructor(
     private readonly userService: UserService,
   ) { }
 
-  ngOnInit(): void {
-  }
-
   loadAccountForm(userInfo: User) {
     this.newUser = { ...userInfo };
     const genderSelected = this.newUser.gender || 'other';
-    this.imageUser = (genderSelected === 'female') ? Gender.FEMALE : (genderSelected === 'male') ? Gender.MALE : Gender.OTHER;
+    this.imageUser = (genderSelected === 'female')
+      ? Gender.FEMALE
+      : (genderSelected === 'male')
+        ? Gender.MALE
+        : Gender.OTHER;
     this.showAccountForm = true;
   }
 

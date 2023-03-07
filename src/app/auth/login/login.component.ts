@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
 import Swal from 'sweetalert2';
 
 import { AuthService } from '@services/auth.service';
@@ -13,9 +14,9 @@ import { AuthService } from '@services/auth.service';
 export class LoginComponent implements OnInit {
 
   public loginForm: FormGroup;
-  public saveUser: boolean = false;
-  private passwordTemp: string = '';
-  public isLoadingPage: boolean = true;
+  public saveUser = false;
+  private passwordTemp = '';
+  public isLoadingPage = true;
 
   constructor(
     private fb: FormBuilder,
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
     this.loadLoginForm();
   }
 
-  loadLoginForm(){
+  loadLoginForm() {
     let data: any = localStorage.getItem('user') || null;
     data = data && JSON.parse(data);
     this.saveUser = (data) ? true: false;
@@ -35,7 +36,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.fb.group({
       username: [data?.username || '', Validators.required],
       password: [data?.password || '', Validators.required]
-    })
+    });
     this.isLoadingPage = false;
   }
 
@@ -67,14 +68,26 @@ export class LoginComponent implements OnInit {
           const error = e.error;
           const message = error?.message;
           if(message === 'User disabled') {
-            Swal.fire('Usuario deshabilitado', 'pidele ayuda a tu administrador', 'warning');
+            Swal.fire(
+              'Usuario deshabilitado',
+              'pidele ayuda a tu administrador',
+              'warning'
+            );
           } else if(message === 'User or password are incorrect') {
-            Swal.fire('Usuario y/o password incorrectos', '', 'error');
+            Swal.fire(
+              'Usuario y/o password incorrectos',
+              '',
+              'error'
+            );
           } else {
-            Swal.fire('Ocurrio un error', 'Intentalo de nuevo', 'warning');
+            Swal.fire(
+              'Ocurrio un error',
+              'Intentalo de nuevo',
+              'warning'
+            );
           }
         }
-      })
+      });
     }
   }
 

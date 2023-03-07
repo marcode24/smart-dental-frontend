@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-dropdown-statistics',
@@ -6,15 +6,10 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styles: [
   ]
 })
-export class DropdownStatisticsComponent implements OnInit {
+export class DropdownStatisticsComponent {
 
   @Output() type: EventEmitter<string> = new EventEmitter();
   @Output() option: EventEmitter<string> = new EventEmitter();
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   changeType(event: any): void {
     const value: string = event.target.value;

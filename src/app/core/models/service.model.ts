@@ -7,5 +7,5 @@ export class Service {
     public odontogram: string,
     public color: string,
     public id_service?: number,
-  ){}
+  ) {}
 }

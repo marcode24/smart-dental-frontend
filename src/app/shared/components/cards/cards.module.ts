@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { CardIconRightComponent } from './card-icon-right/card-icon-right.component';
 import { CardDetailComponent } from './card-detail/card-detail.component';
+import { CardIconRightComponent } from './card-icon-right/card-icon-right.component';
 
 @NgModule({
   declarations: [

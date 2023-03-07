@@ -1,10 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
 import Swal from 'sweetalert2';
+
+import { AppointmentService } from '@services/appointment.service';
 
 import { Appointment } from '@models/appointment.model';
 
 import { IChangeStatus } from '@interfaces/appointment.interface';
-import { AppointmentService } from '@services/appointment.service';
 
 @Component({
   selector: 'app-table-appointments',
@@ -12,21 +14,18 @@ import { AppointmentService } from '@services/appointment.service';
   styles: [
   ]
 })
-export class TableAppointmentsComponent implements OnInit {
+export class TableAppointmentsComponent {
 
   @Input() appointments: Appointment[];
   @Output() newStatus: EventEmitter<IChangeStatus> = new EventEmitter();
 
   constructor(private readonly appointmentService: AppointmentService) { }
 
-  ngOnInit(): void {
-  }
-
   changeStatus(id_appointment: number | undefined, value: 'DONE' | 'CANCELLED') {
     const changes: IChangeStatus = {
       id_appointment: Number(id_appointment),
       status: value,
-    }
+    };
     if(value === 'CANCELLED') {
       Swal.fire({
         title: '¿Estás seguro de cancelar esta cita?',
@@ -38,10 +37,14 @@ export class TableAppointmentsComponent implements OnInit {
         cancelButtonText: 'Cerrar'
       }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire('Cita cancelada correctamente', 'Avisa a tu paciente de este cambio', 'success');
-          this.newStatus.emit(changes)
+          Swal.fire(
+            'Cita cancelada correctamente',
+            'Avisa a tu paciente de este cambio',
+            'success'
+          );
+          this.newStatus.emit(changes);
         }
-      })
+      });
     } else {
       this.newStatus.emit(changes);
     }

@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { FormAccountComponent } from './form-account/form-account.component';
-
 import { InputsModule } from '@components/inputs/inputs.module';
+
+import { FormAccountComponent } from './form-account/form-account.component';
 
 @NgModule({
   declarations: [

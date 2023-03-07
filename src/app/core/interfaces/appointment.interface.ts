@@ -1,11 +1,11 @@
 export class IChangeStatus {
   id_appointment: number;
-  status: 'DONE' | 'CANCELLED'
+  status: 'DONE' | 'CANCELLED';
 }
 
 export class ICreateAppointment {
   id_patient: number;
-  date: Date | any;
+  date: string;
   time: string;
   id_record?: number[];
   description?: string;

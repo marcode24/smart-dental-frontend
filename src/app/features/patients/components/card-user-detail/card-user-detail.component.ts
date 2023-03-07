@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { UserService } from '@services/user.service';
 
@@ -11,19 +11,16 @@ import { User } from '@models/user.model';
   styles: [
   ]
 })
-export class CardUserDetailComponent implements OnInit {
+export class CardUserDetailComponent {
   @Input() patientActive: Patient;
 
   @Output() userChanged: EventEmitter<number> = new EventEmitter();
-  public changeUser: boolean = false;
+  public changeUser = false;
   public userIdSelected: number | undefined;
   public userSelected: User;
   public usersActive: User[];
 
   constructor(private readonly userService: UserService) { }
-
-  ngOnInit(): void {
-  }
 
   getUsers() {
     this.changeUser = true;
@@ -33,7 +30,8 @@ export class CardUserDetailComponent implements OnInit {
 
   selectUser(event: any) {
     this.userIdSelected = Number(event.value);
-    this.userSelected = this.usersActive.find(user => user.id_user === this.userIdSelected) as User;
+    this.userSelected = this.usersActive
+      .find(user => user.id_user === this.userIdSelected) as User;
   }
 
   saveChanges() {

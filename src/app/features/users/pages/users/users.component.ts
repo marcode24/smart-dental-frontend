@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+
 import Swal from 'sweetalert2';
 
-import { ICardIconRight } from '@interfaces/card-icon-right.interface';
+import { AuthService } from '@services/auth.service';
+import { UserService } from '@services/user.service';
 
 import { User } from '@models/user.model';
 
-import { UserService } from '@services/user.service';
-import { AuthService } from '@services/auth.service';
+import { ICardIconRight } from '@interfaces/card-icon-right.interface';
 import { IOptionsSearch } from '@interfaces/options-search.interface';
 
 @Component({
@@ -18,17 +19,35 @@ import { IOptionsSearch } from '@interfaces/options-search.interface';
 export class UsersComponent implements OnInit {
 
   public cardsIconData: ICardIconRight[] = [
-    { title: 'Usuarios', quantity: 0, icon: 'bxs-group', color: 'primary', bg: 'scooter'},
-    { title: 'Administradores', quantity: 0, icon: 'bx-shield-quarter', color: 'danger', bg: 'bloody'},
-    { title: 'Dentistas', quantity: 0, icon: 'bxs-user', color: 'success', bg: 'ohhappiness'}
-  ]
-  public limit: number = 5;
-  private offset: number = 0;
-  private findUserByName: string = '';
-  public totalUsers: number = 0;
+    {
+      title: 'Usuarios',
+      quantity: 0,
+      icon: 'bxs-group',
+      color: 'primary',
+      bg: 'scooter'
+    },
+    {
+      title: 'Administradores',
+      quantity: 0,
+      icon: 'bx-shield-quarter',
+      color: 'danger',
+      bg: 'bloody'
+    },
+    {
+      title: 'Dentistas',
+      quantity: 0,
+      icon: 'bxs-user',
+      color: 'success',
+      bg: 'ohhappiness'
+    }
+  ];
+  public limit = 5;
+  private offset = 0;
+  private findUserByName = '';
+  public totalUsers = 0;
   public users: User[];
-  public showPagination: boolean = true;
-  public isLoadingPage: boolean = true;
+  public showPagination = true;
+  public isLoadingPage = true;
 
   constructor(
     private userService: UserService,
@@ -45,15 +64,16 @@ export class UsersComponent implements OnInit {
       offset: this.offset,
       fullname: this.findUserByName
     };
-    this.userService.getUsers(false, optionsSearch).subscribe(({ users, totalAdmin, totalUser }) => {
-      this.showPagination = (this.findUserByName.length > 0) ? false : true;
-      this.users = users;
-      this.totalUsers = totalAdmin + totalUser;
-      this.cardsIconData[0].quantity = this.totalUsers;
-      this.cardsIconData[1].quantity = totalAdmin;
-      this.cardsIconData[2].quantity = totalUser;
-      this.isLoadingPage = false;
-    })
+    this.userService.getUsers(false, optionsSearch)
+      .subscribe(({ users, totalAdmin, totalUser }) => {
+        this.showPagination = (this.findUserByName.length > 0) ? false : true;
+        this.users = users;
+        this.totalUsers = totalAdmin + totalUser;
+        this.cardsIconData[0].quantity = this.totalUsers;
+        this.cardsIconData[1].quantity = totalAdmin;
+        this.cardsIconData[2].quantity = totalUser;
+        this.isLoadingPage = false;
+    });
   }
 
   findByFullname(fullname: string) {
@@ -92,12 +112,12 @@ export class UsersComponent implements OnInit {
           next: () => {
             this.getUsers();
           },
-          error: (e) => {
+          error: () => {
             Swal.fire('Ocurrión un error', 'intentalo de nuevo', 'error');
           }
-        })
+        });
       }
-    })
+    });
   }
 
 }

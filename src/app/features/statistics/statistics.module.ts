@@ -1,13 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { ComponentsModule } from './components/components.module';
-
-import { StatisticsComponent } from './pages/statistics/statistics.component';
+import { NgModule } from '@angular/core';
 
 import { DropdownsModule } from '@components/dropdowns/dropdowns.module';
-import { PaginationsModule } from '@components/paginations/paginations.module';
 import { LoadersModule } from '@components/loaders/loaders.module';
+import { PaginationsModule } from '@components/paginations/paginations.module';
+
+import { ComponentsModule } from './components/components.module';
+import { StatisticsComponent } from './pages/statistics/statistics.component';
 
 @NgModule({
   declarations: [

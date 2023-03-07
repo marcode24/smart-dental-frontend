@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+
 import { Subscription } from 'rxjs';
+
 import Swal from 'sweetalert2';
 
 import { ServiceOfferService } from '@services/service-offer.service';
@@ -17,19 +19,37 @@ import { ICardIconRight } from '@interfaces/card-icon-right.interface';
 export class ServicesOfferComponent implements OnInit, OnDestroy {
 
   public cardsIconData: ICardIconRight[] = [
-    { title: 'Servicios ofrecidos', quantity: 0, icon: 'bx-briefcase', color: 'primary', bg: 'scooter' },
-    { title: 'Servicios activos', quantity: 0, icon: 'bx-check', color: 'success', bg: 'ohhappiness' },
-    { title: 'Servicios inactivos', quantity: 0, icon: 'bx-x', color: 'danger', bg: 'bloody' },
+    {
+      title: 'Servicios ofrecidos',
+      quantity: 0,
+      icon: 'bx-briefcase',
+      color: 'primary',
+      bg: 'scooter'
+    },
+    {
+      title: 'Servicios activos',
+      quantity: 0,
+      icon: 'bx-check',
+      color: 'success',
+      bg: 'ohhappiness'
+    },
+    {
+      title: 'Servicios inactivos',
+      quantity: 0,
+      icon: 'bx-x',
+      color: 'danger',
+      bg: 'bloody'
+    },
   ];
 
-  private limit: number = 5;
-  private offset: number = 0;
-  private findServiceByName: string = '';
-  public totalServices: number = 0;
+  private limit = 5;
+  private offset = 0;
+  private findServiceByName = '';
+  public totalServices = 0;
   public services: Service[];
-  public showPagination: boolean = true;
+  public showPagination = true;
   private changeDataService: Subscription;
-  public isLoadingPage: boolean = true;
+  public isLoadingPage = true;
 
   constructor(
     private readonly serviceOfferService: ServiceOfferService
@@ -41,20 +61,22 @@ export class ServicesOfferComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getServices();
-    this.changeDataService = this.serviceOfferService.changeDataService.subscribe(() => this.getServices());
+    this.changeDataService = this.serviceOfferService.changeDataService
+      .subscribe(() => this.getServices());
   }
 
   getServices() {
-    this.serviceOfferService.getServices(this.limit, this.offset, this.findServiceByName).subscribe(resp => {
-      const { services, totalActive, totalInactive } = resp;
-      this.showPagination = (this.findServiceByName.length > 0) ? false : true;
-      this.services = services;
-      this.totalServices = totalActive + totalInactive;
-      this.cardsIconData[0].quantity = this.totalServices;
-      this.cardsIconData[1].quantity = totalActive;
-      this.cardsIconData[2].quantity = totalInactive;
-      this.isLoadingPage = false;
-    })
+    this.serviceOfferService.getServices(this.limit, this.offset, this.findServiceByName)
+      .subscribe(resp => {
+        const { services, totalActive, totalInactive } = resp;
+        this.showPagination = (this.findServiceByName.length > 0) ? false : true;
+        this.services = services;
+        this.totalServices = totalActive + totalInactive;
+        this.cardsIconData[0].quantity = this.totalServices;
+        this.cardsIconData[1].quantity = totalActive;
+        this.cardsIconData[2].quantity = totalInactive;
+        this.isLoadingPage = false;
+    });
   }
 
   findByName(name: string) {
@@ -69,7 +91,11 @@ export class ServicesOfferComponent implements OnInit, OnDestroy {
     this.getServices();
   }
 
-  showMessageChangeStatus(fullname:string, idService: number | undefined, newStatus: boolean) {
+  showMessageChangeStatus(
+    fullname:string,
+    idService: number | undefined,
+    newStatus: boolean
+  ) {
     if(newStatus) return this.changeStatus(idService, newStatus);
     Swal.fire({
       title: `¿Estás seguro de suspender al servicio: '${fullname}'?`,
@@ -83,7 +109,7 @@ export class ServicesOfferComponent implements OnInit, OnDestroy {
       if (result.isConfirmed) {
         this.changeStatus(idService, newStatus);
       }
-    })
+    });
   }
 
   private changeStatus(idService: number | undefined, newStatus: boolean) {
@@ -91,10 +117,10 @@ export class ServicesOfferComponent implements OnInit, OnDestroy {
       next:() => {
         this.getServices();
       },
-      error: (e) => {
+      error: () => {
         Swal.fire('Ocurrión un error', 'intentalo de nuevo', 'error');
       }
-    })
+    });
   }
 
   emitNewService(service?: Service) {

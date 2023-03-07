@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
 import { Patient } from '@models/patient.model';
 
 @Component({
@@ -7,15 +8,10 @@ import { Patient } from '@models/patient.model';
   styles: [
   ]
 })
-export class CardPatientDetailComponent implements OnInit {
+export class CardPatientDetailComponent {
 
   @Input() patientActive: Patient;
   @Output() newStatus: EventEmitter<boolean> = new EventEmitter();
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   get getAddress() {
     const { street, cp, city, country } = this.patientActive;

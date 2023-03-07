@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { IAccountInfo } from '@interfaces/user.interface';
+
 import { RegexClass } from '@utils/regex.util';
 import Validation from '@utils/validation';
 
@@ -17,7 +19,7 @@ export class FormAccountComponent implements OnInit {
   @Output() accountInfo: EventEmitter<IAccountInfo> = new EventEmitter();
   private regexExpressions = RegexClass;
   public accountForm: FormGroup;
-  public bgColorImageUser: string = 'primary';
+  public bgColorImageUser = 'primary';
 
   constructor(
     private fb: FormBuilder
@@ -29,7 +31,7 @@ export class FormAccountComponent implements OnInit {
 
   backToGeneralInfo() {
     this.showGeneralInfo.emit(true);
-    this.bgColorImageUser = 'primary'
+    this.bgColorImageUser = 'primary';
   }
 
   createAccount() {
@@ -41,13 +43,19 @@ export class FormAccountComponent implements OnInit {
   loadForm() {
     this.accountForm = this.fb.group({
       role: ['DENTIST', [Validators.required]],
-      username: ['', [Validators.required, Validators.pattern(this.regexExpressions.USER_NAME)]],
-      password: ['', [Validators.required, Validators.pattern(this.regexExpressions.PASSWORD)]],
+      username: ['', [
+        Validators.required,
+        Validators.pattern(this.regexExpressions.USER_NAME)
+      ]],
+      password: ['', [
+        Validators.required,
+        Validators.pattern(this.regexExpressions.PASSWORD)
+      ]],
       password2: ['', [Validators.required]],
     },
     {
       validators: [Validation.match('password', 'password2')]
-    })
+    });
   }
 
   setPassword(value: string, field: 'password' | 'password2') {
@@ -61,7 +69,6 @@ export class FormAccountComponent implements OnInit {
     const value = event.target.value;
     this.bgColorImageUser = (value === 'ADMIN') ? 'danger' : 'primary';
   }
-
 
   validateAccountForm(field: string): boolean | undefined | null {
     const myForm = this.accountForm.get(field);

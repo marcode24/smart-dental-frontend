@@ -1,4 +1,5 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+
 import Swal from 'sweetalert2';
 
 import { RecordService } from '@services/record.service';
@@ -13,7 +14,7 @@ import { StatusRecordService } from '@enums/status-record.enum';
   styles: [
   ]
 })
-export class TableOdontogramComponent implements OnInit, OnChanges {
+export class TableOdontogramComponent implements OnChanges {
 
   @Input() teeth: Tooth[];
 
@@ -23,9 +24,6 @@ export class TableOdontogramComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.teeth = changes['teeth'].currentValue;
-  }
-
-  ngOnInit(): void {
   }
 
   serviceDone(id_record: number | undefined) {
@@ -46,7 +44,7 @@ export class TableOdontogramComponent implements OnInit, OnChanges {
       if (result.isConfirmed) {
         this.recordService.changeStatus(Number(id_record), StatusRecordService.CANCEL);
       }
-    })
+    });
   }
 
 }

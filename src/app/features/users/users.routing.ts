@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+
 import { AdminGuard } from "@guards/admin.guard";
 
 import { UserDetailComponent } from "./pages/user-detail/user-detail.component";
@@ -22,7 +23,7 @@ const childRoutes: Routes = [
     canActivate: [AdminGuard],
     component: UserDetailComponent,
   }
-]
+];
 
 @NgModule({
   imports: [

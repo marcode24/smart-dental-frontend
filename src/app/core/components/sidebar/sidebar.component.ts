@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { AuthService } from '@services/auth.service';
 
@@ -8,15 +8,12 @@ import { AuthService } from '@services/auth.service';
   styles: [
   ]
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
   private userActiveRole: string;
   private wrapper = document.querySelector('.wrapper');
 
   constructor(private authService: AuthService) {
     this.userActiveRole = this.authService.userActive.role;
-  }
-
-  ngOnInit(): void {
   }
 
   mouseEnter() {

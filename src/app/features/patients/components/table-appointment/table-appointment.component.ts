@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+import { AppointmentService } from '@services/appointment.service';
 
 import { Appointment } from '@models/appointment.model';
-import { AppointmentService } from '@services/appointment.service';
 
 @Component({
   selector: 'app-table-appointment',
@@ -9,16 +10,13 @@ import { AppointmentService } from '@services/appointment.service';
   styles: [
   ]
 })
-export class TableAppointmentComponent implements OnInit {
+export class TableAppointmentComponent {
 
   @Input() appointments: Appointment[];
 
   constructor(
     private appointmentService: AppointmentService,
   ) { }
-
-  ngOnInit(): void {
-  }
 
   showDetails(appointment: Appointment) {
     this.appointmentService.changeAppointmentSelected(appointment);

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Route, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { CanActivate, Router, UrlTree } from '@angular/router';
+
 import { Observable, tap } from 'rxjs';
 
 import { AuthService } from '@services/auth.service';
@@ -13,9 +14,7 @@ export class CodeGuard implements CanActivate {
     private router: Router,
   ) {}
 
-  anLoad(
-    route: Route,
-    segments: import('@angular/router').UrlSegment[]): boolean | import('rxjs').Observable<boolean> | Promise<boolean> {
+  anLoad(): boolean | import('rxjs').Observable<boolean> | Promise<boolean> {
     const code = this.authService.code;
     if(code.length === 0) {
       return this.router.navigate(['/code']);
@@ -26,9 +25,8 @@ export class CodeGuard implements CanActivate {
       }
     }));
   }
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  canActivate()
+  : Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const code = this.authService.code;
     if(code.length === 0) {
       return this.router.navigate(['/code']);

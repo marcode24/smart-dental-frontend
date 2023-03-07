@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgApexchartsModule } from 'ng-apexcharts';
+import { NgModule } from '@angular/core';
+import { PipesModule } from 'app/core/pipes/pipes.module';
 
-import { PipesModule } from '@pipes/pipes.module';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 import { ApexChartComponent } from './apex-chart/apex-chart.component';
 import { CardChartComponent } from './card-chart/card-chart.component';

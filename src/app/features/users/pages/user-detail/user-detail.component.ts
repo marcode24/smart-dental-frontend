@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { User } from '@models/user.model';
+import Swal from 'sweetalert2';
 
 import { UserService } from '@services/user.service';
-import Swal from 'sweetalert2';
+
+import { User } from '@models/user.model';
 
 @Component({
   selector: 'app-user-detail',
@@ -15,7 +16,7 @@ import Swal from 'sweetalert2';
 export class UserDetailComponent implements OnInit {
 
   public userActive: User;
-  public isLoadingPage: boolean = true;
+  public isLoadingPage = true;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -38,19 +39,21 @@ export class UserDetailComponent implements OnInit {
   }
 
   updateUserInfo(valuesChanged: User) {
-    this.userService.updateUser(this.userActive.id_user, valuesChanged).subscribe(resp => {
-      if(resp === null) {
-        return Swal.fire('Ocurrio un error al actualizar los datos', '', 'error');
-      }
+    this.userService.updateUser(this.userActive.id_user, valuesChanged)
+      .subscribe(resp => {
+        if(resp === null) {
+          return Swal.fire('Ocurrio un error al actualizar los datos', '', 'error');
+        }
         localStorage.removeItem('userTemp');
         this.findUser(Number(this.userActive.id_user));
         return Swal.fire('Información actualizada correctamente', '', 'success');
-    })
+    });
   }
 
   changeStatus(value: boolean) {
     const userId = this.userActive.id_user?.toString();
-    this.userService.changeStatus(userId, value).subscribe(() => this.findUser(Number(this.userActive.id_user)));
+    this.userService.changeStatus(userId, value)
+      .subscribe(() => this.findUser(Number(this.userActive.id_user)));
   }
 
 }

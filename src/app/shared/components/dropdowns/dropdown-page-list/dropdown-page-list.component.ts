@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-dropdown-page-list',
@@ -6,17 +6,12 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   styles: [
   ]
 })
-export class DropdownPageListComponent implements OnInit {
+export class DropdownPageListComponent {
 
   @Output() limit: EventEmitter<number> = new EventEmitter<number>();
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
   changeLimit(event: any) {
-    const value: number = Number(event.target.value);
+    const value = Number(event.target.value);
     this.limit.emit(Number(value));
   }
 

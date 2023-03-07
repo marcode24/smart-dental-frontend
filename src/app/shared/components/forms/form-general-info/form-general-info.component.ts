@@ -16,20 +16,41 @@ import ValidationDateBirth from '@utils/validation-date-birth.util';
 export class FormGeneralInfoComponent implements OnInit {
   @Input() userActive: User;
   @Output() userInfo: EventEmitter<User> = new EventEmitter();
-  @Input() isNew: boolean = true;
+  @Input() isNew = true;
   private regexExpressions = RegexClass;
   private generalInfo: User;
   public generalInfoForm: FormGroup = this.fb.group({
-    name: ['ejemplo', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
-    last_name: ['ejemplo', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
-    date_birth: ['2001-04-23', Validators.required],
-    gender: ['female', [Validators.required]],
-    email: ['ejemplo@gmail.com', [Validators.required, Validators.email, Validators.minLength(10)]],
-    phone_number: ['1234567890', [Validators.required, Validators.pattern(this.regexExpressions.PHONE_NUMBER)]],
-    street: ['avenida 1', [Validators.required, Validators.pattern(this.regexExpressions.STREET)]],
-    cp: ['12432', [Validators.required, Validators.pattern(this.regexExpressions.CP)]],
-    city: ['CDMX', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
-    country: ['Mexico', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
+    name: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.ONLY_TEXT)
+    ]],
+    last_name: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.ONLY_TEXT)
+    ]],
+    date_birth: ['', Validators.required],
+    gender: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.email, Validators.minLength(10)]],
+    phone_number: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.PHONE_NUMBER)
+    ]],
+    street: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.STREET)
+    ]],
+    cp: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.CP)
+    ]],
+    city: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.ONLY_TEXT)
+    ]],
+    country: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.ONLY_TEXT)
+    ]],
   }, {
     validators: [
       ValidationDateBirth.validate('date_birth'),
@@ -48,7 +69,9 @@ export class FormGeneralInfoComponent implements OnInit {
   setValuesToForm(values: User) {
     this.generalInfoForm.get('name')?.setValue(values.name);
     this.generalInfoForm.get('last_name')?.setValue(values.last_name);
-    this.generalInfoForm.get('date_birth')?.setValue((this.isNew) ? values.date_birth : new Date(values.date_birth).toISOString().split('T')[0]);
+    this.generalInfoForm.get('date_birth')?.setValue((this.isNew)
+      ? values.date_birth
+      : new Date(values.date_birth).toISOString().split('T')[0]);
     this.generalInfoForm.get('gender')?.setValue(values.gender);
     this.generalInfoForm.get('email')?.setValue(values.email);
     this.generalInfoForm.get('phone_number')?.setValue(values.phone_number);
@@ -63,9 +86,9 @@ export class FormGeneralInfoComponent implements OnInit {
   }
 
   setInfoUserTemp() {
-    const data: any = localStorage.getItem('userTemp');
+    const data: string = localStorage.getItem('userTemp') as string;
     const user: User = JSON.parse(data);
-    if(!user){
+    if(!user) {
       this.generalInfoForm.reset();
       this.generalInfoForm.get('gender')?.setValue('');
     } else {

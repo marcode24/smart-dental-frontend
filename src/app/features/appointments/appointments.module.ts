@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { AlertsModule } from '@components/alerts/alerts.module';
@@ -11,9 +11,10 @@ import { PaginationsModule } from '@components/paginations/paginations.module';
 import { TablesModule } from '@components/tables/tables.module';
 
 import { ComponentsModule } from './components/components.module';
-
 import { AppointmentsComponent } from './pages/appointments/appointments.component';
-import { NewAppointmentComponent } from './pages/new-appointment/new-appointment.component';
+import {
+  NewAppointmentComponent
+} from './pages/new-appointment/new-appointment.component';
 
 @NgModule({
   declarations: [

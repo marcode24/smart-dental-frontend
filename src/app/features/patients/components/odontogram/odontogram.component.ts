@@ -1,7 +1,8 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+
+import { ServiceOfferService } from '@services/service-offer.service';
 
 import { Tooth } from '@models/tooth.model';
-import { ServiceOfferService } from '@services/service-offer.service';
 
 @Component({
   selector: 'app-odontogram',
@@ -9,11 +10,11 @@ import { ServiceOfferService } from '@services/service-offer.service';
   styles: [
   ]
 })
-export class OdontogramComponent implements OnInit, OnChanges {
+export class OdontogramComponent implements OnChanges {
 
   @Input() teeth: Tooth[];
-  public up: Array<number> = [18, 17, 16, 15, 14, 13, 12, 11, 21, 22, 23, 24, 25, 26, 27, 28];
-  public down: Array<number> = [48, 47, 46, 45, 44, 43, 42, 41, 31, 32, 33, 34, 35, 36, 37, 38];
+  public up = [18, 17, 16, 15, 14, 13, 12, 11, 21, 22, 23, 24, 25, 26, 27, 28];
+  public down = [48, 47, 46, 45, 44, 43, 42, 41, 31, 32, 33, 34, 35, 36, 37, 38];
 
   public upTeeth: Tooth[];
   public downTeeth: Tooth[];
@@ -31,11 +32,10 @@ export class OdontogramComponent implements OnInit, OnChanges {
     }
   }
 
-  ngOnInit(): void {
-  }
-
   getServicesActive(tooth_number: number, position: 'up' | 'down') {
-    this.toothTemp = (position === 'up') ? this.upTeeth.find(t => t.tooth_number === tooth_number): this.downTeeth.find(t => t.tooth_number === tooth_number);
+    this.toothTemp = (position === 'up')
+      ? this.upTeeth.find(t => t.tooth_number === tooth_number):
+      this.downTeeth.find(t => t.tooth_number === tooth_number);
     this.serviceOfferServices.getServicesActive(true);
   }
 
@@ -47,7 +47,10 @@ export class OdontogramComponent implements OnInit, OnChanges {
       if(belongsUp) {
         this.upTeeth.map(t => {
           if (t.tooth_number === tooth.tooth_number) {
-            const { distal, ligual, mesial, oclusal, vestibular, record, id_tooth } = tooth;
+            const {
+              distal, ligual, mesial, oclusal,
+              vestibular, record, id_tooth }
+            = tooth;
             t.id_tooth = id_tooth;
             t.distal = distal;
             t.ligual = ligual;
@@ -62,8 +65,11 @@ export class OdontogramComponent implements OnInit, OnChanges {
       if(belongsDown) {
         this.downTeeth.map(t => {
           if (t.tooth_number === tooth.tooth_number) {
-            const { distal, ligual, mesial, oclusal, vestibular, record, id_tooth } = tooth;
-            t.id_tooth = id_tooth
+            const {
+              distal, ligual, mesial, oclusal,
+              vestibular, record, id_tooth
+            } = tooth;
+            t.id_tooth = id_tooth;
             t.distal = distal;
             t.ligual = ligual;
             t.mesial = mesial;

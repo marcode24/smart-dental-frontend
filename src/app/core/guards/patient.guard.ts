@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, UrlTree } from '@angular/router';
+
 import { Observable, tap } from 'rxjs';
 
 import { PatientService } from '@services/patient.service';
@@ -14,14 +15,14 @@ export class PatientGuard implements CanActivate {
     private router: Router,
   ) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  canActivate(route: ActivatedRouteSnapshot)
+    : Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       const patientID = route.params['patientID'];
-      return this.patientService.getPatientByUser(patientID).pipe(tap((hasAccess: boolean) => {
-        if(!hasAccess) {
-          this.router.navigate(['/patients']);
-        }
+      return this.patientService.getPatientByUser(patientID)
+        .pipe(tap((hasAccess: boolean) => {
+          if(!hasAccess) {
+            this.router.navigate(['/patients']);
+          }
       }));
   }
 }

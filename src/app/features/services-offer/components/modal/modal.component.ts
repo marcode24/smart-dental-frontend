@@ -1,10 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { Subscription } from 'rxjs';
+
+import { ServiceOfferService } from '@services/service-offer.service';
 
 import { Service } from '@models/service.model';
 
-import { ServiceOfferService } from '@services/service-offer.service';
 import { RegexClass } from '@utils/regex.util';
 
 @Component({
@@ -16,16 +18,22 @@ import { RegexClass } from '@utils/regex.util';
 export class ModalComponent implements OnInit, OnDestroy {
   private regexExpressions = RegexClass;
   private isNewService: Subscription;
-  private isUpdate: boolean = false;
+  private isUpdate = false;
   private serviceTemp: Service;
   public serviceForm: FormGroup = this.fb.group({
-    name: ['', [Validators.required, Validators.pattern(this.regexExpressions.TEXT_SERVICE)]],
+    name: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.TEXT_SERVICE)
+    ]],
     description: ['', Validators.pattern(this.regexExpressions.TEXT_SERVICE)],
-    price: ['', [Validators.required, Validators.pattern(this.regexExpressions.PRICE)]],
+    price: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.PRICE)
+    ]],
     status: [true, Validators.required],
     odontogram: [false],
     color: ['#008cff'],
-  })
+  });
 
   constructor(
     private fb: FormBuilder,
@@ -82,9 +90,10 @@ export class ModalComponent implements OnInit, OnDestroy {
     const dataService: Service = {
       ...this.serviceForm.value,
       status: JSON.parse(this.serviceForm.get('status')?.value),
-    }
+    };
     if(this.isUpdate) {
-      return this.serviceOfferService.update(dataService, Number(this.serviceTemp.id_service));
+      return this.serviceOfferService
+        .update(dataService, Number(this.serviceTemp.id_service));
     }
     this.serviceOfferService.create(dataService);
   }

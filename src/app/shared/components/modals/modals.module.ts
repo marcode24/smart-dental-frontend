@@ -1,9 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { ModalAppointmentComponent } from './modal-appointment/modal-appointment.component';
+import { NgModule } from '@angular/core';
 
 import { AlertsModule } from '@components/alerts/alerts.module';
+
+import {
+  ModalAppointmentComponent
+} from './modal-appointment/modal-appointment.component';
 
 @NgModule({
   declarations: [

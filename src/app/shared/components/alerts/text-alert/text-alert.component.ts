@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-text-alert',
@@ -6,15 +6,9 @@ import { Component, Input, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class TextAlertComponent implements OnInit {
-
-  @Input() icon: string = 'bx-detail';
-  @Input() textColor: string = 'info'
-  @Input() text: string = 'No hay registro';
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+export class TextAlertComponent {
+  @Input() icon = 'bx-detail';
+  @Input() textColor = 'info';
+  @Input() text = 'No hay registro';
 
 }

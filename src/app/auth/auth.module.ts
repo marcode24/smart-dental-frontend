@@ -1,15 +1,15 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { LoginComponent } from './login/login.component';
-import { CodeComponent } from './code/code.component';
-import { RegisterComponent } from './register/register.component';
+import { RouterModule } from '@angular/router';
 
 import { InputsModule } from '@components/inputs/inputs.module';
 import { LoadersModule } from '@components/loaders/loaders.module';
+
+import { CodeComponent } from './code/code.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { Patient } from '@models/patient.model';
 
@@ -8,14 +8,9 @@ import { Patient } from '@models/patient.model';
   styles: [
   ]
 })
-export class CardPatientInfoComponent implements OnInit {
+export class CardPatientInfoComponent {
 
   @Input() patient: Patient;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   get getAddress() {
     const { street, cp, city, country } = this.patient;

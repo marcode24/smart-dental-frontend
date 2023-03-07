@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+
 import { IStatistics } from '@interfaces/statistics.interface';
 
 @Component({
@@ -12,8 +13,6 @@ export class CardChartComponent implements OnInit {
   @Input() statistic: IStatistics;
 
   public totals: number[] = [];
-
-  constructor() { }
 
   ngOnInit(): void {
     this.statistic.statistics?.forEach(el => this.totals.push(Number(el.total_quantity)));

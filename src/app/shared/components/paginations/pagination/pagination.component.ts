@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 
 @Component({
   selector: 'app-pagination',
@@ -8,16 +16,14 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 })
 export class PaginationComponent implements OnInit, OnChanges {
 
-  @Input() limit: number = 0;
-  @Input() total: number = 0;
+  @Input() limit = 0;
+  @Input() total = 0;
 
   @Output() changedOffset: EventEmitter<number> = new EventEmitter();
 
-  private offset: number = 0;
-  public pageActive: number = 1;
-  public totalPages: number = 0;
-
-  constructor() { }
+  private offset = 0;
+  public pageActive = 1;
+  public totalPages = 0;
 
   ngOnChanges(changes: SimpleChanges): void {
     this.limit = (changes['limit'] && changes['limit'].currentValue) || 5;

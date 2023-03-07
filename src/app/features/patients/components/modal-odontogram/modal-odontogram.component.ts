@@ -1,12 +1,21 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { Subscription } from 'rxjs';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges
+} from '@angular/core';
 
-import { Service } from '@models/service.model';
-import { Tooth } from '@models/tooth.model';
+import { Subscription } from 'rxjs';
 
 import { PatientService } from '@services/patient.service';
 import { ServiceOfferService } from '@services/service-offer.service';
 import { ToothService } from '@services/tooth.service';
+
+import { Service } from '@models/service.model';
+import { Tooth } from '@models/tooth.model';
+
 import { IUpdateTooth } from '@interfaces/tooth.interface';
 
 @Component({
@@ -20,7 +29,7 @@ export class ModalOdontogramComponent implements OnInit, OnChanges, OnDestroy {
   @Input() tooth: Tooth | undefined;
 
   public toothSelected: Tooth;
-  public isNew: boolean = true;
+  public isNew = true;
   public services: Service[];
 
   private patientIdActive: number;
@@ -45,12 +54,13 @@ export class ModalOdontogramComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.servicesActive = this.serviceOfferService.servicesActiveOdontogram.subscribe(services => {
-      this.services = services
-      if(services.length > 0 && (!this.toothSelected.record || !this.tooth?.color)) {
-        this.toothSelected.color = this.services[0].color;
-        this.toothSelected.id_service = this.services[0].id_service;
-      }
+    this.servicesActive = this.serviceOfferService.servicesActiveOdontogram
+      .subscribe(services => {
+        this.services = services;
+        if(services.length > 0 && (!this.toothSelected.record || !this.tooth?.color)) {
+          this.toothSelected.color = this.services[0].color;
+          this.toothSelected.id_service = this.services[0].id_service;
+        }
     });
   }
 
@@ -66,12 +76,13 @@ export class ModalOdontogramComponent implements OnInit, OnChanges, OnDestroy {
           mesial: this.toothSelected.mesial || false,
           oclusal: this.toothSelected.oclusal || false,
           id_patient: this.patientIdActive,
-        }
+        };
         this.toothService.create(newTooth);
       }
     } else {
       if(this.toothPartSelected()) {
-        const id_service = this.toothSelected.id_service || this.toothSelected.record?.id_service;
+        const id_service =
+          this.toothSelected.id_service || this.toothSelected.record?.id_service;
         const updateTooth: IUpdateTooth = {
           id_service: Number(id_service),
           vestibular: this.toothSelected.vestibular || false,
@@ -79,7 +90,7 @@ export class ModalOdontogramComponent implements OnInit, OnChanges, OnDestroy {
           distal: this.toothSelected.distal || false,
           mesial: this.toothSelected.mesial || false,
           oclusal: this.toothSelected.oclusal || false,
-        }
+        };
         const { id_tooth } = this.toothSelected;
         this.toothService.update(Number(id_tooth), updateTooth);
       }
@@ -96,12 +107,15 @@ export class ModalOdontogramComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   changeService(event: any) {
-    const idService: number = Number(event.value);
+    const idService = Number(event.value);
     this.toothSelected.id_service = idService;
     this.toothSelected.color = this.services.find(s => s.id_service === idService)?.color;
   }
 
-  changeColor(section: 'vestibular' | 'ligual' | 'oclusal' | 'distal' | 'mesial', event: any) {
+  changeColor(
+    section: 'vestibular' | 'ligual' | 'oclusal' | 'distal' | 'mesial',
+    event: any
+  ) {
     const value = event.checked;
     switch (section) {
       case 'vestibular':

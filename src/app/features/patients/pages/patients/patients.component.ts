@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import Swal from 'sweetalert2';
 
-import { Patient } from '@models/patient.model';
+import Swal from 'sweetalert2';
 
 import { AuthService } from '@services/auth.service';
 import { PatientService } from '@services/patient.service';
+
+import { Patient } from '@models/patient.model';
 
 import { ICardIconRight } from '@interfaces/card-icon-right.interface';
 import { IOptionsSearch } from '@interfaces/options-search.interface';
@@ -18,18 +19,36 @@ import { IResponsePatient } from '@interfaces/response.interface';
 })
 export class PatientsComponent implements OnInit {
   public cardsIconData: ICardIconRight[] = [
-    { title: 'Mis Pacientes', quantity: 0, icon: 'bxs-user', color: 'primary', bg: 'scooter'},
-    { title: 'Pacientes activos', quantity: 0, icon: 'bx-check', color: 'success', bg: 'ohhappiness'},
-    { title: 'Pacientes inactivos', quantity: 0, icon: 'bx-block', color: 'danger', bg: 'bloody'}
-  ]
+    {
+      title: 'Mis Pacientes',
+      quantity: 0,
+      icon: 'bxs-user',
+      color: 'primary',
+      bg: 'scooter'
+    },
+    {
+      title: 'Pacientes activos',
+      quantity: 0,
+      icon: 'bx-check',
+      color: 'success',
+      bg: 'ohhappiness'
+    },
+    {
+      title: 'Pacientes inactivos',
+      quantity: 0,
+      icon: 'bx-block',
+      color: 'danger',
+      bg: 'bloody'
+    }
+  ];
   private optionsSearch: IOptionsSearch = { limit: 5, offset: 0, fullname: '' };
   public patients: Patient[];
   public userRole: string;
-  public totalPatients: number = 0;
-  public showPagination: boolean = true;
-  public findingByFullname: boolean = false;
-  private allPatients: boolean = false;
-  public isLoadingPage: boolean = true;
+  public totalPatients = 0;
+  public showPagination = true;
+  public findingByFullname = false;
+  private allPatients = false;
+  public isLoadingPage = true;
 
   constructor(
     private patientService: PatientService,
@@ -53,15 +72,21 @@ export class PatientsComponent implements OnInit {
 
   getPatients() {
     if(!this.allPatients) {
-      this.patientService.getPatientsByUser(this.optionsSearch, Number(this.authService.userActive.id_user)).subscribe(resp => this.setData(resp));
+      this.patientService
+        .getPatientsByUser(
+          this.optionsSearch,
+          Number(this.authService.userActive.id_user)
+        ).subscribe(resp => this.setData(resp));
     } else {
-      this.patientService.getPatients(this.optionsSearch).subscribe(resp => this.setData(resp));
+      this.patientService.getPatients(this.optionsSearch)
+        .subscribe(resp => this.setData(resp));
     }
   }
 
   setData(resp: IResponsePatient) {
     const { patients, totalActive, totalInactive } = resp;
-    this.showPagination = this.optionsSearch.fullname && this.optionsSearch.fullname.length > 0 ? false : true;
+    this.showPagination =
+      (this.optionsSearch.fullname && this.optionsSearch.fullname.length > 0) as boolean;
     this.patients = patients;
     this.totalPatients = totalActive + totalInactive;
     this.cardsIconData[0].quantity = this.totalPatients;
@@ -110,12 +135,12 @@ export class PatientsComponent implements OnInit {
           next: () => {
             this.getPatients();
           },
-          error: (e) => {
+          error: () => {
             Swal.fire('Ocurrió un error', 'intentalo de nuevo', 'error');
           }
-        })
+        });
       }
-    })
+    });
   }
 
   get showOptions(): boolean {

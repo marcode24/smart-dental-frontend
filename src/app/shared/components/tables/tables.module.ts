@@ -1,7 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TableAppointmentsComponent } from './table-appointments/table-appointments.component';
-import { PipesModule } from 'app/shared/pipes/pipes.module';
+import { NgModule } from '@angular/core';
+
+import { PipesModule } from '@pipes/pipes.module';
+
+import {
+  TableAppointmentsComponent
+} from './table-appointments/table-appointments.component';
 
 @NgModule({
   declarations: [

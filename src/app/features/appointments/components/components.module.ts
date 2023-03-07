@@ -1,12 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { PipesModule } from 'app/core/pipes/pipes.module';
 
-import { AppointmentFormComponent } from './appointment-form/appointment-form.component';
-import { AppointmentCardComponent } from './appointment-card/appointment-card.component';
 import { AlertsModule } from '@components/alerts/alerts.module';
-import { PipesModule } from '@pipes/pipes.module';
+
+import { AppointmentCardComponent } from './appointment-card/appointment-card.component';
+import { AppointmentFormComponent } from './appointment-form/appointment-form.component';
 
 @NgModule({
   declarations: [

@@ -1,13 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
+
 import { Observable } from 'rxjs';
+
 import Swal from 'sweetalert2';
 
-import { RecordService } from './record.service';
-
 import { Tooth } from '@models/tooth.model';
+
 import { IUpdateTooth } from '@interfaces/tooth.interface';
+
+import { RecordService } from './record.service';
 
 const base_url = environment.base_url;
 
@@ -48,15 +51,15 @@ export class ToothService {
       error: () => {
         Swal.fire('Ocurrio un error intentalo de nuevo', '', 'error');
       }
-    })
+    });
   }
 
   update(toothId: number, data: IUpdateTooth) {
     const url = `${base_url}/teeth/${toothId}`;
-    this.http.patch(url, data, this.headers).subscribe(resp => {
+    this.http.patch(url, data, this.headers).subscribe(() => {
       Swal.fire('Diente actualizado correctamente', '', 'success');
       this.recordService.changedRecordsHome.emit(true);
-    })
+    });
   }
 
 }

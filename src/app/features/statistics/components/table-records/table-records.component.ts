@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
 import { Record } from '@models/record.model';
 
 @Component({
@@ -7,13 +8,7 @@ import { Record } from '@models/record.model';
   styles: [
   ]
 })
-export class TableRecordsComponent implements OnInit {
-
+export class TableRecordsComponent {
   @Input() records: Record[];
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

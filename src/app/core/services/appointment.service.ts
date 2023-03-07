@@ -1,15 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
-import { Observable } from 'rxjs';
 
-import { AuthService } from './auth.service';
+import { Observable } from 'rxjs';
 
 import { Appointment } from '@models/appointment.model';
 
 import { IChangeStatus, ICreateAppointment } from '@interfaces/appointment.interface';
 import { IOptionsSearch } from '@interfaces/options-search.interface';
 import { IResponseAppointment } from '@interfaces/response.interface';
+
+import { AuthService } from './auth.service';
 
 const base_url = environment.base_url;
 
@@ -46,16 +47,16 @@ export class AppointmentService {
     let url = `${base_url}/appointments/user/${idUser}?status=${status}`;
     let fullname;
     if(options) {
-      let { limit, offset, fullname: f } = options;
+      const { limit, offset, fullname: f } = options;
       fullname = f;
       url = `${url}&limit=${limit}&offset=${offset}`;
     }
     if(fullname) {
       fullname = fullname.toString().trim();
-      url = `${url}&fullname=${fullname}`
+      url = `${url}&fullname=${fullname}`;
     }
     if(date) {
-      url = `${url}&date=${date}`
+      url = `${url}&date=${date}`;
     }
     return this.http.get<IResponseAppointment>(url, this.headers);
   }
@@ -79,7 +80,7 @@ export class AppointmentService {
     const newAppointment: ICreateAppointment = {
       ...data,
       id_user: this.authService.userActive.id_user,
-    }
+    };
     const url = `${base_url}/appointments`;
     return this.http.post<boolean>(url, newAppointment, this.headers);
   }

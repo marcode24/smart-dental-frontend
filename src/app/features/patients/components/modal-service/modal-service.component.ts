@@ -1,4 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+
 import { Subscription } from 'rxjs';
 
 import { RecordService } from '@services/record.service';
@@ -24,7 +25,7 @@ export class ModalServiceComponent implements OnInit, OnDestroy {
 
   public price: number;
   public subtotal: number;
-  public quantity: number = 1;
+  public quantity = 1;
 
   constructor(
     private serviceOfferService: ServiceOfferService,
@@ -36,14 +37,15 @@ export class ModalServiceComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.servicesActive = this.serviceOfferService.servicesActive.subscribe((services: Service[]) => {
-      this.services = services
-      if(this.services.length > 0) {
-        this.serviceSelected = this.services[0];
-        this.price = this.serviceSelected.price;
-        this.subtotal = this.serviceSelected.price * this.quantity;
-        this.quantity = 1;
-      }
+    this.servicesActive = this.serviceOfferService.servicesActive
+      .subscribe((services: Service[]) => {
+        this.services = services;
+        if(this.services.length > 0) {
+          this.serviceSelected = this.services[0];
+          this.price = this.serviceSelected.price;
+          this.subtotal = this.serviceSelected.price * this.quantity;
+          this.quantity = 1;
+        }
     });
   }
 
@@ -71,7 +73,7 @@ export class ModalServiceComponent implements OnInit, OnDestroy {
       id_service: Number(this.serviceSelected?.id_service),
       quantity: this.quantity,
       realization_date: new Date(),
-    }
+    };
     this.recordService.createRecord(newRecord);
   }
 

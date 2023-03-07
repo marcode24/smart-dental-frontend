@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-dropdown-appointments',
@@ -6,14 +6,9 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styles: [
   ]
 })
-export class DropdownAppointmentsComponent implements OnInit {
+export class DropdownAppointmentsComponent {
 
   @Output() option: EventEmitter<string> = new EventEmitter<string>();
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   changeLimit(event: any) {
     this.option.emit(event.target.value);

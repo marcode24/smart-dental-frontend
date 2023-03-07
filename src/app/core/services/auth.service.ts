@@ -1,8 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { environment } from "environments/environment";
 import { Router } from "@angular/router";
-import { catchError, map, Observable, of, tap } from "rxjs";
+import { environment } from "environments/environment";
+
+import { catchError, map, Observable, of } from "rxjs";
 
 import { User } from "@models/user.model";
 
@@ -40,7 +41,6 @@ export class AuthService {
     };
   }
 
-
   login(data: ILogin): Observable<any> {
     const url = `${base_url}/auth/login`;
     return this.http.post(url, data).pipe(map((resp: any) => {
@@ -57,19 +57,20 @@ export class AuthService {
       } = resp.user as User;
       this.userActive = new User(
         city, country, cp, date_birth, email, gender, last_name, name,
-        phone_number, role, status, street, createdAt, username, updatedAt, id_user, '', image, code
+        phone_number, role, status, street, createdAt, username, updatedAt,
+        id_user, '', image, code
       );
       Storage.deleteSessionStorage('token');
       Storage.saveSessionStorage('token', resp.access_token);
       return true;
-    }), catchError(err => of(false)));
+    }), catchError(() => of(false)));
   }
 
   validateCode(code: string): Observable<boolean> {
     const url = `${base_url}/auth/code/${code}`;
     return this.http.get(url, this.headers).pipe(map((resp: any) => {
       if(resp.valid) Storage.saveSessionStorage('code', code);
-      return resp.valid
+      return resp.valid;
     }));
   }
 

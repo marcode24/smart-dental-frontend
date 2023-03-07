@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import { IChangeStatus } from '@interfaces/appointment.interface';
-import { IOptionsSearch } from '@interfaces/options-search.interface';
+import { AppointmentService } from '@services/appointment.service';
 
 import { Appointment } from '@models/appointment.model';
 
-import { AppointmentService } from '@services/appointment.service';
+import { IChangeStatus } from '@interfaces/appointment.interface';
+import { IOptionsSearch } from '@interfaces/options-search.interface';
 
 @Component({
   selector: 'app-appointments',
@@ -16,15 +16,15 @@ import { AppointmentService } from '@services/appointment.service';
 export class AppointmentsComponent implements OnInit {
 
   public appointments: Appointment[];
-  public totalAppointments: number = 0;
-  public showPagination: boolean = true;
-  public findingByFullname: boolean = false;
-  public isLoadingPage: boolean = true;
+  public totalAppointments = 0;
+  public showPagination = true;
+  public findingByFullname = false;
+  public isLoadingPage = true;
   private optionsSearch: IOptionsSearch = {
     limit: 5,
     offset: 0,
     fullname: '',
-  }
+  };
   private optionAppointment: 'PENDING' | 'CANCELLED' | 'DONE' = 'PENDING';
 
   constructor(private appointmentService: AppointmentService) { }
@@ -33,17 +33,20 @@ export class AppointmentsComponent implements OnInit {
     this.getAppointments();
   }
 
-  getAppointments(){
-    let fullnameTemp = this.optionsSearch.fullname?.trim();
-    this.appointmentService.getAppointmentsByUser(this.optionAppointment, this.optionsSearch).subscribe(({ appointments, total }) => {
-      this.showPagination = (fullnameTemp && fullnameTemp.toString().length > 0) ? false : true;
-      this.appointments = appointments;
-      this.totalAppointments = total;
-      this.isLoadingPage = false;
+  getAppointments() {
+    const fullnameTemp = this.optionsSearch.fullname?.trim();
+    this.appointmentService
+      .getAppointmentsByUser(this.optionAppointment, this.optionsSearch)
+      .subscribe(({ appointments, total }) => {
+        this.showPagination =
+          (fullnameTemp && fullnameTemp.toString().length > 0) as boolean;
+        this.appointments = appointments;
+        this.totalAppointments = total;
+        this.isLoadingPage = false;
     });
   }
 
-  changeOptionAppointment(value: any){
+  changeOptionAppointment(value: any) {
     this.findingByFullname = false;
     this.optionsSearch.fullname = '';
     this.optionAppointment = value;

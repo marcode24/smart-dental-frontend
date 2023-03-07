@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { Roles } from '@enums/role.enum';
+import { UserService } from '@services/user.service';
 
 import { User } from '@models/user.model';
 
-import { UserService } from '@services/user.service';
-
+import { RegexClass } from '@utils/regex.util';
 import Validation from '@utils/validation';
 import ValidationDateBirth from '@utils/validation-date-birth.util';
-import { RegexClass } from '@utils/regex.util';
+
+import { Roles } from '@enums/role.enum';
 
 @Component({
   selector: 'app-register',
@@ -21,18 +21,45 @@ import { RegexClass } from '@utils/regex.util';
 export class RegisterComponent implements OnInit {
   private regexExpressions = RegexClass;
   public registerForm = this.fb.group({
-    name: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
-    last_name: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
+    name: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.ONLY_TEXT)
+    ]],
+    last_name: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.ONLY_TEXT)
+    ]],
     date_birth: ['', Validators.required],
     gender: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email, Validators.minLength(10)]],
-    phone_number: ['', [Validators.required, Validators.pattern(this.regexExpressions.PHONE_NUMBER)]],
-    street: ['', [Validators.required, Validators.pattern(this.regexExpressions.STREET)]],
-    cp: ['', [Validators.required, Validators.pattern(this.regexExpressions.CP)]],
-    city: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
-    country: ['', [Validators.required, Validators.pattern(this.regexExpressions.ONLY_TEXT)]],
-    username: ['', [Validators.required, Validators.pattern(this.regexExpressions.USER_NAME)]],
-    password: ['', [Validators.required, Validators.pattern(this.regexExpressions.PASSWORD) ]],
+    phone_number: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.PHONE_NUMBER)
+    ]],
+    street: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.STREET)
+    ]],
+    cp: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.CP)
+    ]],
+    city: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.ONLY_TEXT)
+    ]],
+    country: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.ONLY_TEXT)
+    ]],
+    username: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.USER_NAME)
+    ]],
+    password: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.PASSWORD)
+    ]],
     password2: ['', [Validators.required]],
     },
     {
@@ -42,7 +69,7 @@ export class RegisterComponent implements OnInit {
       ]
     }
   );
-  public isLoadingPage: boolean = true;
+  public isLoadingPage = true;
 
   constructor(
     private fb: FormBuilder,

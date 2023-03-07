@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { Appointment } from '@models/appointment.model';
 
@@ -8,20 +8,14 @@ import { Appointment } from '@models/appointment.model';
   styles: [
   ]
 })
-export class AppointmentCardComponent implements OnInit, OnChanges {
+export class AppointmentCardComponent implements OnChanges {
 
   @Input() appointments: Appointment[];
 
   public appointmentsTemp: Appointment[];
 
-  constructor() { }
-
   ngOnChanges(changes: SimpleChanges): void {
     this.appointmentsTemp = changes['appointments'].currentValue;
-    console.log(this.appointmentsTemp);
-  }
-
-  ngOnInit(): void {
   }
 
   buildFullName(appoinment: Appointment) {

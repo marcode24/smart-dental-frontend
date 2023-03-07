@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+
 import { forkJoin } from 'rxjs';
 
 import { RecordService } from '@services/record.service';
 
+import { Record } from '@models/record.model';
+
 import { ISearchParamsStatistics } from '@interfaces/options-search.interface';
 import { IStatistics, IStatisticsByDate } from '@interfaces/statistics.interface';
-import { Record } from '@models/record.model';
 
 @Component({
   selector: 'app-statistics',
@@ -17,17 +19,17 @@ export class StatisticsComponent implements OnInit {
 
   public statistics: IStatistics[];
   public statisticsDate: Record[];
-  public totalRecords: number = 0;
-  public earnings: number = 0;
+  public totalRecords = 0;
+  public earnings = 0;
 
-  public isLoadingPage: boolean = true;
+  public isLoadingPage = true;
 
   private statisticsDateParams: ISearchParamsStatistics = {
     limit: 5,
     offset: 0,
     type: 'month',
     option: 'current'
-  }
+  };
 
   constructor(
     private recordService: RecordService
@@ -41,7 +43,7 @@ export class StatisticsComponent implements OnInit {
       this.statistics = statistics;
       this.setDataStatisticsDate(statisticsDate);
       this.isLoadingPage = false;
-    })
+    });
   }
 
   setDataStatisticsDate(data: IStatisticsByDate) {
@@ -54,7 +56,7 @@ export class StatisticsComponent implements OnInit {
   getStatisticsByDate() {
     this.recordService.getStatisticsByDate(this.statisticsDateParams).subscribe(resp => {
       this.setDataStatisticsDate(resp);
-    })
+    });
   }
 
   get getLimitPagination(): number {

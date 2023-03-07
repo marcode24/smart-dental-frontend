@@ -6,7 +6,8 @@ export default class ValidationTime {
       const cDate = controls.get(controlDate)?.value.split('-');
       const cTime = controls.get(controlTime)?.value.split(':');
 
-      const dateSelectedTime = new Date(cDate[0], cDate[1] - 1, cDate[2]).setHours(0,0,0,0);
+      const dateSelectedTime = new Date(cDate[0], cDate[1] - 1, cDate[2])
+        .setHours(0,0,0,0);
       const today = new Date().setHours(0,0,0,0);
 
       const todayHour = new Date().getHours();
@@ -27,7 +28,7 @@ export default class ValidationTime {
         }
       }
       return null;
-    }
+    };
   }
 
 }
