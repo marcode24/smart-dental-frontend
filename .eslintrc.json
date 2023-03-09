@@ -127,6 +127,11 @@
                 "pattern": "@enums/**",
                 "group": "builtin",
                 "position": "before"
+              },
+              {
+                "pattern": "@customTypes/**",
+                "group": "builtin",
+                "position": "before"
               }
             ],
             "pathGroupsExcludedImportTypes": ["type", "object"]

@@ -12,6 +12,7 @@
       "@utils/*": [ "app/core/utils/*" ],
       "@enums/*": [ "app/core/enums/*" ],
       "@pipes/*": [ "app/core/pipes/*" ],
+      "@customTypes/*": [ "app/core/types/*" ],
       "@components/cards/*": [ "app/shared/components/cards/*" ],
       "@components/forms/*": [ "app/shared/components/forms/*" ],
       "@components/inputs/*": [ "app/shared/components/inputs/*" ],
