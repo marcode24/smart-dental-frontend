@@ -43,3 +43,6 @@ testem.log
 Thumbs.db
 
 .firebase/
+
+# Local Netlify folder
+.netlify
