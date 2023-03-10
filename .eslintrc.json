@@ -84,6 +84,11 @@
                 "position": "before"
               },
               {
+                "pattern": "@faker-js/**",
+                "group": "builtin",
+                "position": "before"
+              },
+              {
                 "pattern": "@services/**",
                 "group": "builtin",
                 "position": "before"
@@ -130,6 +135,11 @@
               },
               {
                 "pattern": "@customTypes/**",
+                "group": "builtin",
+                "position": "before"
+              },
+              {
+                "pattern": "@mocks/**",
                 "group": "builtin",
                 "position": "before"
               }
