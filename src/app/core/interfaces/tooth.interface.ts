@@ -5,4 +5,5 @@ export interface IUpdateTooth {
   mesial: boolean;
   distal: boolean;
   oclusal: boolean;
+  tooth_number?: number;
 }

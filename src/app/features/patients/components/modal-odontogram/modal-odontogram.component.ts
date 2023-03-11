@@ -18,6 +18,8 @@ import { Tooth } from '@models/tooth.model';
 
 import { IUpdateTooth } from '@interfaces/tooth.interface';
 
+import { ToothT } from '@customTypes/tooth.type';
+
 @Component({
   selector: 'app-modal-odontogram',
   templateUrl: './modal-odontogram.component.html',
@@ -65,35 +67,32 @@ export class ModalOdontogramComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   saveTooth() {
-    if(this.isNew) {
-      if(this.toothPartSelected()) {
-        const newTooth: Tooth = {
-          id_service: this.toothSelected.id_service,
-          tooth_number: this.toothSelected.tooth_number,
-          vestibular: this.toothSelected.vestibular || false,
-          ligual: this.toothSelected.ligual || false,
-          distal: this.toothSelected.distal || false,
-          mesial: this.toothSelected.mesial || false,
-          oclusal: this.toothSelected.oclusal || false,
-          id_patient: this.patientIdActive,
-        };
-        this.toothService.create(newTooth);
-      }
-    } else {
-      if(this.toothPartSelected()) {
-        const id_service =
+    const toothInfo: Tooth = {
+      tooth_number: this.toothSelected.tooth_number,
+      vestibular: this.toothSelected.vestibular || false,
+      ligual: this.toothSelected.ligual || false,
+      distal: this.toothSelected.distal || false,
+      mesial: this.toothSelected.mesial || false,
+      oclusal: this.toothSelected.oclusal || false,
+    };
+
+    if(this.isNew && this.toothPartSelected()) {
+      const newTooth: Tooth = {
+        ...toothInfo,
+        id_service: this.toothSelected.id_service,
+        id_patient: this.patientIdActive,
+      };
+      return this.toothService.create(newTooth);
+    }
+    if(!this.isNew && this.toothPartSelected()) {
+      const id_service =
           this.toothSelected.id_service || this.toothSelected.record?.id_service;
-        const updateTooth: IUpdateTooth = {
-          id_service: Number(id_service),
-          vestibular: this.toothSelected.vestibular || false,
-          ligual: this.toothSelected.ligual || false,
-          distal: this.toothSelected.distal || false,
-          mesial: this.toothSelected.mesial || false,
-          oclusal: this.toothSelected.oclusal || false,
-        };
-        const { id_tooth } = this.toothSelected;
-        this.toothService.update(Number(id_tooth), updateTooth);
-      }
+      const updateTooth: IUpdateTooth = {
+        ...toothInfo,
+        id_service: Number(id_service)
+      } as IUpdateTooth;
+      const { id_tooth } = this.toothSelected;
+      return this.toothService.update(Number(id_tooth), updateTooth);
     }
   }
 
@@ -106,36 +105,15 @@ export class ModalOdontogramComponent implements OnInit, OnChanges, OnDestroy {
     return (this.isNew ? 'Agregar ': 'Editar ') + 'Servicio';
   }
 
-  changeService(event: any) {
-    const idService = Number(event.value);
+  changeService(event: Event) {
+    const idService = Number((event.target as HTMLSelectElement).value);
     this.toothSelected.id_service = idService;
     this.toothSelected.color = this.services.find(s => s.id_service === idService)?.color;
   }
 
-  changeColor(
-    section: 'vestibular' | 'ligual' | 'oclusal' | 'distal' | 'mesial',
-    event: any
-  ) {
-    const value = event.checked;
-    switch (section) {
-      case 'vestibular':
-        this.toothSelected.vestibular = value;
-        break;
-      case 'ligual':
-        this.toothSelected.ligual = value;
-        break;
-      case 'oclusal':
-        this.toothSelected.oclusal = value;
-        break;
-      case 'distal':
-        this.toothSelected.distal = value;
-        break;
-      case 'mesial':
-        this.toothSelected.mesial = value;
-        break;
-      default:
-        return;
-    }
+  changeColor(section: ToothT, event: Event) {
+    const value = (event.target as HTMLInputElement).checked;
+    this.toothSelected[section] = value;
   }
 
 }

@@ -11,7 +11,7 @@
       <div class="modal-body">
         <h2 class="mb-3"> # Pieza: {{ toothSelected?.tooth_number }} </h2>
         <label for="selectService" class="form-label">Servicios disponibles</label>
-        <select (change)="changeService($event.target)" class="form-select radius-10" id="selectService">
+        <select (change)="changeService($event)" class="form-select radius-10" id="selectService">
           <option [value]="service.id_service" [selected]="service.id_service === toothSelected.record?.id_service"
             *ngFor="let service of services">
             {{service.name}}</option>
@@ -22,29 +22,29 @@
             <div class="row">
               <div class="col-6">
                 <div class="form-check form-switch gap-2 d-flex align-items-center my-2" style="padding-left: 0;">
-                  <input (change)="changeColor('vestibular', $event.target)" [checked]="toothSelected?.vestibular"
+                  <input (change)="changeColor('vestibular', $event)" [checked]="toothSelected?.vestibular"
                     class="form-check-input switch-odontogram" type="checkbox" id="switchVestibular">
                   <label class="form-check-label text-nowrap text-truncate" for="switchVestibular">Vestibular</label>
                 </div>
                 <div class="form-check form-switch gap-2 d-flex align-items-center my-2" style="padding-left: 0;">
-                  <input (change)="changeColor('ligual', $event.target)" [checked]="toothSelected?.ligual"
+                  <input (change)="changeColor('ligual', $event)" [checked]="toothSelected?.ligual"
                     class="form-check-input switch-odontogram" type="checkbox" id="switchLigual">
                   <label class="form-check-label text-nowrap text-truncate" for="switchLigual">Ligual</label>
                 </div>
                 <div class="form-check form-switch gap-2 d-flex align-items-center my-2" style="padding-left: 0;">
-                  <input (change)="changeColor('oclusal', $event.target)" [checked]="toothSelected?.oclusal"
+                  <input (change)="changeColor('oclusal', $event)" [checked]="toothSelected?.oclusal"
                     class="form-check-input switch-odontogram" type="checkbox" id="switchOclusal">
                   <label class="form-check-label text-nowrap text-truncate" for="switchOclusal">Oclusal</label>
                 </div>
               </div>
               <div class="col-6">
                 <div class="form-check form-switch gap-2 d-flex align-items-center my-2" style="padding-left: 0;">
-                  <input (change)="changeColor('mesial', $event.target)" [checked]="toothSelected?.mesial"
+                  <input (change)="changeColor('mesial', $event)" [checked]="toothSelected?.mesial"
                     class="form-check-input switch-odontogram" type="checkbox" id="switchMesial">
                   <label class="form-check-label text-nowrap text-truncate" for="switchMesial">Mesial</label>
                 </div>
                 <div class="form-check form-switch gap-2 d-flex align-items-center my-2" style="padding-left: 0;">
-                  <input (change)="changeColor('distal', $event.target)" [checked]="toothSelected?.distal"
+                  <input (change)="changeColor('distal', $event)" [checked]="toothSelected?.distal"
                     class="form-check-input switch-odontogram" type="checkbox" id="switchDistal">
                   <label class="form-check-label text-nowrap text-truncate" for="switchDistal">Distal</label>
                 </div>
