@@ -30,3 +30,8 @@ export interface IResponseAppointment {
   appointments: Appointment[];
   total: number;
 }
+
+export interface IResponseLogin {
+  access_token: string,
+  user: User;
+}
