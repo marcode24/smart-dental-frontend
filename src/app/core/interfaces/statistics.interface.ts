@@ -21,6 +21,6 @@ export interface IStatisticsByDate {
   earnings: ITotalEarnings[];
 }
 
-interface ITotalEarnings {
+export interface ITotalEarnings {
   total: number;
 }

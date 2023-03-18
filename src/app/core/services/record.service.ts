@@ -77,8 +77,8 @@ export class RecordService {
 
   getStatisticsByDate(params: ISearchParamsStatistics): Observable<IStatisticsByDate> {
     const { limit, offset, type, option } = params;
-    const url = `${base_url}/records/statistics/date?type=${type}
-      &option=${option}&limit=${limit}&offset=${offset}`;
+    const url = base_url + '/records/statistics/date?type=' + type + '&option=' + option
+      + '&limit=' + limit + '&offset=' + offset;
     return this.http.get<IStatisticsByDate>(url, this.headers);
   }
 

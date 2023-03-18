@@ -1,6 +1,13 @@
 import { faker } from "@faker-js/faker";
 
-import { IStatistics, IStatisticsDays } from "@interfaces/statistics.interface";
+import {
+  IStatistics,
+  IStatisticsByDate,
+  IStatisticsDays,
+  ITotalEarnings
+} from "@interfaces/statistics.interface";
+
+import { getMockRecords } from "./record.mock";
 
 export const getMockStatistic = (): IStatistics => ({
   total_service: faker.datatype.number(),
@@ -27,4 +34,18 @@ const getMockStatisticsDays = (size: number): IStatisticsDays[] => {
   return Array(size)
     .fill(0)
     .map(() => getMockStatisticsDay());
+};
+
+export const getMockStatisticByDate = (): IStatisticsByDate => ({
+  records: getMockRecords(2),
+  total: faker.datatype.number(),
+  earnings: getMockTotalEarnings(2),
+});
+
+const getMockTotalEarnings = (size: number): ITotalEarnings[] => {
+  return Array(size)
+    .fill(0)
+    .map(() => ({
+      total: faker.datatype.number(),
+    }));
 };

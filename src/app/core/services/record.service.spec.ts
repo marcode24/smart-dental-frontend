@@ -7,13 +7,16 @@ import { environment } from "environments/environment";
 
 import { Record } from "@models/record.model";
 
-import { ICreateRecord } from "@interfaces/create-record.interface";
-import { IStatistics } from "@interfaces/statistics.interface";
+import { ICreateRecord, IUpdateRecord } from "@interfaces/create-record.interface";
+import { ISearchParamsStatistics } from "@interfaces/options-search.interface";
+import { IStatistics, IStatisticsByDate } from "@interfaces/statistics.interface";
 
 import Storage from "@utils/storage.util";
 
+import { StatusRecordService } from "@enums/status-record.enum";
+
 import { getMockRecords } from "@mocks/record.mock";
-import { getMockStatistics } from "@mocks/statistics.mock";
+import { getMockStatistics, getMockStatisticByDate } from "@mocks/statistics.mock";
 
 import { RecordService } from "./record.service";
 
@@ -142,6 +145,95 @@ describe('Record Service', () => {
       req.flush(mockStatistics);
 
       expect(req.request.method).toBe('GET');
+    });
+  });
+
+  describe('update record function', () => {
+    it('should update record', () => {
+      const recordId = 1000;
+      const changesRecord: IUpdateRecord = {
+        id_service: 1000,
+        quantity: 2,
+      };
+
+      recordService.update(recordId, changesRecord);
+
+      const url = `${base_url}/records/update/${recordId}`;
+      const req = httpController.expectOne(url);
+      req.flush(changesRecord);
+
+      expect(req.request.method).toBe('PATCH');
+    });
+  });
+
+  describe('get statistics by date function', () => {
+    it('should return statistics by date', (doneFn) => {
+      const optionsParams: ISearchParamsStatistics = {
+        limit: 5,
+        offset: 0,
+        type: 'month',
+        option: 'last',
+      };
+
+      const mockStatistics: IStatisticsByDate = getMockStatisticByDate();
+
+      recordService.getStatisticsByDate(optionsParams).subscribe(statistics => {
+        expect(statistics).toEqual(mockStatistics);
+        doneFn();
+      });
+
+      const { limit, offset, type, option } = optionsParams;
+
+      const url = base_url + '/records/statistics/date?type=' + type + '&option=' + option
+        + '&limit=' + limit + '&offset=' + offset;
+      const req = httpController.expectOne(url);
+      req.flush(mockStatistics);
+
+      expect(req.request.method).toBe('GET');
+    });
+  });
+
+  describe('change status record function', () => {
+    it('should change status to DONE', () => {
+      const recordId = 1000;
+
+      const newStatus: StatusRecordService = StatusRecordService.DONE;
+
+      recordService.changeStatus(recordId, newStatus);
+
+      const url = `${base_url}/records/${recordId}?status=${newStatus}`;
+      const req = httpController.expectOne(url);
+      req.flush({ status: newStatus });
+
+      expect(req.request.method).toBe('PATCH');
+    });
+
+    it('should change status to CANCEL', () => {
+      const recordId = 1000;
+
+      const newStatus: StatusRecordService = StatusRecordService.CANCEL;
+
+      recordService.changeStatus(recordId, newStatus);
+
+      const url = `${base_url}/records/${recordId}?status=${newStatus}`;
+      const req = httpController.expectOne(url);
+      req.flush({ status: newStatus });
+
+      expect(req.request.method).toBe('PATCH');
+    });
+
+    it('should change status to PAID', () => {
+      const recordId = 1000;
+
+      const newStatus: StatusRecordService = StatusRecordService.PAID;
+
+      recordService.changeStatus(recordId, newStatus);
+
+      const url = `${base_url}/records/${recordId}?status=${newStatus}`;
+      const req = httpController.expectOne(url);
+      req.flush({ status: newStatus });
+
+      expect(req.request.method).toBe('PATCH');
     });
   });
 });
