@@ -56,7 +56,7 @@ export class PatientService {
 
   createPatient(patient: Patient) {
     const url = `${base_url}/patients`;
-    return this.http.post(url, patient, this.headers);
+    return this.http.post<Patient>(url, patient, this.headers);
   }
 
   getPatientByUser(patientId: number, fromDetail = false): Observable<boolean> {
@@ -64,19 +64,13 @@ export class PatientService {
     const isAdmin = this.authService.userActive.role === 'ADMIN';
     const url =
       `${base_url}/patients/patient/${patientId}/user/${id_user}?isAdmin=${isAdmin}`;
-    return this.http.get(url, this.headers).pipe(map((resp: any) => {
-      const { patient }  = resp;
-      if(!patient) {
-        return false;
-      }
+    return this.http.get<Patient>(url, this.headers).pipe(map((patient: Patient) => {
+      if(!patient) return false;
       this.patientTemp = patient;
-      if(fromDetail) {
-        this.patientTempChanged.emit(patient);
-      }
+      if(fromDetail) this.patientTempChanged.emit(patient);
       return true;
     }),
-    catchError(() => of(false))
-    );
+    catchError(() => of(false)));
   }
 
   updateInfo(patientID: number, familiarID: number, changes: Patient) {

@@ -181,7 +181,21 @@
       "files": [
         "**/*.spec.ts",
         "*.d.ts"
-      ]
+      ],
+      "rules": {
+        "jasmine/no-focused-tests": "error",
+        "jasmine/no-disabled-tests": [
+          "error",
+          {
+            "checkDescribe": true,
+            "checkContext": true,
+            "checkIt": true,
+            "checkXit": true,
+            "checkXdescribe": true
+          }
+        ],
+        "jasmine/new-line-before-expect": "error"
+      }
     }
   ]
 }
