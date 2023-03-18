@@ -25,7 +25,7 @@ export const getMockPatient = (): Patient => ({
   id_user: faker.datatype.number(),
 });
 
-export const getMockPatients = (size = 5): Patient[] => {
+export const getMockPatients = (size: number): Patient[] => {
   const patients: Patient[] = [];
   for (let i = 0; i < size; i++) {
     patients.push(getMockPatient());

@@ -71,7 +71,7 @@ export class RecordService {
   }
 
   getStatistics(limit = 3): Observable<IStatistics[]> {
-    const url = `${base_url}/records/statistics?limit${limit}`;
+    const url = `${base_url}/records/statistics?limit=${limit}`;
     return this.http.get<IStatistics[]>(url, this.headers);
   }
 
