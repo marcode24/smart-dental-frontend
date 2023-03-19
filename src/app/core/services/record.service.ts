@@ -71,14 +71,14 @@ export class RecordService {
   }
 
   getStatistics(limit = 3): Observable<IStatistics[]> {
-    const url = `${base_url}/records/statistics?limit${limit}`;
+    const url = `${base_url}/records/statistics?limit=${limit}`;
     return this.http.get<IStatistics[]>(url, this.headers);
   }
 
   getStatisticsByDate(params: ISearchParamsStatistics): Observable<IStatisticsByDate> {
     const { limit, offset, type, option } = params;
-    const url = `${base_url}/records/statistics/date?type=${type}
-      &option=${option}&limit=${limit}&offset=${offset}`;
+    const url = base_url + '/records/statistics/date?type=' + type + '&option=' + option
+      + '&limit=' + limit + '&offset=' + offset;
     return this.http.get<IStatisticsByDate>(url, this.headers);
   }
 

@@ -11,6 +11,8 @@ import { User } from "@models/user.model";
 
 import { IOptionsSearch } from "@interfaces/options-search.interface";
 
+import Storage from "@utils/storage.util";
+
 import { getMockPatient, getMockPatients } from "@mocks/patient.mock";
 
 import { AuthService } from "./auth.service";
@@ -52,6 +54,24 @@ describe('Patient Service', () => {
 
   it('patient service should be created', () => {
     expect(patientService).toBeTruthy();
+  });
+
+  describe('get token function', () => {
+    it('should return token', () => {
+      const newToken = '1234';
+      Storage.saveSessionStorage('token', newToken);
+      const token = patientService.token;
+
+      expect(token).toBeTruthy();
+      expect(token).toBe(newToken);
+    });
+
+    it('should return ""', () => {
+      sessionStorage.clear();
+      const token = patientService.token;
+
+      expect(token).toBe('');
+    });
   });
 
   describe('get patients function', () => {
