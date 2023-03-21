@@ -3,8 +3,8 @@ export class Service {
     public name: string,
     public description: string,
     public price: number,
-    public status: string,
-    public odontogram: string,
+    public status: boolean,
+    public odontogram: boolean,
     public color: string,
     public id_service?: number,
   ) {}
