@@ -23,3 +23,7 @@ export const getMockUser = (): User => ({
   image: faker.datatype.string(),
   code: faker.datatype.string(),
 });
+
+export const getMockUsers = (size: number): User[] => {
+  return Array(size).fill(0).map(() => getMockUser());
+};

@@ -51,10 +51,8 @@ export class UserService {
       : Gender.OTHER;
     const url = `${base_url}/users`;
     return this.http.post(url, data, {}).pipe(map((resp: any) => {
-      if(resp.status === 400) {
-        if(resp.message === 'username already in use') {
+      if(resp.status === 400 && resp.message === 'username already in use') {
           return Swal.fire('Nombre de usuario no disponible', '', 'error');
-        }
       }
       if(fromAuth) {
         Storage.deleteSessionStorage('code');
@@ -67,7 +65,7 @@ export class UserService {
     }));
   }
 
-  getUsers(all: boolean, optionsSearch?: IOptionsSearch) {
+  getUsers(all: boolean, optionsSearch?: IOptionsSearch): Observable<IResponseUsers> {
     let url = `${base_url}/users?`;
     if(optionsSearch) {
       const { limit, offset, fullname } = optionsSearch;
@@ -84,9 +82,9 @@ export class UserService {
     return this.http.patch<number>(url, { status }, this.headers );
   }
 
-  changeCode(idUser: number | undefined): Observable<any> {
+  changeCode(idUser: number | undefined): Observable<{ newCode: string }> {
     const url = `${base_url}/users/changeCode/${idUser}`;
-    return this.http.patch<any>(url, { }, this.headers);
+    return this.http.patch<{ newCode: string }>(url, { }, this.headers);
   }
 
   getUserByID(userID: number): Observable<IResponseUser> {
