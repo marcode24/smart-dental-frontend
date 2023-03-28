@@ -227,7 +227,7 @@ describe('Patient Service', () => {
       const url = environment.base_url + '/patients/patient/' + patientId + '/user/'
         + userId + '?isAdmin=' + true;
       const http = httpController.expectOne(url);
-      http.flush(mockPatient);
+      http.flush({ patient: mockPatient });
 
       expect(http.request.method).toEqual('GET');
     });

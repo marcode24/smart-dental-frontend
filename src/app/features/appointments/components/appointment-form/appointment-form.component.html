@@ -56,7 +56,7 @@
     <label class="form-label" for="inputTime">Hora</label>
     <input formControlName="time" type="time" id="inputTime" class="form-control radius-10">
     <div *ngIf="validateForm('time')" class="message-error">
-      <span *ngIf="validateField('time', 'required')" class="text-danger">campo requerido</span>
+      <span *ngIf="validateField('time', 'required') && appointmentForm?.errors" class="text-danger">campo requerido</span>
       <span *ngIf="validateField('time', 'isMinTime')" class="text-danger">hora incorrecta</span>
     </div>
   </div>

@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { forkJoin } from 'rxjs';
+
 import Swal from 'sweetalert2';
 
 import { PatientService } from '@services/patient.service';
@@ -11,8 +13,7 @@ import { Record } from '@models/record.model';
 
 import { ICreateAppointment } from '@interfaces/appointment.interface';
 
-import ValidationDate from '@utils/validation-date.util';
-import ValidationTime from '@utils/validation-time.util';
+import { CustomValidators } from '@utils/custom-validators.util';
 
 @Component({
   selector: 'app-appointment-form',
@@ -37,30 +38,21 @@ export class AppointmentFormComponent {
   ) { }
 
   findPatient(value: string) {
-    if(value.trim().length === 0) {
-      return;
-    }
     const patientId = Number(value.trim());
-    if(this.patientTemp && this.patientTemp.id_patient === patientId) {
-      return;
-    }
+    if(value.trim().length === 0
+      || (this.patientTemp && this.patientTemp.id_patient === patientId)) return;
     if(isNaN(patientId) || patientId === 0) {
       return Swal.fire('Ingrese un numero de paciente correcto', '', 'warning');
     }
-    this.patientService.getPatientByUser(patientId).subscribe({
-      next: (resp: boolean) => {
-        if(resp) {
-          this.loadForm();
-          this.patientTemp = this.patientService.patientTemp;
-          this.recordService.getRecords(this.patientTemp.id_patient, 3)
-            .subscribe(records => {
-              this.recordsPatient = records.map(r => {
-                r.selected = false;
-                return r;
-              });
-          });
-        }
-      },
+    forkJoin({
+      available: this.patientService.getPatientByUser(patientId),
+      records: this.recordService.getRecords(patientId, 3),
+    }).subscribe(({ available, records }) => {
+      if(available) {
+        this.loadForm();
+        this.patientTemp = this.patientService.patientTemp;
+        this.recordsPatient = records.map(record => ({ ...record, selected: false }));
+      }
     });
   }
 
@@ -111,8 +103,8 @@ export class AppointmentFormComponent {
       description: ['', Validators.maxLength(1024)],
     }, {
       validators: [
-        ValidationDate.validate('date'),
-        ValidationTime.validate('date', 'time')
+        CustomValidators.validDate,
+        CustomValidators.validTime
       ],
     });
   }
