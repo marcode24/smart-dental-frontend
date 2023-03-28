@@ -64,11 +64,13 @@ export class PatientService {
     const isAdmin = this.authService.userActive.role === 'ADMIN';
     const url =
       `${base_url}/patients/patient/${patientId}/user/${id_user}?isAdmin=${isAdmin}`;
-    return this.http.get<Patient>(url, this.headers).pipe(map((patient: Patient) => {
-      if(!patient) return false;
-      this.patientTemp = patient;
-      if(fromDetail) this.patientTempChanged.emit(patient);
-      return true;
+    return this.http.get<{ patient: Patient }>(url, this.headers)
+      .pipe(map((resp: { patient: Patient }) => {
+        const { patient } = resp;
+        if(!patient) return false;
+        this.patientTemp = patient;
+        if(fromDetail) this.patientTempChanged.emit(patient);
+        return true;
     }),
     catchError(() => of(false)));
   }

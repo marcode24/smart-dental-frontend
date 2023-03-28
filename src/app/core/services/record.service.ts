@@ -40,7 +40,7 @@ export class RecordService {
     };
   }
 
-  getRecords(patientId: number | undefined, filter: 1 | 2 | 3): Observable<Record[]> {
+  getRecords(patientId: number, filter: 1 | 2 | 3): Observable<Record[]> {
     const url = `${base_url}/records/${patientId}?filter=${filter}`;
     return this.http.get<Record[]>(url, this.headers);
   }

@@ -101,7 +101,7 @@ export class RecordComponent implements OnInit, OnDestroy {
   }
 
   getAllRecords(filter: 1 | 2) {
-    this.recordService.getRecords(this.patientTemp.id_patient, filter)
+    this.recordService.getRecords(this.patientTemp.id_patient as number, filter)
       .subscribe(records => {
         (filter === 1 )
           ? this.patientRecordHome = records

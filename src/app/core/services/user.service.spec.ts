@@ -41,6 +41,7 @@ describe('User Service', () => {
 
     userService = TestBed.inject(UserService);
     httpController = TestBed.inject(HttpTestingController);
+    router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
   });
 
   afterEach(() => {
@@ -273,7 +274,7 @@ describe('User Service', () => {
       const accessToken = '12fakdl23a#ads';
       userService.createUser(newUser, true).subscribe(() => {
         expect(sessionStorage.getItem('token')).toBe(accessToken);
-        expect(router.navigate).toHaveBeenCalledWith(['/users']);
+        expect(router.navigate).toHaveBeenCalledWith(['/']);
         doneFn();
       });
 
