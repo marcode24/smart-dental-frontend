@@ -20,11 +20,9 @@ export class CustomValidators {
   static validTime(control: AbstractControl) {
     const date = control.get('date')?.value.split('-');
     const time = control.get('time')?.value.split(':');
-
     if(!date || !time) {
       throw new Error('date or time field not found');
     }
-
     const dateSelectedTime = new Date(date[0], date[1] - 1, date[2])
       .setHours(0,0,0,0);
     const today = new Date().setHours(0,0,0,0);
@@ -37,6 +35,8 @@ export class CustomValidators {
     const hourSelected = Number(time[0]);
     const minutesSelected = Number(time[1]);
 
+    // eslint-disable-next-line no-console, max-len
+    console.log({ date, time, dateSelectedTime, today, hourSelected, todayHour, minutesSelected, todayMinutes });
     if(dateSelectedTime === today) {
       if(hourSelected < todayHour ||
         (hourSelected === todayHour && minutesSelected < todayMinutes)) {
