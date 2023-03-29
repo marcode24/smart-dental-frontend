@@ -28,9 +28,11 @@ export class CustomValidators {
     const dateSelectedTime = new Date(date[0], date[1] - 1, date[2])
       .setHours(0,0,0,0);
     const today = new Date().setHours(0,0,0,0);
-    const todayDate = new Date();
-    const todayHour = todayDate.getHours();
-    const todayMinutes = todayDate.getMinutes();
+    const todayDate = new Date().toLocaleString();
+
+    const todayTime = todayDate.split(', ')[1];
+    const todayHour = Number(todayTime.split(':')[0]);
+    const todayMinutes = Number(todayTime.split(':')[1]);
 
     const hourSelected = Number(time[0]);
     const minutesSelected = Number(time[1]);
