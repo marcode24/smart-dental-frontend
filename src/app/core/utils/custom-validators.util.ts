@@ -23,9 +23,8 @@ export class CustomValidators {
     if(!date || !time) {
       throw new Error('date or time field not found');
     }
-    const dateSelectedTime = new Date(date[0], date[1] - 1, date[2])
-      .setHours(0,0,0,0);
-    const today = new Date().setHours(0,0,0,0);
+    const dateSelected = new Date(date[0], date[1] - 1, date[2]).toLocaleDateString();
+    const today = new Date().toLocaleDateString();
     const todayDate = new Date().toLocaleString();
 
     const todayTime = todayDate.split(', ')[1];
@@ -36,8 +35,8 @@ export class CustomValidators {
     const minutesSelected = Number(time[1]);
 
     // eslint-disable-next-line no-console, max-len
-    console.log({ date, time, dateSelectedTime, today, hourSelected, todayHour, minutesSelected, todayMinutes });
-    if(dateSelectedTime === today) {
+    console.log({ date, time, dateSelected, today, hourSelected, todayHour, minutesSelected, todayMinutes });
+    if(dateSelected === today) {
       if(hourSelected < todayHour ||
         (hourSelected === todayHour && minutesSelected < todayMinutes)) {
           control.get('time')?.setErrors({ isMinTime: true });

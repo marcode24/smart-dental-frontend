@@ -40,8 +40,15 @@ describe('Custom Validators Util', () => {
 
   describe('valid time function', () => {
     it('should return "null" if date and time are valid', () => {
-      const currentDateSplitted = new Date().toISOString().split('T');
-      const currentDate = currentDateSplitted[0];
+      const currentDateSplitted = new Date()
+        .toLocaleString()
+        .replace(/\s/, '')
+        .split(',');
+      const currentDate = currentDateSplitted[0]
+        .replace(/\//g, '-')
+        .split('-')
+        .reverse()
+        .join('-');
       const currentTime = currentDateSplitted[1].split('.')[0];
       const group = new FormGroup({
         date: new FormControl(currentDate),
