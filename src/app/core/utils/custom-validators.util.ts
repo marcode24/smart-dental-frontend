@@ -18,30 +18,27 @@ export class CustomValidators {
   }
 
   static validTime(control: AbstractControl) {
-    const date = control.get('date')?.value.split('-');
+    const date = control.get('date')?.value;
     const time = control.get('time')?.value.split(':');
     if(!date || !time) {
       throw new Error('date or time field not found');
     }
-    const dateSelected = new Date(date[0], date[1] - 1, date[2]).toLocaleDateString();
-    const today = new Date().toLocaleDateString();
-    const todayDate = new Date().toLocaleString();
-
-    const todayTime = todayDate.split(', ')[1];
-    const todayHour = Number(todayTime.split(':')[0]);
-    const todayMinutes = Number(todayTime.split(':')[1]);
-
-    const hourSelected = Number(time[0]);
-    const minutesSelected = Number(time[1]);
+    const [ currentHours, currentMinutes ] = time;
+    const today = new Date().toLocaleString();
+    const [ currentDate, currentTime ] = today.split(', ');
+    const todayTime = currentTime.split(':');
+    const todayHour = Number(todayTime[0]);
+    const todayMinutes = Number(todayTime[1]);
 
     // eslint-disable-next-line no-console, max-len
-    console.log({ date, time, dateSelected, today, hourSelected, todayHour, minutesSelected, todayMinutes });
-    if(dateSelected === today) {
-      if(hourSelected < todayHour ||
-        (hourSelected === todayHour && minutesSelected < todayMinutes)) {
-          control.get('time')?.setErrors({ isMinTime: true });
-          return { isMinTime: true };
-      }
+    console.log({ date, time, today, todayHour, currentHours, currentMinutes, todayMinutes });
+    // eslint-disable-next-line no-console
+    console.log({ date, currentDate });
+    if(date === currentDate &&
+      (+currentHours < todayHour ||
+      (+currentHours === todayHour && +currentMinutes < todayMinutes))) {
+        control.get('time')?.setErrors({ isMinTime: true });
+        return { isMinTime: true };
     }
     return null;
   }
