@@ -30,10 +30,6 @@ export class CustomValidators {
     const todayHour = Number(todayTime[0]);
     const todayMinutes = Number(todayTime[1]);
 
-    // eslint-disable-next-line no-console, max-len
-    console.log({ date, time, today, todayHour, currentHours, currentMinutes, todayMinutes });
-    // eslint-disable-next-line no-console
-    console.log({ date, currentDate });
     if(date === currentDate &&
       (+currentHours < todayHour ||
       (+currentHours === todayHour && +currentMinutes < todayMinutes))) {
