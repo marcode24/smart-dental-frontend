@@ -3,13 +3,13 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { CustomValidators } from "./custom-validators.util";
 
 describe('Custom Validators Util', () => {
-  describe('valid date function', () => {
+  describe('validate date function', () => {
     it('should return "null" if date is valid', () => {
       const currentDate = new Date().toISOString().split('T')[0];
       const group = new FormGroup({
         date: new FormControl(currentDate),
       });
-      const result = CustomValidators.validDate(group);
+      const result = CustomValidators.validateDate(group);
 
       expect(result).toBeNull();
     });
@@ -23,7 +23,7 @@ describe('Custom Validators Util', () => {
       const group = new FormGroup({
         date: new FormControl(date),
       });
-      const result = CustomValidators.validDate(group);
+      const result = CustomValidators.validateDate(group);
 
       expect(result).toEqual({ isMin: true });
     });
@@ -32,13 +32,13 @@ describe('Custom Validators Util', () => {
       const group = new FormGroup({
         field: new FormControl('other field'),
       });
-      const result = () => CustomValidators.validDate(group);
+      const result = () => CustomValidators.validateDate(group);
 
       expect(result).toThrowError('date field not found');
     });
   });
 
-  describe('valid time function', () => {
+  describe('validate time function', () => {
     it('should return "null" if date and time are valid', () => {
       const [ date, time ] = new Date()
         .toLocaleString()
@@ -47,7 +47,7 @@ describe('Custom Validators Util', () => {
         date: new FormControl(date),
         time: new FormControl(time),
       });
-      const result = CustomValidators.validTime(group);
+      const result = CustomValidators.validateTime(group);
 
       expect(result).toBeNull();
     });
@@ -72,7 +72,7 @@ describe('Custom Validators Util', () => {
         date: new FormControl(date),
         time: new FormControl(newTime),
       });
-      const result = CustomValidators.validTime(group);
+      const result = CustomValidators.validateTime(group);
 
       expect(result).toEqual({ isMinTime: true });
     });
@@ -83,11 +83,48 @@ describe('Custom Validators Util', () => {
         other: new FormControl('other field'),
       });
 
-      const result = () => CustomValidators.validTime(group);
+      const result = () => CustomValidators.validateTime(group);
 
       expect(result).toThrowError('date or time field not found');
     });
-
   });
 
+  describe('validate birth date function', () => {
+    it('should return "null" if birth date is valid', () => {
+      const currentDate = new Date().setHours(0,0,0,0);
+      const daysAgo = Math.floor(Math.random() * 25) + 1;
+      const date = new Date(currentDate - (daysAgo * 86400000))
+        .toISOString()
+        .split('T')[0];
+      const group = new FormGroup({
+        birthDate: new FormControl(date),
+      });
+      const result = CustomValidators.validateBirthDate(group);
+
+      expect(result).toBeNull();
+    });
+
+    it('should return "isMax" if birth date is equal or max than today', () => {
+      const currentDate = new Date().setHours(0,0,0,0);
+      const daysAgo = Math.floor(Math.random() * 25) + 1;
+      const date = new Date(currentDate + (daysAgo * 86400000))
+        .toISOString()
+        .split('T')[0];
+      const group = new FormGroup({
+        birthDate: new FormControl(date),
+      });
+      const result = CustomValidators.validateBirthDate(group);
+
+      expect(result).toEqual({ isMax: true });
+    });
+
+    it('should return an error if birth date field was not found', () => {
+      const group = new FormGroup({
+        field: new FormControl('other field'),
+      });
+      const result = () => CustomValidators.validateBirthDate(group);
+
+      expect(result).toThrowError('birth date field not found');
+    });
+  });
 });

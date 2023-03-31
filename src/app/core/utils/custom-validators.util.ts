@@ -1,7 +1,7 @@
 import { AbstractControl } from "@angular/forms";
 
 export class CustomValidators {
-  static validDate(control: AbstractControl) {
+  static validateDate(control: AbstractControl) {
     const date = control.get('date')?.value.split('-');
     if(!date) {
       throw new Error('date field not found');
@@ -17,7 +17,7 @@ export class CustomValidators {
     }
   }
 
-  static validTime(control: AbstractControl) {
+  static validateTime(control: AbstractControl) {
     const date = control.get('date')?.value;
     const time = control.get('time')?.value.split(':');
     if(!date || !time) {
@@ -37,5 +37,22 @@ export class CustomValidators {
         return { isMinTime: true };
     }
     return null;
+  }
+
+  static validateBirthDate(control: AbstractControl) {
+    const CONTROL_NAME = 'birthDate';
+    const date = control.get(CONTROL_NAME)?.value.split('-');
+    if(!date) {
+      throw new Error('birth date field not found');
+    }
+    const dateSelected = new Date(date[0], date[1] - 1, date[2])
+      .setHours(0,0,0,0);
+    const today = new Date().setHours(0,0,0,0);
+    if(dateSelected >= today) {
+      control.get(CONTROL_NAME)?.setErrors({ isMax: true });
+      return { isMax: true };
+    } else {
+      return null;
+    }
   }
 }
