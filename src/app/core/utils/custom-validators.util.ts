@@ -18,29 +18,23 @@ export class CustomValidators {
   }
 
   static validTime(control: AbstractControl) {
-    const date = control.get('date')?.value.split('-');
+    const date = control.get('date')?.value;
     const time = control.get('time')?.value.split(':');
-
     if(!date || !time) {
       throw new Error('date or time field not found');
     }
+    const [ currentHours, currentMinutes ] = time;
+    const today = new Date().toLocaleString();
+    const [ currentDate, currentTime ] = today.split(', ');
+    const todayTime = currentTime.split(':');
+    const todayHour = Number(todayTime[0]);
+    const todayMinutes = Number(todayTime[1]);
 
-    const dateSelectedTime = new Date(date[0], date[1] - 1, date[2])
-      .setHours(0,0,0,0);
-    const today = new Date().setHours(0,0,0,0);
-    const todayDate = new Date();
-    const todayHour = todayDate.getHours();
-    const todayMinutes = todayDate.getMinutes();
-
-    const hourSelected = Number(time[0]);
-    const minutesSelected = Number(time[1]);
-
-    if(dateSelectedTime === today) {
-      if(hourSelected < todayHour ||
-        (hourSelected === todayHour && minutesSelected < todayMinutes)) {
-          control.get('time')?.setErrors({ isMinTime: true });
-          return { isMinTime: true };
-      }
+    if(date === currentDate &&
+      (+currentHours < todayHour ||
+      (+currentHours === todayHour && +currentMinutes < todayMinutes))) {
+        control.get('time')?.setErrors({ isMinTime: true });
+        return { isMinTime: true };
     }
     return null;
   }

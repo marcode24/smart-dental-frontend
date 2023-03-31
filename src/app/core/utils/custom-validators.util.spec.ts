@@ -40,12 +40,12 @@ describe('Custom Validators Util', () => {
 
   describe('valid time function', () => {
     it('should return "null" if date and time are valid', () => {
-      const currentDateSplitted = new Date().toISOString().split('T');
-      const currentDate = currentDateSplitted[0];
-      const currentTime = currentDateSplitted[1].split('.')[0];
+      const [ date, time ] = new Date()
+        .toLocaleString()
+        .split(', ');
       const group = new FormGroup({
-        date: new FormControl(currentDate),
-        time: new FormControl(currentTime),
+        date: new FormControl(date),
+        time: new FormControl(time),
       });
       const result = CustomValidators.validTime(group);
 
@@ -53,18 +53,11 @@ describe('Custom Validators Util', () => {
     });
 
     it('should return "isMinTime" if date is today and time is min than now', () => {
-      const currentDateSplitted = new Date()
+      const [ date, time ] = new Date()
         .toLocaleString()
-        .replace(/\s/, '')
-        .split(',');
-      const currentDate = currentDateSplitted[0]
-        .replace(/\//g, '-')
-        .split('-')
-        .reverse()
-        .join('-');
-      const currentTime = currentDateSplitted[1];
+        .split(', ');
 
-      const currentTimeSplitted = currentTime.split(':');
+      const currentTimeSplitted = time.split(':');
       let currentHour = Number(currentTimeSplitted[0]);
       let currentMinutes = Number(currentTimeSplitted[1]);
       if(currentMinutes - 1 <= 0) {
@@ -76,7 +69,7 @@ describe('Custom Validators Util', () => {
 
       const newTime = `${currentHour}:${currentMinutes}`;
       const group = new FormGroup({
-        date: new FormControl(currentDate),
+        date: new FormControl(date),
         time: new FormControl(newTime),
       });
       const result = CustomValidators.validTime(group);
