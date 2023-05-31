@@ -53,10 +53,11 @@ describe('Custom Validators Util', () => {
     });
 
     it('should return "isMinTime" if date is today and time is min than now', () => {
-      const [ date, time ] = new Date()
+      // eslint-disable-next-line prefer-const
+      let [ date, time ] = new Date()
         .toLocaleString()
         .split(', ');
-
+      date = date.split('/').reverse().join('-');
       const currentTimeSplitted = time.split(':');
       let currentHour = Number(currentTimeSplitted[0]);
       let currentMinutes = Number(currentTimeSplitted[1]);

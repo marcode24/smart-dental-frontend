@@ -103,8 +103,8 @@ export class AppointmentFormComponent {
       description: ['', Validators.maxLength(1024)],
     }, {
       validators: [
-        CustomValidators.validDate,
-        CustomValidators.validTime
+        CustomValidators.validateDate,
+        CustomValidators.validateTime
       ],
     });
   }
