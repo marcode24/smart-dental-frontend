@@ -23,7 +23,9 @@
             </app-input-search>
             <app-dropdown-page-list (limit)="changeLimit($event)"></app-dropdown-page-list>
           </div>
-          <div class="table-responsive">
+          <app-text-alert *ngIf="users.length === 0 && isSearching" [icon]="'bx-user'" [textColor]="'info'"
+          [text]="getQuerySearchMessage"></app-text-alert>
+          <div class="table-responsive" *ngIf="users.length > 0">
             <table class="table align-middle table-hover">
               <thead>
                 <tr>
@@ -60,7 +62,7 @@
                   </td>
                   <td>
                     <div class="d-flex justify-content-end order-actions">
-                      <a *ngIf="user.status" (click)="changeStatus(user.name+' '+user.last_name, user.id_user)"
+                      <a *ngIf="user.status && user.id_user !== getCurrentUserId" (click)="changeStatus(user.name+' '+user.last_name, user.id_user)"
                         class="cursor text-danger bg-light-danger">
                         <i class="bx bx-block"></i>
                       </a>
