@@ -11,17 +11,24 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-9">
+          <div class="col-8">
             <label for="selectService" class="form-label">Servicios disponibles</label>
             <select class="form-select radius-10" id="selectService" (change)="changeService($event)">
               <option [value]="service.id_service" *ngFor="let service of services">{{ service.name }}</option>
             </select>
           </div>
-          <div class="col-3">
-            <label for="inputQuantity" class="form-label">Cantidad</label>
-            <input type="number" #txtQuantity (keyup)="changeQuantity(txtQuantity.value)"
-              (change)="changeQuantity(txtQuantity.value)" class="form-control radius-10" id="inputQuantity"
-              [value]="quantity" min="1" max="10">
+          <div class="col-4">
+            <label for="inputQuantity" class="form-label">Cantidad (max 10)</label>
+            <input type="number"
+              #txtQuantity
+              (keyup)="changeQuantity(txtQuantity.value)"
+              (change)="changeQuantity(txtQuantity.value)"
+              [value]="quantity"
+              (click)="selectInputValue(txtQuantity)"
+              class="form-control radius-10"
+              id="inputQuantity"
+              min="1"
+              max="10">
           </div>
         </div>
         <div class="d-flex justify-content-end align-items-end flex-column mt-4">
@@ -33,7 +40,7 @@
         <button type="button" class="btn btn-danger radius-10" data-bs-dismiss="modal">
           <i class="bx bx-x"></i> Cerrar
         </button>
-        <button type="button" (click)="createService()" class="btn btn-success radius-10" data-bs-dismiss="modal">
+        <button [disabled]="!validateQuantity()" type="button" (click)="createService()" class="btn btn-success radius-10" data-bs-dismiss="modal">
           <i class="bx bx-check"></i> Agregar
         </button>
       </div>

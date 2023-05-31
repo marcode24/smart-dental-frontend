@@ -58,23 +58,33 @@ export class ModalServiceComponent implements OnInit, OnDestroy {
   }
 
   changeQuantity(event: string) {
-    const value = +(Number(event).toFixed());
-    this.quantity = (value > 0 && value <= 10) ? value : 1;
-    this.setSubtotal();
+    this.quantity = +(Number(event).toFixed());
+    this.validateQuantity() && this.setSubtotal();
+  }
+
+  validateQuantity(): boolean {
+    return this.quantity > 0 && this.quantity <= 10;
   }
 
   setSubtotal() {
     this.subtotal = this.price * this.quantity;
   }
 
+  selectInputValue(input: HTMLInputElement) {
+    input.select();
+  }
+
   createService() {
-    const newRecord: ICreateRecord = {
-      id_patient: Number(this.patientIdTemp),
-      id_service: Number(this.serviceSelected?.id_service),
-      quantity: this.quantity,
-      realization_date: new Date(),
-    };
-    this.recordService.createRecord(newRecord);
+    if (this.validateQuantity()) {
+      const newRecord: ICreateRecord = {
+        id_patient: Number(this.patientIdTemp),
+        id_service: Number(this.serviceSelected?.id_service),
+        quantity: this.quantity,
+        realization_date: new Date(),
+      };
+      this.quantity = 1;
+      this.recordService.createRecord(newRecord);
+    }
   }
 
 }
