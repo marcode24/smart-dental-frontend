@@ -98,7 +98,7 @@ describe('Custom Validators Util', () => {
         .toISOString()
         .split('T')[0];
       const group = new FormGroup({
-        birthDate: new FormControl(date),
+        birth_date: new FormControl(date),
       });
       const result = CustomValidators.validateBirthDate(group);
 
@@ -112,7 +112,7 @@ describe('Custom Validators Util', () => {
         .toISOString()
         .split('T')[0];
       const group = new FormGroup({
-        birthDate: new FormControl(date),
+        birth_date: new FormControl(date),
       });
       const result = CustomValidators.validateBirthDate(group);
 

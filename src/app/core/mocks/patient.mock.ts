@@ -8,11 +8,12 @@ import { getMockUser } from "./user.mock";
 export const getMockPatient = (): Patient => ({
   name: faker.datatype.string(),
   last_name: faker.datatype.string(),
-  date_birth: faker.date.birthdate(),
+  birth_date: faker.date.birthdate(),
   gender: faker.datatype.string(),
   email: faker.datatype.string(),
   phone_number: faker.datatype.number(),
   street: faker.datatype.string(),
+  number: faker.datatype.number(),
   cp: faker.datatype.number(),
   city: faker.datatype.string(),
   country: faker.datatype.string(),
