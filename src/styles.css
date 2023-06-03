@@ -185,3 +185,11 @@ html.color-sidebar .sidebar-wrapper {
   margin-left: 0rem !important;
   margin-top: 0 !important;
 }
+
+.message-error {
+  margin-top: 0.3rem;
+}
+
+.form-label span {
+  color: #fd3550;
+}

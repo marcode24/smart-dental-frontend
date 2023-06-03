@@ -7,4 +7,5 @@ export class RegexClass {
   public static readonly PASSWORD = /^[a-zA-Z0-9]{8,}$/;
   public static readonly PRICE = /^[0-9]{0,}(\.[0-9]{0,2})?$/;
   public static readonly TEXT_SERVICE = /^[a-zA-ZñÀ-ú ]{2,120}$/;
+  public static readonly NUMBER = /^[0-9]{1,6}$/;
 }

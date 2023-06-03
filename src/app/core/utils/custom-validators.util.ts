@@ -1,5 +1,7 @@
 import { AbstractControl } from "@angular/forms";
 
+const YEARS_AGO = 100;
+
 export class CustomValidators {
   static validateDate(control: AbstractControl) {
     const date = control.get('date')?.value.split('-');
@@ -40,8 +42,8 @@ export class CustomValidators {
     return null;
   }
 
-  static validateBirthDate(control: AbstractControl) {
-    const CONTROL_NAME = 'birthDate';
+  static validateBirthDate(control: AbstractControl): { [key: string]: boolean } | null {
+    const CONTROL_NAME = 'birth_date';
     const date = control.get(CONTROL_NAME)?.value.split('-');
     if(date === undefined) {
       throw new Error('birth date field not found');
@@ -49,11 +51,27 @@ export class CustomValidators {
     const dateSelected = new Date(date[0], date[1] - 1, date[2])
       .setHours(0,0,0,0);
     const today = new Date().setHours(0,0,0,0);
+    const todayYear = new Date().getFullYear();
+    const minDate = new Date(todayYear - YEARS_AGO, 0, 1).setHours(0,0,0,0);
     if(dateSelected >= today) {
       control.get(CONTROL_NAME)?.setErrors({ isMax: true });
       return { isMax: true };
-    } else {
-      return null;
+    } else if (dateSelected <= minDate) {
+      control.get(CONTROL_NAME)?.setErrors({ isMin: true });
+      return { isMin: true };
     }
+    return null;
+  }
+
+  static getMinDate(): string {
+    const todayYear = new Date().getFullYear();
+    const minDate = new Date(todayYear - YEARS_AGO, 0, 1);
+    return minDate
+      .toISOString()
+      .split('T')[0]
+      .replace(/-/g, '/')
+      .split('/')
+      .reverse()
+      .join('/');
   }
 }

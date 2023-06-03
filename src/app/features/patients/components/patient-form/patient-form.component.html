@@ -9,7 +9,7 @@
     <hr class=my-2>
     <form [formGroup]="patientForm" (submit)="savePatient()" class="row g-3 my-1">
       <div class="col-12 col-md-6 my-2">
-        <label for="inputName" class="form-label">Nombre</label>
+        <label for="inputName" class="form-label">Nombre<span>*</span></label>
         <input formControlName="name" type="text" class="form-control radius-10" id="inputName">
         <div *ngIf="validateForm('name')" class="message-error">
           <span *ngIf="validateField('name', 'required')" class="text-danger">campo requerido</span>
@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="col-12 col-md-6 my-2">
-        <label for="inputLastName" class="form-label">Apellido</label>
+        <label for="inputLastName" class="form-label">Apellido<span>*</span></label>
         <input formControlName="last_name" type="text" class="form-control radius-10" id="inputLastName">
         <div *ngIf="validateForm('last_name')" class="message-error">
           <span *ngIf="validateField('last_name', 'required')" class="text-danger">campo requerido</span>
@@ -25,15 +25,16 @@
         </div>
       </div>
       <div class="col-12 col-md-6 my-2">
-        <label for="inputDateBirth" class="form-label">Fecha de Nacimiento</label>
-        <input formControlName="date_birth" type="date" class="form-control radius-10" id="inputDateBirth">
-        <div *ngIf="validateForm('date_birth')" class="message-error">
-          <span *ngIf="validateField('date_birth', 'required')" class="text-danger">campo requerido</span>
-          <span *ngIf="validateField('date_birth', 'isMax')" class="text-danger">ingrese una fecha correcta</span>
+        <label for="inputDateBirth" class="form-label">Fecha de Nacimiento<span>*</span></label>
+        <input formControlName="birth_date" type="date" class="form-control radius-10" id="inputDateBirth">
+        <div *ngIf="validateForm('birth_date')" class="message-error">
+          <span *ngIf="validateField('birth_date', 'required')" class="text-danger">campo requerido</span>
+          <span *ngIf="validateField('birth_date', 'isMax')" class="text-danger">ingrese una fecha correcta</span>
+          <span *ngIf="validateField('birth_date', 'isMin')" class="text-danger">la fecha debe ser mayor a {{ minDate }}</span>
         </div>
       </div>
       <div class="col-12 col-md-6 my-2">
-        <label class="form-label">Sexo</label>
+        <label class="form-label">Sexo<span>*</span></label>
         <select class="form-select radius-10" formControlName="gender">
           <option value="" selected>Seleccione una opción</option>
           <option value="male">Hombre</option>
@@ -45,7 +46,7 @@
         </div>
       </div>
       <div class="col-12 col-md-6 my-2">
-        <label for="inputEmail" class="form-label">Email</label>
+        <label for="inputEmail" class="form-label">Email<span>*</span></label>
         <input formControlName="email" type="email" class="form-control radius-10" id="inputEmail">
         <div *ngIf="validateForm('email')" class="message-error">
           <span *ngIf="validateField('email', 'required')" class="text-danger">campo requerido</span>
@@ -54,7 +55,7 @@
         </div>
       </div>
       <div class="col-12 col-md-6 my-2">
-        <label for="inputPhoneNumber" class="form-label">Teléfono</label>
+        <label for="inputPhoneNumber" class="form-label">Teléfono<span>*</span></label>
         <input formControlName="phone_number" type="tel" class="form-control radius-10" id="inputPhoneNumber">
         <div *ngIf="validateForm('phone_number')" class="message-error">
           <span *ngIf="validateField('phone_number', 'required')" class="text-danger">campo
@@ -70,7 +71,7 @@
       </div>
       <hr class=my-2>
       <div class="col-12 col-md-6 my-2">
-        <label for="inputStreet" class="form-label">Calle y Número</label>
+        <label for="inputStreet" class="form-label">Calle<span>*</span></label>
         <input formControlName="street" type="text" class="form-control radius-10" id="inputStreet">
         <div *ngIf="validateForm('street')" class="message-error">
           <span *ngIf="validateField('street', 'required')" class="text-danger">campo requerido</span>
@@ -78,7 +79,15 @@
         </div>
       </div>
       <div class="col-12 col-md-6 my-2">
-        <label for="inputCP" class="form-label">CP</label>
+        <label for="inputNumber" class="form-label">Número<span>*</span></label>
+        <input formControlName="number" type="number" class="form-control radius-10" id="inputNumber">
+        <div *ngIf="validateForm('number')" class="message-error">
+          <span *ngIf="validateField('number', 'required')" class="text-danger">campo requerido</span>
+          <span *ngIf="validateField('number', 'pattern')" class="text-danger">ingrese un valor correcto</span>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 my-2">
+        <label for="inputCP" class="form-label">CP<span>*</span></label>
         <input formControlName="cp" type="text" class="form-control radius-10" id="inputCP">
         <div *ngIf="validateForm('cp')" class="message-error">
           <span *ngIf="validateField('cp', 'required')" class="text-danger">campo requerido</span>
@@ -86,7 +95,7 @@
         </div>
       </div>
       <div class="col-12 col-md-6 my-2">
-        <label for="inputCity" class="form-label">Ciudad</label>
+        <label for="inputCity" class="form-label">Ciudad<span>*</span></label>
         <input formControlName="city" type="text" class="form-control radius-10" id="inputCity">
         <div *ngIf="validateForm('city')" class="message-error">
           <span *ngIf="validateField('city', 'required')" class="text-danger">campo requerido</span>
@@ -94,7 +103,7 @@
         </div>
       </div>
       <div class="col-12 col-md-6 my-2">
-        <label for="inputCountry" class="form-label">País</label>
+        <label for="inputCountry" class="form-label">País<span>*</span></label>
         <input formControlName="country" type="text" class="form-control radius-10" id="inputCountry">
         <div *ngIf="validateForm('country')" class="message-error">
           <span *ngIf="validateField('country', 'required')" class="text-danger">campo requerido</span>
@@ -109,7 +118,7 @@
       </div>
       <hr class=my-2>
       <div class="col-12 col-md-6 my-2">
-        <label for="inputFamiliarName" class="form-label">Nombre</label>
+        <label for="inputFamiliarName" class="form-label">Nombre<span>*</span></label>
         <input formControlName="f_name" type="text" class="form-control radius-10" id="inputFamiliarName">
         <div *ngIf="validateForm('f_name')" class="message-error">
           <span *ngIf="validateField('f_name', 'required')" class="text-danger">campo requerido</span>
@@ -117,7 +126,7 @@
         </div>
       </div>
       <div class="col-12 col-md-6 my-2">
-        <label for="inputFamiliarLastName" class="form-label">Apellido</label>
+        <label for="inputFamiliarLastName" class="form-label">Apellido<span>*</span></label>
         <input formControlName="f_last_name" type="text" class="form-control radius-10" id="inputFamiliarLastName">
         <div *ngIf="validateForm('f_last_name')" class="message-error">
           <span *ngIf="validateField('f_last_name', 'required')" class="text-danger">campo requerido</span>
@@ -125,7 +134,7 @@
         </div>
       </div>
       <div class="col-12 col-md-6 my-2">
-        <label class="form-label">Sexo</label>
+        <label class="form-label">Sexo<span>*</span></label>
         <select class="form-select radius-10" formControlName="f_gender">
           <option value="" selected>Seleccione una opción</option>
           <option value="male">Hombre</option>
@@ -137,7 +146,7 @@
         </div>
       </div>
       <div class="col-12 col-md-6 my-2">
-        <label class="form-label">Parentesco</label>
+        <label class="form-label">Parentesco<span>*</span></label>
         <select class="form-select radius-10" formControlName="relationship">
           <option value="" selected>Seleccione una opción</option>
           <option value="wife">Esposa</option>
@@ -157,7 +166,7 @@
         </div>
       </div>
       <div class="col-12 col-md-6 my-2">
-        <label for="inputFamiliarEmail" class="form-label">Email</label>
+        <label for="inputFamiliarEmail" class="form-label">Email<span>*</span></label>
         <input formControlName="f_email" type="email" class="form-control radius-10" id="inputFamiliarEmail">
         <div *ngIf="validateForm('f_email')" class="message-error">
           <span *ngIf="validateField('f_email', 'required')" class="text-danger">campo requerido</span>
@@ -166,7 +175,7 @@
         </div>
       </div>
       <div class="col-12 col-md-6 my-2">
-        <label for="inputFamiliarPhoneNumber" class="form-label">Teléfono</label>
+        <label for="inputFamiliarPhoneNumber" class="form-label">Teléfono<span>*</span></label>
         <input formControlName="f_phone_number" type="tel" class="form-control radius-10" id="inputFamiliarPhoneNumber">
         <div *ngIf="validateForm('f_phone_number')" class="message-error">
           <span *ngIf="validateField('f_phone_number', 'required')" class="text-danger">campo requerido</span>
