@@ -2,7 +2,7 @@
   <div class="col-sm-12 col-md-4 col-xl-4">
     <app-card-patient-detail [patientActive]="patientTemp" (newStatus)="changeStatus($event)">
     </app-card-patient-detail>
-    <app-card-user-detail *ngIf="getRole() === 'ADMIN_ROLE'" (userChanged)="changeUser($event)"
+    <app-card-user-detail *ngIf="getRole() === 'ADMIN'" (userChanged)="changeUser($event)"
       [patientActive]="patientTemp"></app-card-user-detail>
   </div>
   <div class="col-sm-12 col-md-8 col-xl-8">

@@ -3,8 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 import { Patient } from '@models/patient.model';
 
+import { CustomValidators } from '@utils/custom-validators.util';
 import { RegexClass } from '@utils/regex.util';
-import ValidationDateBirth from '@utils/validation-date-birth.util';
 
 @Component({
   selector: 'app-patient-form',
@@ -27,7 +27,7 @@ export class PatientFormComponent implements OnInit {
       Validators.required,
       Validators.pattern(this.regexExpressions.ONLY_TEXT)
     ]],
-    date_birth: ['', Validators.required],
+    birth_date: ['', Validators.required],
     gender: ['', [Validators.required]],
     email: ['', [
       Validators.required,
@@ -40,6 +40,10 @@ export class PatientFormComponent implements OnInit {
     street: ['', [
       Validators.required,
       Validators.pattern(this.regexExpressions.STREET)
+    ]],
+    number: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.NUMBER)
     ]],
     cp: ['', [
       Validators.required,
@@ -69,7 +73,7 @@ export class PatientFormComponent implements OnInit {
       Validators.pattern(this.regexExpressions.PHONE_NUMBER)
     ]],
   },{
-    validators: [ ValidationDateBirth.validate('date_birth') ]
+    validators: [ CustomValidators.validateBirthDate ]
   });
 
   constructor(
@@ -83,12 +87,13 @@ export class PatientFormComponent implements OnInit {
   setValuesToForm(values: Patient) {
     this.patientForm.get('name')?.setValue(values.name);
     this.patientForm.get('last_name')?.setValue(values.last_name);
-    this.patientForm.get('date_birth')?.setValue(new Date(values.date_birth)
+    this.patientForm.get('birth_date')?.setValue(new Date(values.birth_date)
       .toISOString().split('T')[0]);
     this.patientForm.get('gender')?.setValue(values.gender);
     this.patientForm.get('email')?.setValue(values.email);
     this.patientForm.get('phone_number')?.setValue(values.phone_number);
     this.patientForm.get('street')?.setValue(values.street);
+    this.patientForm.get('number')?.setValue(values.number);
     this.patientForm.get('cp')?.setValue(values.cp);
     this.patientForm.get('city')?.setValue(values.city);
     this.patientForm.get('country')?.setValue(values.country);
@@ -127,6 +132,10 @@ export class PatientFormComponent implements OnInit {
 
   validateField(field: string, error: string): boolean | undefined | null {
     return (this.patientForm.get(field)?.hasError(error));
+  }
+
+  get minDate(): string {
+   return CustomValidators.getMinDate();
   }
 
 }

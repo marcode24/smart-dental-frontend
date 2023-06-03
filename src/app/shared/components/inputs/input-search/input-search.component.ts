@@ -22,6 +22,6 @@ export class InputSearchComponent {
   }
 
   emitText(text: string) {
-    this.text.emit(text.trim());
+    this.text.emit(text.trim().replace(/\s+/g, ' '));
   }
 }

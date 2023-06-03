@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { AlertsModule } from '@components/alerts/alerts.module';
 import { CardsModule } from '@components/cards/cards.module';
 import { DropdownsModule } from '@components/dropdowns/dropdowns.module';
 import { FormsComponentsModule } from '@components/forms/forms-components.module';
@@ -33,6 +34,7 @@ import { UsersComponent } from './pages/users/users.component';
     ComponentsModule,
     FormsComponentsModule,
     LoadersModule,
+    AlertsModule
   ],
 })
 export class UsersModule { }

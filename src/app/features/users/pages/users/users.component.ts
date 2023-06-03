@@ -43,11 +43,12 @@ export class UsersComponent implements OnInit {
   ];
   public limit = 5;
   private offset = 0;
-  private findUserByName = '';
+  private querySearch = '';
   public totalUsers = 0;
   public users: User[];
   public showPagination = true;
   public isLoadingPage = true;
+  public isSearching = false;
 
   constructor(
     private userService: UserService,
@@ -62,24 +63,36 @@ export class UsersComponent implements OnInit {
     const optionsSearch: IOptionsSearch = {
       limit: this.limit,
       offset: this.offset,
-      fullname: this.findUserByName
+      fullname: this.querySearch
     };
-    this.userService.getUsers(false, optionsSearch)
-      .subscribe(({ users, totalAdmin, totalUser }) => {
-        this.showPagination = (this.findUserByName.length > 0) ? false : true;
+    this.isSearching = this.querySearch.length > 0;
+    this.userService.getUsers(false, optionsSearch).subscribe({
+      next: ({ users, totalAdmin, totalUser }) => {
+        this.showPagination = (this.querySearch.length > 0) ? false : true;
         this.users = users;
         this.totalUsers = totalAdmin + totalUser;
         this.cardsIconData[0].quantity = this.totalUsers;
         this.cardsIconData[1].quantity = totalAdmin;
         this.cardsIconData[2].quantity = totalUser;
+      },
+      complete: () => {
         this.isLoadingPage = false;
+      }
     });
+  }
+
+  get getCurrentUserId() {
+    return this.authService.userActive.id_user;
   }
 
   findByFullname(fullname: string) {
     this.showPagination = false;
-    this.findUserByName = fullname;
+    this.querySearch = fullname;
     this.getUsers();
+  }
+
+  get getQuerySearchMessage() {
+    return `no se encontraron resultados para '${this.querySearch}'`;
   }
 
   changeLimit(limit: number) {

@@ -5,11 +5,12 @@ export class Patient {
   constructor(
     public name: string,
     public last_name: string,
-    public date_birth: Date,
+    public birth_date: Date,
     public gender: string,
     public email: string,
     public phone_number: number,
     public street: string,
+    public number: number,
     public cp: number,
     public city: string,
     public country: string,
