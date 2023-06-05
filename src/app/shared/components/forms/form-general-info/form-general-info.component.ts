@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 
 import { User } from '@models/user.model';
 
+import { CustomValidators } from '@utils/custom-validators.util';
 import { RegexClass } from '@utils/regex.util';
-import ValidationDateBirth from '@utils/validation-date-birth.util';
 
 @Component({
   selector: 'app-form-general-info',
@@ -28,7 +28,7 @@ export class FormGeneralInfoComponent implements OnInit {
       Validators.required,
       Validators.pattern(this.regexExpressions.ONLY_TEXT)
     ]],
-    date_birth: ['', Validators.required],
+    birth_date: ['', Validators.required],
     gender: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email, Validators.minLength(10)]],
     phone_number: ['', [
@@ -38,6 +38,10 @@ export class FormGeneralInfoComponent implements OnInit {
     street: ['', [
       Validators.required,
       Validators.pattern(this.regexExpressions.STREET)
+    ]],
+    number: ['', [
+      Validators.required,
+      Validators.pattern(this.regexExpressions.NUMBER)
     ]],
     cp: ['', [
       Validators.required,
@@ -53,7 +57,7 @@ export class FormGeneralInfoComponent implements OnInit {
     ]],
   }, {
     validators: [
-      ValidationDateBirth.validate('date_birth'),
+      CustomValidators.validateBirthDate,
     ]
   });
 
@@ -69,13 +73,13 @@ export class FormGeneralInfoComponent implements OnInit {
   setValuesToForm(values: User) {
     this.generalInfoForm.get('name')?.setValue(values.name);
     this.generalInfoForm.get('last_name')?.setValue(values.last_name);
-    this.generalInfoForm.get('date_birth')?.setValue((this.isNew)
-      ? values.date_birth
-      : new Date(values.date_birth).toISOString().split('T')[0]);
+    this.generalInfoForm.get('birth_date')?.setValue(new Date(values.birth_date)
+    .toISOString().split('T')[0]);
     this.generalInfoForm.get('gender')?.setValue(values.gender);
     this.generalInfoForm.get('email')?.setValue(values.email);
     this.generalInfoForm.get('phone_number')?.setValue(values.phone_number);
     this.generalInfoForm.get('street')?.setValue(values.street);
+    this.generalInfoForm.get('number')?.setValue(values.number);
     this.generalInfoForm.get('cp')?.setValue(values.cp);
     this.generalInfoForm.get('city')?.setValue(values.city);
     this.generalInfoForm.get('country')?.setValue(values.country);
@@ -89,7 +93,6 @@ export class FormGeneralInfoComponent implements OnInit {
     const data: string = localStorage.getItem('userTemp') as string;
     const user: User = JSON.parse(data);
     if(!user) {
-      this.generalInfoForm.reset();
       this.generalInfoForm.get('gender')?.setValue('');
     } else {
       this.setValuesToForm(user);
@@ -121,5 +124,9 @@ export class FormGeneralInfoComponent implements OnInit {
     localStorage.removeItem('userTemp');
     this.router.navigate(['/users']);
   }
+
+  get minDate(): string {
+    return CustomValidators.getMinDate();
+   }
 
 }

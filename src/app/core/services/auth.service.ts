@@ -55,12 +55,13 @@ export class AuthService {
     return this.http.get<IResponseLogin>(url, this.headers)
       .pipe(map((resp: IResponseLogin) => {
         const {
-          city, country, cp, code, username, updatedAt, street, role, status, id_user,
-          gender, date_birth, phone_number, last_name, email, createdAt, name, image
+          city, country, cp, code, username, updatedAt, street, number,
+           role, status, id_user,
+          gender, birth_date, phone_number, last_name, email, createdAt, name, image
         } = resp.user as User;
         this.userActive = new User(
-          city, country, cp, date_birth, email, gender, last_name, name,
-          phone_number, role, status, street, createdAt, username, updatedAt,
+          city, country, cp, birth_date, email, gender, last_name, name,
+          phone_number, role, status, street, number, createdAt, username, updatedAt,
           id_user, '', image, code
         );
         Storage.deleteSessionStorage('token');
