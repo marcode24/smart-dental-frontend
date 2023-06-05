@@ -189,7 +189,7 @@ describe('User Service', () => {
   });
 
   describe('update user function', () => {
-    it('shoudl return user updated', (doneFn) => {
+    it('should return user updated', (doneFn) => {
       const mockUser: User = getMockUser();
       const userId = 1000;
 
@@ -200,7 +200,7 @@ describe('User Service', () => {
 
       const url = `${base_url}/users/${userId}`;
       const req = httpController.expectOne(url);
-      req.flush(mockUser);
+      req.flush({ user: mockUser });
 
       expect(req.request.method).toBe('PUT');
     });
