@@ -25,16 +25,13 @@ export class ProfileComponent {
 
   updateUserInfo(valuesChanged: User) {
     this.userService.updateUser(this.userActive.id_user, valuesChanged)
-      .subscribe(resp => {
-        if(resp === null) {
+      .subscribe(user => {
+        if(user === null) {
           return Swal.fire('Ocurrio un error al actualizar los datos', '', 'error');
         }
-        localStorage.removeItem('userTemp');
-        this.userService.getUserByID(Number(this.userActive.id_user)).subscribe({
-          next: ({user}) => this.userActive = user,
-          complete: () => Swal
-            .fire('Información actualizada correctamente', '', 'success')
-        });
+        this.authService.userActive = user;
+        this.userActive = user;
+        Swal.fire('Información actualizada correctamente', '', 'success');
     });
   }
 

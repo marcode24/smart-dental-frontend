@@ -94,8 +94,8 @@ export class UserService {
 
   updateUser(userId: number | undefined, data: User): Observable<User | null> {
     const url = `${base_url}/users/${userId}`;
-    return this.http.put<User>(url, data, this.headers).pipe(map((resp) => {
-      return resp;
+    return this.http.put<IResponseUser>(url, data, this.headers).pipe(map((resp) => {
+      return resp.user;
     }));
   }
 
