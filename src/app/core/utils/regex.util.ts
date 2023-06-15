@@ -8,4 +8,5 @@ export class RegexClass {
   public static readonly PRICE = /^[0-9]{0,}(\.[0-9]{0,2})?$/;
   public static readonly TEXT_SERVICE = /^[a-zA-ZñÀ-ú ]{2,120}$/;
   public static readonly NUMBER = /^[0-9]{1,6}$/;
+  public static readonly EMAIL = /^^(?![.\-_])[A-Za-z0-9._-]+@([a-z]+.)+[a-z]{2,4}$/;
 }
