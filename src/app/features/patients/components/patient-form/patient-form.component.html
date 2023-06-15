@@ -50,8 +50,7 @@
         <input formControlName="email" type="email" class="form-control radius-10" id="inputEmail">
         <div *ngIf="validateForm('email')" class="message-error">
           <span *ngIf="validateField('email', 'required')" class="text-danger">campo requerido</span>
-          <span *ngIf="validateField('email', 'email')" class="text-danger">Debe ser un email
-            correcto</span>
+          <span *ngIf="validateField('email', 'pattern')" class="text-danger">ingrese un email correcto</span>
         </div>
       </div>
       <div class="col-12 col-md-6 my-2">

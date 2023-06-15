@@ -31,7 +31,7 @@ export class PatientFormComponent implements OnInit {
     gender: ['', [Validators.required]],
     email: ['', [
       Validators.required,
-      Validators.email, Validators.minLength(10)
+      Validators.pattern(this.regexExpressions.EMAIL),
     ]],
     phone_number: ['', [
       Validators.required,
